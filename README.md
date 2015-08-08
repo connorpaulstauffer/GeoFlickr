@@ -68,6 +68,8 @@ search bar or the map.
 - [ ] Image groups
 - [ ] Image download
 - [ ] User show page
+- [ ] Email authentication
+- [ ] Google authentication
 
 
 <!-- [phase-one]: ./docs/phases/phase1.md
