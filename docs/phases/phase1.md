@@ -1,4 +1,4 @@
-# Phase 1: User Authentication, Basic Blogs and Posts
+<!-- # Phase 1: User Authentication, Basic Blogs and Posts
 
 ## Rails
 ### Models
@@ -25,4 +25,4 @@
 
 ### Views
 
-## Gems/Libraries
+## Gems/Libraries -->

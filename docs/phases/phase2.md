@@ -1,4 +1,4 @@
-# Phase 2: Viewing Blogs and Posts
+<!-- # Phase 2: Viewing Blogs and Posts
 
 ## Rails
 ### Models
@@ -26,4 +26,4 @@ Api::PostsController (create, destroy, show, update)
 * PostsIndexItem
 * PostShow
 
-## Gems/Libraries
+## Gems/Libraries -->

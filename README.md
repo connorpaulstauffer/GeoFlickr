@@ -1,91 +1,77 @@
-# Flux-capacitr
+# GeoFlickr
 
-[Heroku link][heroku]
+[GeoFlickr][link]
 
-[heroku]: http://flux-capacitr.herokuapp.com
+[link]: http://geoflickr.io
 
 ## Minimum Viable Product
-Flux-capacitr is a clone of Tumblr built on Rails and Backbone. Users can:
+GeoFlickr is a derivative of Flickr built with Rails and Backbone. Users can:
 
-<!-- This is a Markdown checklist. Use it to keep track of your progress! -->
+- [ ] Create accounts
+- [ ] Create sessions (log in)
+- [ ] Upload images
+- [ ] Add images to albums
+- [ ] Tag images
+- [ ] View images at an index level
+- [ ] Search for images
+- [ ] Filter image results
+- [ ] View images at a show level
+- [ ] Favorite images
 
-- [x] Create accounts
-- [x] Create sessions (log in)
-- [x] Create blogs
-- [x] Create blog posts
-- [ ] View blogs and posts
-- [ ] Subscribe to blogs
-- [ ] View a feed of subscribed blogs
-- [ ] Tag blog posts
-- [ ] Search for blogs by title
-- [ ] Search for posts by tag
 
 ## Design Docs
-* [View Wireframes][views]
 * [DB schema][schema]
 
-[views]: ./docs/views.md
 [schema]: ./docs/schema.md
 
 ## Implementation Timeline
 
-### Phase 1: User Authentication, Blog Creation (~1 day)
-I will implement user authentication in Rails based on the practices learned at
-App Academy. By the end of this phase, users will be able to create blogs using
-a simple text form in a Rails view. The most important part of this phase will
-be pushing the app to Heroku and ensuring that everything works before moving on
-to phase 2.
+### Phase 1: User Authentication (~1 day)
+I will implement user authentication from scratch. Users will log in through
+a Backbone Modal and gain access to image upload, comment, and favorite
+features. I will also push the app to Heroku and register a domain name.
 
-[Details][phase-one]
+<!-- [Details][phase-one] -->
 
-### Phase 2: Viewing Blogs and Posts (~2 days)
-I will add API routes to serve blog and post data as JSON, then add Backbone
-models and collections that fetch data from those routes. By the end of this
-phase, users will be able to create blogs and view both blogs and posts, all
-inside a single Backbone app.
+### Phase 2: Uploading Images (~1 days)
+Using the filepicker-rails gem, I will add an image upload page for registered
+users. Users will drag and drop images onto the page to upload and the images
+will be hosted by AWS. Images can be tagged and assigned to multiple albums.
 
-[Details][phase-two]
+<!-- [Details][phase-two] -->
 
-### Phase 3: Editing and Displaying Posts (~2 days)
-I plan to use third-party libraries to add functionality to the `PostForm` and
-`PostShow` views in this phase. First I'll need to add a Markdown editor to the
-`PostForm`, and make sure that the Markdown is properly escaped and formatted in
-the `PostShow` view. I also plan to integrate Filepicker for file upload so
-users can add images to blog posts.
+### Phase 3: Image Index (~1 days)
+Images will be displayed in a grid alongside a map. Markers corresponding to
+the coordinates of each image will render on the map. I will add filter forms
+and a search bar that will eventually be used to filter results.
 
-[Details][phase-three]
+<!-- [Details][phase-three] -->
 
-### Phase 4: User Feeds (~1-2 days)
-I'll start by adding a `feed` route that uses the `current_user`'s
-`subscribed_blogs` association to serve a list of blog posts ordered
-chronologically. On the Backbone side, I'll make a `FeedShow` view whose `posts`
-collection fetches from the new route.  Ultimately, this will be the page users
-see after logging in.
+### Phase 4: Image Show (~1 days)
+The image will be displayed at the top of the page. If the image is part of an
+album it will be displayed as the active item in a carousel with the rest of
+the album images. Data for view count, favorite count, and comments will be
+shown below. A map with a marker at the location of the image's coordinates
+will display in a sidebar. Tags, comments, and a form for adding a comment
+will also appear.
 
-[Details][phase-four]
+<!-- [Details][phase-four] -->
 
-### Phase 5: Searching for Blogs and Posts (~2 days)
-I'll need to add `search` routes to both the Blogs and Posts controllers. On the
-Backbone side, there will be a `SearchResults` composite view has `BlogsIndex`
-and `PostsIndex` subviews. These views will use plain old `blogs` and `posts`
-collections, but they will fetch from the new `search` routes.
+### Phase 5: Searching for Images (~1 days)
+Images on the index page can be filtered by tags, and by location using a
+search bar or the map.
 
-[Details][phase-five]
+
+<!-- [Details][phase-five] -->
 
 ### Bonus Features (TBD)
-- [ ] "Like" button and counter for posts
-- [ ] Custom blog urls
-- [ ] Pagination/infinite scroll
-- [ ] Activity history (e.g. likes, reblogs, taggings)
-- [ ] Post types (image posts, quote posts, etc)
-- [ ] Reblogging
-- [ ] Multiple sessions/session management
-- [ ] User avatars
-- [ ] Typeahead search bar
+- [ ] Image groups
+- [ ] Image download
+- [ ] User show page
 
-[phase-one]: ./docs/phases/phase1.md
+
+<!-- [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md
 [phase-three]: ./docs/phases/phase3.md
 [phase-four]: ./docs/phases/phase4.md
-[phase-five]: ./docs/phases/phase5.md
-
+[phase-five]: ./docs/phases/phase5.md -->

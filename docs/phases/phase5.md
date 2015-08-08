@@ -1,4 +1,4 @@
-# Phase 5: Searching for Blogs and Posts
+<!-- # Phase 5: Searching for Blogs and Posts
 
 ## Rails
 ### Models
@@ -19,4 +19,4 @@ Api::PostsController (search)
 * SearchShow (composite view, contains BlogsIndex and PostsIndex subviews)
 
 ## Gems/Libraries
-
+ -->

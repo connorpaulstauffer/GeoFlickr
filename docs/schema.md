@@ -7,17 +7,19 @@ id              | integer   | not null, primary key
 email           | string    | not null, unique
 password_digest | string    | not null
 session_token   | string    | not null, unique
+avatar_url      | string    |
+banner_url      | string    |
 
 ## images
-column name    | data type | details
----------------|-----------|-----------------------
-id             | integer   | not null, primary key
-title          | string    | not null
-description    | text      |
-filepicker_url | text      | not null
-latitude       | integer   | not null, index
-longitude      | integer   | not null, index
-address        | string    |
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+title       | string    | not null
+description | text      |
+file_url    | text      | not null
+latitude    | integer   | not null, index
+longitude   | integer   | not null, index
+address     | string    |
 
 ## albums
 column name | data type | details
