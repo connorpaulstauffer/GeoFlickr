@@ -20,6 +20,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'annotate'
   gem 'pry-rails'
   gem 'spring'
 end
