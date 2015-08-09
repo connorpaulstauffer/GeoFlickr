@@ -10,10 +10,6 @@ GeoFlickr.Views.SignUp = Backbone.CompositeView.extend({
     "keyup #user-password-confirmation": "validatePasswordMatch"
   },
 
-  initialize: function () {
-        this.bind("ok", this.okClicked);
-    },
-
   addErrors: function (errors) {
     this.removeErrors();
 
@@ -23,16 +19,13 @@ GeoFlickr.Views.SignUp = Backbone.CompositeView.extend({
     }.bind(this))
   },
 
-  okClicked: function () {
-    if (this.$('input').hasClass('has-error')) {
-      modal.preventClose();
-    }
-  },
-
+  // Clean this up. Calling removeSubview was interfering with the loop
+  // Maybe try reversing it first
   removeErrors: function () {
     this.eachSubview(function (subview, selector) {
-      this.removeSubview(selector, subview);
+      subview.remove();
     }.bind(this))
+    this._subviews = {};
   },
 
   validatePasswordLength: function (event) {
@@ -60,13 +53,15 @@ GeoFlickr.Views.SignUp = Backbone.CompositeView.extend({
     var $passwordConfirm = $(event.currentTarget);
     var $passwordField = this.$('#user-password');
 
-    if ($passwordConfirm.parent().hasClass("has-error")) {
+    if ($passwordConfirm.attr("readonly") === "readonly") {
+      return;
+    } else if ($passwordConfirm.parent().hasClass("has-error")) {
       if ($passwordConfirm.val() === $passwordField.val()) {
         this.removeInputError($passwordConfirm);
         this.addInputConfirmation($passwordConfirm);
       }
     } else if (event.type === "keyup") {
-      return
+      return;
     } else if ($passwordConfirm.val() === $passwordField.val()) {
       this.removeInputError($passwordConfirm);
       this.addInputConfirmation($passwordConfirm);
