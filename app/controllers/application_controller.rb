@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :logged_in?
 
   def current_user
-    @current_user ||= User.find_by_session_token(session[:token])
+    @current_user ||= User.find_by_session_token(session[:session_token])
   end
 
   def logged_in?
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   def log_in_user!(user)
     token = Session.generate_token
     user.sessions.create!(token: token)
-    session[:token] = token
+    session[:session_token] = token
   end
 
   def user_params

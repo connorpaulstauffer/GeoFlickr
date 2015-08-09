@@ -1,12 +1,7 @@
 class Api::SessionsController < ApplicationController
-  # def new
-  #   @user = User.new
-  #   render :new
-  # end
-
   def create
-    these_params = user_params
-    @user = User.find_by_credentials(these_params.email, these_params.password)
+    params = user_params
+    @user = User.find_by_credentials(params[:email], params[:password])
     if @user
       log_in_user!(@user)
       render json: @user
@@ -17,9 +12,9 @@ class Api::SessionsController < ApplicationController
   end
 
   def destroy
-    token = params[:id]
-    Session.find_by_token(token).destroy!
-    session[:token] = nil;
+    session_token = session[:session_token]
+    Session.find_by_token(session_token).destroy!
+    session[:session_token] = nil;
     redirect_to root_url
   end
 end
