@@ -1,11 +1,21 @@
-GeoFlickr.Views.SignUp = Backbone.View.extend({
+GeoFlickr.Views.SignUp = Backbone.CompositeView.extend({
   tagName: 'form',
 
   template: JST['root/sign_up'],
 
   addErrors: function (errors) {
-    this.errors = errors;
-    this.render();
+    this.removeErrors();
+
+    errors.forEach(function (error) {
+      var errorView = new GeoFlickr.Views.Error({ error: error });
+      this.addSubview('.errors', errorView);
+    }.bind(this))
+  },
+
+  removeErrors: function () {
+    this.eachSubview(function (subview, selector) {
+      this.removeSubview(selector, subview);
+    }.bind(this))
   },
 
   render: function () {

@@ -17,6 +17,7 @@
 //= require underscore
 //= require backbone
 //= require backbone.bootstrap-modal
+//= require composite_view
 //= require geo_flickr
 //= require_tree ../templates
 //= require_tree ./models
