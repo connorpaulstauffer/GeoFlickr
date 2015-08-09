@@ -2,7 +2,7 @@
 
 [GeoFlickr][link]
 
-[link]: http://herokuapp.geoflickr.com
+[link]: http://geoflickr.herokuapp.com
 
 ## Minimum Viable Product
 GeoFlickr is a derivative of Flickr built with Rails and Backbone. Users can:
