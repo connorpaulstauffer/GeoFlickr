@@ -6,7 +6,8 @@ GeoFlickr.Views.Root = Backbone.View.extend({
         'click #log-in': 'openLogInModal'
     },
 
-    openSignUpModal: function () {
+    openSignUpModal: function (event) {
+        event.preventDefault();
         var signUpView = new GeoFlickr.Views.SignUp();
         var modal = new Backbone.BootstrapModal({
             content: signUpView,
@@ -19,6 +20,7 @@ GeoFlickr.Views.Root = Backbone.View.extend({
     },
 
     openLogInModal: function () {
+      event.preventDefault();
       var logInView = new GeoFlickr.Views.LogIn();
       var modal = new Backbone.BootstrapModal({
           content: logInView,
