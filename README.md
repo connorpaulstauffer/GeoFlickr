@@ -2,7 +2,7 @@
 
 [GeoFlickr][link]
 
-[link]: http://geoflickr.io
+[link]: http://geoflickr.me
 
 ## Minimum Viable Product
 GeoFlickr is a derivative of Flickr built with Rails and Backbone. Users can:
