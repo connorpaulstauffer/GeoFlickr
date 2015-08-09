@@ -8,11 +8,13 @@ GeoFlickr.Views.Root = Backbone.View.extend({
 
     openSignUpModal: function (event) {
       event.preventDefault();
+
       var signUpView = new GeoFlickr.Views.SignUp();
       var modal = new Backbone.BootstrapModal({
         content: signUpView,
         title: 'Sign Up',
         okText: 'Sign Up',
+        focusOk: false,
         cancelText: false,
         enterTriggersOk: true,
         animate: true,
@@ -22,11 +24,13 @@ GeoFlickr.Views.Root = Backbone.View.extend({
 
     openLogInModal: function () {
       event.preventDefault();
+
       var logInView = new GeoFlickr.Views.LogIn();
       var modal = new Backbone.BootstrapModal({
         content: logInView,
         title: 'Log In',
         okText: 'Log In',
+        focusOk: false,
         cancelText: false,
         enterTriggersOk: true,
         animate: true,
