@@ -12,8 +12,8 @@ class ApplicationController < ActionController::Base
   end
 
   def log_in_user!(user)
-    token = Session.generate_token
-    user.sessions.create!(token: token)
+    token = Session.generate_session_token
+    user.sessions.create!(session_token: token)
     session[:session_token] = token
   end
 

@@ -13,7 +13,7 @@ class Api::SessionsController < ApplicationController
 
   def destroy
     session_token = session[:session_token]
-    Session.find_by_token(session_token).destroy!
+    Session.find_by_session_token(session_token).destroy!
     session[:session_token] = nil;
     redirect_to root_url
   end

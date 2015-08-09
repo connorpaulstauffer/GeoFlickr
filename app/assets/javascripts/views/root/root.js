@@ -34,15 +34,14 @@ GeoFlickr.Views.Root = Backbone.View.extend({
 
     signUpUser: function (signUpView) {
       var userData = signUpView.$el.serializeJSON();
+
       if (userData.user['password'] !== userData.user['password-confirmation']) {
         var errors = ["Passwords do not match"];
         signUpView.addErrors(errors);
       } else {
-        $.ajax({
-          url: '/api/users',
-          type: 'POST',
-          data: userData,
+        var newUser = new GeoFlickr.Models.User();
 
+        newUser.save(userData, {
           success: function () {
             window.location.reload(true);
           },
@@ -50,23 +49,22 @@ GeoFlickr.Views.Root = Backbone.View.extend({
           error: function (xhr) {
             signUpView.addErrors(xhr.responseJSON)
           }
-        });
+        })
       }
     },
 
     logInUser: function (logInView) {
-      $.ajax({
-        url: '/api/sessions',
-        type: 'POST',
-        data: logInView.$el.serializeJSON(),
+      var userData = logInView.$el.serializeJSON();
+      var newSession = new GeoFlickr.Models.Session();
 
+      newSession.save(userData, {
         success: function () {
           window.location.reload(true);
         },
 
-        error: function (xhr) {
-          logInView.addErrors(xhr.responseJSON)
+        error: function (model, resp, options) {
+          logInView.addErrors(resp.responseJSON)
         }
-      });
+      })
     }
 });
