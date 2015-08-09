@@ -13,7 +13,8 @@ GeoFlickr.Views.Root = Backbone.View.extend({
             title: 'Sign Up',
             okText: 'Sign Up',
             enterTriggersOk: true,
-            animate: true
+            animate: true,
+            okCloses: false
         }).open(this.signUpUser.bind(this, signUpView));
     },
 
@@ -24,7 +25,8 @@ GeoFlickr.Views.Root = Backbone.View.extend({
           title: 'Log In',
           okText: 'Log In',
           enterTriggersOk: true,
-          animate: true
+          animate: true,
+          okCloses: false
       }).open(this.logInUser.bind(this, logInView));
     },
 
@@ -33,8 +35,13 @@ GeoFlickr.Views.Root = Backbone.View.extend({
         url: '/api/users',
         type: 'POST',
         data: signUpView.$el.serializeJSON(),
+
         success: function () {
           window.location.reload(true);
+        },
+
+        error: function (xhr) {
+          signUpView.addErrors(xhr.responseJSON)
         }
       });
     },
@@ -44,8 +51,13 @@ GeoFlickr.Views.Root = Backbone.View.extend({
         url: '/api/sessions',
         type: 'POST',
         data: logInView.$el.serializeJSON(),
+
         success: function () {
           window.location.reload(true);
+        },
+
+        error: function (xhr) {
+          logInView.addErrors(xhr.responseJSON)
         }
       });
     }

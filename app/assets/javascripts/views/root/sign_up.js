@@ -3,10 +3,15 @@ GeoFlickr.Views.SignUp = Backbone.View.extend({
 
   template: JST['root/sign_up'],
 
-  render: function () {
-  var content = this.template();
-  this.$el.html(content);
+  addErrors: function (errors) {
+    this.errors = errors;
+    this.render();
+  },
 
-  return this;
-}
+  render: function () {
+    var content = this.template({ errors: this.errors });
+    this.$el.html(content);
+
+    return this;
+  }
 });
