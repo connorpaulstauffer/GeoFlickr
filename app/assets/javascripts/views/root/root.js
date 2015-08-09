@@ -7,28 +7,30 @@ GeoFlickr.Views.Root = Backbone.View.extend({
     },
 
     openSignUpModal: function (event) {
-        event.preventDefault();
-        var signUpView = new GeoFlickr.Views.SignUp();
-        var modal = new Backbone.BootstrapModal({
-            content: signUpView,
-            title: 'Sign Up',
-            okText: 'Sign Up',
-            enterTriggersOk: true,
-            animate: true,
-            okCloses: false
-        }).open(this.signUpUser.bind(this, signUpView));
+      event.preventDefault();
+      var signUpView = new GeoFlickr.Views.SignUp();
+      var modal = new Backbone.BootstrapModal({
+        content: signUpView,
+        title: 'Sign Up',
+        okText: 'Sign Up',
+        cancelText: false,
+        enterTriggersOk: true,
+        animate: true,
+        okCloses: false
+      }).open(this.signUpUser.bind(this, signUpView));
     },
 
     openLogInModal: function () {
       event.preventDefault();
       var logInView = new GeoFlickr.Views.LogIn();
       var modal = new Backbone.BootstrapModal({
-          content: logInView,
-          title: 'Log In',
-          okText: 'Log In',
-          enterTriggersOk: true,
-          animate: true,
-          okCloses: false
+        content: logInView,
+        title: 'Log In',
+        okText: 'Log In',
+        cancelText: false,
+        enterTriggersOk: true,
+        animate: true,
+        okCloses: false
       }).open(this.logInUser.bind(this, logInView));
     },
 
