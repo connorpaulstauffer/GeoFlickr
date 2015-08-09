@@ -31,19 +31,25 @@ GeoFlickr.Views.Root = Backbone.View.extend({
     },
 
     signUpUser: function (signUpView) {
-      $.ajax({
-        url: '/api/users',
-        type: 'POST',
-        data: signUpView.$el.serializeJSON(),
+      var userData = signUpView.$el.serializeJSON();
+      if (userData.user['password'] !== userData.user['password-confirmation']) {
+        var errors = ["Passwords do not match"];
+        signUpView.addErrors(errors);
+      } else {
+        $.ajax({
+          url: '/api/users',
+          type: 'POST',
+          data: userData,
 
-        success: function () {
-          window.location.reload(true);
-        },
+          success: function () {
+            window.location.reload(true);
+          },
 
-        error: function (xhr) {
-          signUpView.addErrors(xhr.responseJSON)
-        }
-      });
+          error: function (xhr) {
+            signUpView.addErrors(xhr.responseJSON)
+          }
+        });
+      }
     },
 
     logInUser: function (logInView) {

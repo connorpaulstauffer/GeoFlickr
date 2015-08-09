@@ -6,7 +6,7 @@ class Api::SessionsController < ApplicationController
       log_in_user!(@user)
       render json: @user
     else
-      json_alert = ['Incorrect email/password combination'].to_json
+      json_alert = ['Invalid email/password combination'].to_json
       render json: json_alert, status: :unprocessable_entity
     end
   end
