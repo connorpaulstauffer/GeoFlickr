@@ -5,8 +5,14 @@ GeoFlickr.Views.SignUp = Backbone.CompositeView.extend({
 
   events: {
     "blur #user-password": "validatePasswordLength",
-    "keyup #user-password": "validatePasswordLength"
+    "keyup #user-password": "validatePasswordLength",
+    "blur #user-password-confirmation": "validatePasswordMatch",
+    "keyup #user-password-confirmation": "validatePasswordMatch"
   },
+
+  initialize: function () {
+        this.bind("ok", this.okClicked);
+    },
 
   addErrors: function (errors) {
     this.removeErrors();
@@ -15,6 +21,12 @@ GeoFlickr.Views.SignUp = Backbone.CompositeView.extend({
       var errorView = new GeoFlickr.Views.Error({ error: error });
       this.addSubview('.errors', errorView);
     }.bind(this))
+  },
+
+  okClicked: function () {
+    if (this.$('input').hasClass('has-error')) {
+      modal.preventClose();
+    }
   },
 
   removeErrors: function () {
@@ -30,18 +42,43 @@ GeoFlickr.Views.SignUp = Backbone.CompositeView.extend({
       if ($passwordField.val().length >= 6) {
         this.removeInputError($passwordField);
         this.addInputConfirmation($passwordField);
+        this.$('#user-password-confirmation').removeAttr("readonly");
       }
     } else if (event.type === "keyup") {
       return
     } else if ($passwordField.val().length < 6) {
       this.removeInputConfirmation($passwordField);
       this.addInputError.call(this, $passwordField, "Password must be at least 6 characters");
+      this.$('#user-password-confirmation').attr("readonly", "readonly");
     } else {
       this.addInputConfirmation($passwordField);
+      this.$('#user-password-confirmation').removeAttr("readonly");
     }
   },
 
+  validatePasswordMatch: function (event) {
+    var $passwordConfirm = $(event.currentTarget);
+    var $passwordField = this.$('#user-password');
+
+    if ($passwordConfirm.parent().hasClass("has-error")) {
+      if ($passwordConfirm.val() === $passwordField.val()) {
+        this.removeInputError($passwordConfirm);
+        this.addInputConfirmation($passwordConfirm);
+      }
+    } else if (event.type === "keyup") {
+      return
+    } else if ($passwordConfirm.val() === $passwordField.val()) {
+      this.removeInputError($passwordConfirm);
+      this.addInputConfirmation($passwordConfirm);
+    } else {
+      this.removeInputConfirmation($passwordConfirm);
+      this.addInputError($passwordConfirm, "Passwords do not match");
+    }
+
+  },
+
   addInputError: function (field, message) {
+    if (field.parent().hasClass("has-error")) { return }
     field.parent().addClass("has-error has-feedback");
     field.parent().append($('<span class="error glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>'));
     field.parent().append($('<span id="input-error" class="error sr-only">(error)</span>'));
@@ -50,22 +87,21 @@ GeoFlickr.Views.SignUp = Backbone.CompositeView.extend({
   },
 
   addInputConfirmation: function (field) {
+    if (field.parent().hasClass("has-success")) { return }
     field.parent().addClass("has-success has-feedback");
     field.parent().append($('<span class="success glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>'));
-    field.parent().append($('<span id="input-success" class="success sr-only">(success)>(error)</span>'));
+    field.parent().append($('<span id="input-success" class="success sr-only">(success)</span>'));
     field.attr("aria-describedby", "input-success");
   },
 
   removeInputError: function (field) {
-    field.parent().removeClass("has-error has-feedback");
+    field.parent().removeClass("has-error");
     field.parent().find(".error").remove();
-    field.removeAttr("aria-describedby");
   },
 
   removeInputConfirmation: function (field) {
-    field.parent().removeClass("has-success has-feedback");
+    field.parent().removeClass("has-success");
     field.parent().find(".success").remove();
-    field.removeAttr("aria-describedby");
   },
 
   render: function () {
