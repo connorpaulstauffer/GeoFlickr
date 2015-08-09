@@ -40,14 +40,15 @@ GeoFlickr.Views.Root = Backbone.View.extend({
         signUpView.addErrors(errors);
       } else {
         var newUser = new GeoFlickr.Models.User();
+        delete userData['user']['password-confirmation'];
 
         newUser.save(userData, {
           success: function () {
             window.location.reload(true);
           },
 
-          error: function (xhr) {
-            signUpView.addErrors(xhr.responseJSON)
+          error: function (model, resp) {
+            signUpView.addErrors(resp.responseJSON)
           }
         })
       }
@@ -62,7 +63,7 @@ GeoFlickr.Views.Root = Backbone.View.extend({
           window.location.reload(true);
         },
 
-        error: function (model, resp, options) {
+        error: function (model, resp) {
           logInView.addErrors(resp.responseJSON)
         }
       })

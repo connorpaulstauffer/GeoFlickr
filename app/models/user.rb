@@ -23,9 +23,9 @@ class User < ActiveRecord::Base
     user && user.is_password?(password) ? user : nil
   end
 
-  def self.find_by_session_token(token)
-    return nil unless token
-    session = Session.find_by_token(token)
+  def self.find_by_session_token(session_token)
+    return nil unless session_token
+    session = Session.find_by_session_token(session_token)
     session ? session.user : nil
   end
 
