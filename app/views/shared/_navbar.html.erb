@@ -1,0 +1,16 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="/#" class="navbar-brand" id="logo">GeoFlickr</a>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+      <% if logged_in? %>
+        <li><a href="#">Sign Out</a></li>
+      <% else %>
+        <li><a href="#" id="log-in">Log In</a></li>
+        <li><a href="#" id="sign-up">Sign Up</a></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>

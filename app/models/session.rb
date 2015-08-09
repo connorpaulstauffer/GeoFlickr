@@ -10,4 +10,12 @@
 #
 
 class Session < ActiveRecord::Base
+  validates :user_id, :token, presence: true
+  validates :token, uniqueness: true
+
+  belongs_to :user
+
+  def self.generate_token
+    SecureRandom::urlsafe_base64
+  end
 end

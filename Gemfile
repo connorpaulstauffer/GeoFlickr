@@ -13,6 +13,7 @@ gem 'backbone-on-rails'
 gem 'filepicker-rails'
 gem 'masonry-rails'
 gem 'newrelic_rpm'
+gem 'bootstrap-sass', '~> 3.3.5'
 
 
 group :development, :test do
