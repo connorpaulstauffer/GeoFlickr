@@ -6,8 +6,6 @@ column name     | data type | details
 id              | integer   | not null, primary key
 email           | string    | not null, unique
 password_digest | string    | not null
-<!-- avatar_url      | string    |
-banner_url      | string    | -->
 
 ## sessions
 column name     | data type | details
