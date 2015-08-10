@@ -20,8 +20,10 @@ GeoFlickr is a derivative of Flickr built with Rails and Backbone. Users can:
 
 
 ## Design Docs
+* [View Wireframes][views]
 * [DB schema][schema]
 
+[views]: ./docs/views.md
 [schema]: ./docs/schema.md
 
 ## Implementation Timeline
@@ -64,6 +66,7 @@ search bar or the map.
 [Details][phase-five]
 
 ### Bonus Features (TBD)
+- [ ] Design improvements
 - [ ] Image groups
 - [ ] Image download
 - [ ] User show page
