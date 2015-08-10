@@ -4,4 +4,4 @@
 ![image-index]
 
 
-[image-index]: ./wireframes/image-index.png
+[image-index]: ./wireframes/image_index.png
