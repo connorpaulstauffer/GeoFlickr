@@ -1,9 +1,16 @@
-<!-- # Phase 3: Editing and Displaying Posts
+# Phase 3: Image Show
 
 ## Rails
 ### Models
+* Tag
+* Comment
+* Favorite
 
 ### Controllers
+Api::TagsController (create, destroy)
+Api::TaggingsController (create, destroy)
+Api::CommentsController (create, update, destroy)
+Api::FavoritesController (create, destroy)
 
 ### Views
 
@@ -13,9 +20,7 @@
 ### Collections
 
 ### Views
-* PostForm
+* ImageShow
+* CommentShow
 
 ## Gems/Libraries
-* Filepicker
-* Markdown-js
-* Bootstrap Markdown -->

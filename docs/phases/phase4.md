@@ -1,13 +1,11 @@
-<!-- # Phase 4: User Feeds
+# Phase 4: Uploading Images
 
 ## Rails
 ### Models
 
 ### Controllers
-Api::PostsController (feed)
 
 ### Views
-posts/feed.json.jbuilder
 
 ## Backbone
 ### Models
@@ -15,6 +13,9 @@ posts/feed.json.jbuilder
 ### Collections
 
 ### Views
-* FeedShow (composite view, contains PostsIndex subview)
+* ImageUploadModal
+* ImageUploadForm
+* ImageDetailForm
 
-## Gems/Libraries -->
+## Gems/Libraries
+* cloudinary

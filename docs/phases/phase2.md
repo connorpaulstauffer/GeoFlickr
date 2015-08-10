@@ -1,29 +1,28 @@
-<!-- # Phase 2: Viewing Blogs and Posts
+# Phase 2: Image Index
 
 ## Rails
 ### Models
+* Image
 
 ### Controllers
-Api::BlogsController (create, destroy, index, show)
-Api::PostsController (create, destroy, show, update)
+Api::ImagesController (create, destroy, update)
 
 ### Views
-* blogs/show.json.jbuilder
+* images/index.json.jbuilder
+* images/show.json.jbuilder
 
 ## Backbone
 ### Models
-* Blog (parses nested `posts` association)
-* Post
+* Image
 
 ### Collections
-* Blogs
-* Posts
+* Images
 
 ### Views
-* BlogForm
-* BlogShow (composite view, contains PostsIndex subview)
-* PostsIndex (composite view, contains PostsIndexItem subviews)
-* PostsIndexItem
-* PostShow
+* ImagesIndex
+* ImageIndexItemPanel
+* ImageIndexItemGrid
 
-## Gems/Libraries -->
+## Gems/Libraries
+* masonry-rails
+* gmaps4rails
