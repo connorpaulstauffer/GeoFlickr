@@ -58,7 +58,8 @@ GeoFlickr.Views.ImageNew = Backbone.View.extend({
   },
 
   createImages: function () {
-    debugger;
+    // Temporary. I will set up the image detail form flow here
+    Backbone.history.navigate("");
   },
 
   render: function () {

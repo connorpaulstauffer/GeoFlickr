@@ -14,6 +14,8 @@ gem 'masonry-rails'
 gem 'newrelic_rpm'
 gem 'carrierwave'
 gem 'fog'
+gem 'aws-sdk'
+gem 'figaro'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'jquery-fileupload-rails'
 
