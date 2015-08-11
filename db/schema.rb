@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 20150811040559) do
 
   create_table "images", force: :cascade do |t|
     t.string   "image",       null: false
+    t.integer  "user_id",     null: false
+    t.integer  "album_id"
     t.string   "title"
     t.text     "description"
     t.integer  "latitude"
@@ -27,8 +29,10 @@ ActiveRecord::Schema.define(version: 20150811040559) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "images", ["album_id"], name: "index_images_on_album_id", using: :btree
   add_index "images", ["latitude"], name: "index_images_on_latitude", using: :btree
   add_index "images", ["longitude"], name: "index_images_on_longitude", using: :btree
+  add_index "images", ["user_id"], name: "index_images_on_user_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.integer  "user_id",       null: false
