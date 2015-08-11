@@ -29,8 +29,12 @@ GeoFlickr.Views.ImageNew = Backbone.View.extend({
     var that = this;
     this._images = [];
     var invalid = [];
+
     this.$el.fileupload({
       dataType: "json",
+
+      progressInterval: 50,
+
       add: function (event, data) {
         var file = data.files[0];
         var uploadProgress = that.progressTemplate({object: file});
