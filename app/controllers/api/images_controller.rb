@@ -8,6 +8,11 @@ class Api::ImagesController < ApplicationController
     end
   end
 
+  def index
+    images = Image.all
+    render json: images
+  end
+
   private
   def image_params
     params.require(:image).permit(

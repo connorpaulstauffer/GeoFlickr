@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require masonry/jquery.masonry
 //= require jquery.serializejson.min
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl

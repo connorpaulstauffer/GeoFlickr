@@ -5,3 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+require 'csv'
+
+user = User.create!(email: "user@example.com", password: "password")
+
+data = CSV.foreach("db/seed_contents/geoflickr-image-seeds.csv", { encoding: "UTF-8", headers: true, header_converters: :symbol, converters: :all}) do |row|
+  path = "db/seed_contents/geoflickr-images/" + row.to_hash[:path]
+  image = File.open(path)
+  Image.create!(image: image, user: user)
+end
