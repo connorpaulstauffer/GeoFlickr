@@ -14,6 +14,7 @@ gem 'masonry-rails'
 gem 'newrelic_rpm'
 gem 'carrierwave'
 gem 'bootstrap-sass', '~> 3.3.5'
+gem 'jquery-fileupload-rails'
 
 
 group :development, :test do
