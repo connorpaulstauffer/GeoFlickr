@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150808213152) do
+ActiveRecord::Schema.define(version: 20150811040559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "images", force: :cascade do |t|
+    t.string   "image",       null: false
+    t.string   "title"
+    t.text     "description"
+    t.integer  "latitude"
+    t.integer  "longitude"
+    t.string   "address"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "images", ["latitude"], name: "index_images_on_latitude", using: :btree
+  add_index "images", ["longitude"], name: "index_images_on_longitude", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.integer  "user_id",       null: false

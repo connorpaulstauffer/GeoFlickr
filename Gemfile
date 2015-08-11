@@ -12,6 +12,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'backbone-on-rails'
 gem 'masonry-rails'
 gem 'newrelic_rpm'
+gem 'carrierwave'
 gem 'bootstrap-sass', '~> 3.3.5'
 
 
