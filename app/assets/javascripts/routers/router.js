@@ -7,7 +7,15 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
   initialize: function (options) {
     this.$rootEl = options.$rootEl;
     this.$rootView = new GeoFlickr.Views.Root();
-    this.images().fetch();
+    this.images().fetch({
+      // success: function (collection, response, options) {
+      //   debugger;
+      // },
+      //
+      // error: function () {
+      //
+      // }
+    });
   },
 
   images: function () {

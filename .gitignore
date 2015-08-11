@@ -15,3 +15,6 @@
 # Ignore uploaded test images.
 /public/uploads
 /db/seed_contents
+
+# Ignore aws keys
+/config/initializers/dev_environment.rb

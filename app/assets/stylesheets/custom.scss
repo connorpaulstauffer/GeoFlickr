@@ -9,3 +9,19 @@
 .navbar {
   border-radius: 0;
 }
+
+#photo-grid {
+  margin: 0 auto;
+  width: 100%;
+  .box {
+	  // margin: 1px;
+    margin-top: 1px;
+    box-sizing: border-box;
+    margin-bottom: 1px;
+    width: 33%;
+	  img {
+	  	max-width: 100%;
+	  	height: auto;
+	  }
+	}
+}
