@@ -1,7 +1,6 @@
 class Api::ImagesController < ApplicationController
   def create
     image = current_user.images.new(image_params)
-    byebug
     if image.save
       render json: image
     else

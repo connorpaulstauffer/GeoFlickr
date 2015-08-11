@@ -21,54 +21,39 @@ GeoFlickr.Views.ImageNew = Backbone.View.extend({
       cancelText: false,
       animate: true,
       okCloses: false
-    }).open(this.createImage.bind(this));
+    }).open(this.createImages.bind(this));
     this.attachJQueryFileUpload();
   },
 
   attachJQueryFileUpload: function () {
     var that = this;
-
+    this._images = [];
+    var invalid = [];
     this.$el.fileupload({
       dataType: "json",
       add: function (event, data) {
         var file = data.files[0];
         var uploadProgress = that.progressTemplate({object: file});
         that.$el.append(uploadProgress);
-        // debugger;
-        data.submit({
-          success: function () {
-            debugger;
-          }
-        });
-        // $.ajax({
-        //   url: "api/images",
-        //   type: "POST",
-        //   data: data,
-        //   success: function (data) {
-        //     debugger;
-        //   },
-        //
-        //   error: function (data) {
-        //     debugger;
-        //   }
-        // });
+        data.submit();
+      },
+
+      success: function (model) {
+        that._images.push(model);
+      },
+
+      error: function () {
+        debugger;
       },
 
       progress: function (event, data) {
-        if (data.context) {
-          var progress = parseInt(data.loaded / data.total * 100, 10);
-          return data.content.find('.bar').css('width', progress + "%");
-        }
-      },
-
-      done: function (event, data) {
-        debugger;
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        return $(data.form.context).find('.bar').css('width', progress + "%");
       }
     });
   },
 
-  createImage: function () {
-    var formData = this.$el.serializeJSON();
+  createImages: function () {
     debugger;
   },
 
