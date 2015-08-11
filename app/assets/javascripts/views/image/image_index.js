@@ -22,4 +22,5 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
 
     return this;
   }
+
 });
