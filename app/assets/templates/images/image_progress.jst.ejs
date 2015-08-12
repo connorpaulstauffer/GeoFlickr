@@ -1,7 +1,11 @@
-<div class="upload">
-  <%= file.name %>
+<div class="panel-heading"><%= file.name %></div>
+
+<div class="panel-body">
   <div class="progress">
-    <div class="bar progress-bar" role="progressbar" style="width: 0%">
+    <div class="progress-bar progress-bar-success progress-bar-striped"
+         role="progressbar"
+         id="<%= file.name.split(".")[0] %>"
+         style="width: 0%">
     </div>
   </div>
 </div>

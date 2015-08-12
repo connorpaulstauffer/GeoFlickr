@@ -33,13 +33,21 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
     this.$el.fileupload({
       dataType: "json",
 
-      progressInterval: 50,
-
       add: function (event, data) {
         var file = data.files[0];
-        var uploadProgress = new GeoFlickr.Views.ImageProgress({data: data});
+        var uploadProgress = new GeoFlickr.Views.ImageProgress({
+          data: data,
+          event: event
+        });
         that.addSubview("#progress-bars", uploadProgress);
         data.submit();
+      },
+
+      progress: function (event, data) {
+        var progressId = "#" + data.files[0].name.split(".")[0]
+        var bar = that.$(progressId);
+        var width = parseInt(data.loaded / data.total * 100, 10);
+        bar.css("width", width + "%");
       },
 
       success: function (model) {
@@ -49,17 +57,12 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       error: function () {
         debugger;
       }
-
-      // progress: function (event, data) {
-      //   var progress = parseInt(data.loaded / data.total * 100, 10);
-      //   return $(data.form.context).find('.bar').css('width', progress + "%");
-      // }
     });
   },
 
   createImages: function () {
     // Temporary. I will set up the image detail form flow here
-    Backbone.history.navigate("");
+    Backbone.history.navigate("", { trigger: true });
   },
 
   render: function () {

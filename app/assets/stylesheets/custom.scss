@@ -6,9 +6,6 @@
   font-size: 28px;
 }
 
-.navbar {
-  border-radius: 0;
-}
 
 #photo-grid {
   margin: 0 auto;
@@ -26,6 +23,11 @@
 	}
 }
 
+.navbar {
+  border-radius: 0;
+  margin-bottom: 1px;
+}
+
 .navbar-inverse {
   background-color: #03396c;
   a {
@@ -39,6 +41,11 @@
 #image-upload-container {
   margin-right: 5px;
   margin-left: 5px;
+
+  .column {
+    padding: 5px;
+  }
+
   #file-drop-zone {
     height: 400px;
     background-color: #b3cde0;
@@ -46,6 +53,9 @@
     padding: 20px;
     #inner-file-drop-zone{
       #drop-zone-text {
+        h3 {
+          margin-top: 10px;
+        }
         margin: 10px;
         text-align: center;
         position: relative;
@@ -58,6 +68,19 @@
       position: relative;
       border-style: dashed;
       border-color: #005b96;
+    }
+  }
+
+  #progress-bars {
+    height: 400px;
+    padding: 2px;
+    overflow-y: scroll;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #6497b1;
+    border-width: thin;
+    .progress-panel {
+      margin: 0;
     }
   }
 }
