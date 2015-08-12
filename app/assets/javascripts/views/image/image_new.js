@@ -10,8 +10,8 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       okText: 'Upload',
       focusOk: false,
       cancelText: false,
-      animate: true
-      // okCloses: false
+      animate: true,
+      okCloses: false
     }).open(this.uploadImages.bind(this));
 
     this._modal.$el.find(".modal-dialog").addClass("large");
@@ -59,17 +59,15 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
   },
 
   uploadImages: function () {
-    debugger;
     var imageForm = new GeoFlickr.Views.ImageFormFlow({
       collection: this.collection,
       newImages: this._images,
       modal: this._modal
     })
     this.$("#image-upload-container").css("display", "none");
+    this.$("#image-upload-controls").css("display", "none");
     this.addSubview("#image-form-flow-container", imageForm);
 
-    // Temporary. I will set up the image detail form flow here
-    Backbone.history.navigate("", { trigger: true });
   },
 
   render: function () {
