@@ -19,8 +19,8 @@ GeoFlickr.Views.ImageNew = Backbone.View.extend({
       okText: 'Upload',
       focusOk: false,
       cancelText: false,
-      animate: true,
-      okCloses: false
+      animate: true
+      // okCloses: false
     }).open(this.createImages.bind(this));
     this.attachJQueryFileUpload();
   },
