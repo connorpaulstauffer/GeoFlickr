@@ -48,8 +48,10 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       },
 
       success: function (model) {
-        that.collection.add(model);
-        that._images.push(model);
+        var image = new GeoFlickr.Models.Image(model);
+        that._images.push(image);
+        // that.collection.add(image);
+        // that.collection.get()
       },
 
       error: function () {

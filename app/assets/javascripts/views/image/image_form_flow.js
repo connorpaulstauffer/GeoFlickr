@@ -15,15 +15,22 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
 
   renderForms: function () {
     var that = this;
-    this._images.each(function (image) {
-      var imageForm = new GeoFlickr.Views.ImageForm({ model: image });
+    this._images.forEach(function (image, idx) {
+      var hidden = (idx === 0) ? false : true;
+      var imageForm = new GeoFlickr.Views.ImageForm({
+        model: image,
+        hidden: hidden
+      });
       that.addSubview("#image-form-container", imageForm);
     });
   },
 
   activateCurrentForm: function () {
-    if (this._currentView) { this._currentView.deactivate() };
-    this._currentView = this.subviews("#image-form-container")[this._index];
+    this._currentView = this._currentView || this.subviews("#image-form-container")
+                          ._wrapped[0]
+    this._currentView.deactivate();
+    this._currentView = this.subviews("#image-form-container")
+                          ._wrapped[this._index];
     this._currentView.activate();
   },
 
@@ -38,16 +45,17 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
   },
 
   incrementIndex: function () {
-    this._index = (this._index + 1) % this._images.length();
+    this._index = (this._index + 1) % this._images.length;
   },
 
   decrementIndex: function () {
-    this._index = (this._index === 0) ? this._images.length() : this._index - 1;
+    this._index = (this._index === 0) ? this._images.length - 1 : this._index - 1;
   },
 
   render: function () {
     var content = this.template();
     this.$el.html(content);
+    this.attachSubviews();
 
     return this;
   }
