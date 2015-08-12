@@ -11,12 +11,16 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
   },
 
   initializeMap: function () {
-    var mapOptions = {
-      center: { lat: 37.7833, lng: -122.4167 },
-      zoom: 12
-    };
-    this._map = new google.maps.Map(this.el, mapOptions);
+    // var mapOptions = {
+    // };
+    this._map = new google.maps.Map(this.el);
+    this._bounds = new google.maps.LatLngBounds();
     this.collection.each(this.addMarker.bind(this));
+  },
+
+  extendBounds: function (marker) {
+    this._bounds.extend(marker.position);
+    this._map.fitBounds(this._bounds);
   },
 
   addMarker: function (image) {
@@ -25,17 +29,18 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
 
     var marker = new google.maps.Marker({
       position: {
-        latitude: image.get("latitude"),
-        longitude: image.get("longitude")
+        lat: image.get("latitude"),
+        lng: image.get("longitude")
       },
-      map: this.map,
-      title: image.get("title")
+      map: this._map,
+      title: image.get("title") || "image"
     });
 
     google.maps.event.addListener(marker, 'click', function (event) {
       view.showMarkerInfo(event, marker);
     });
 
+    this.extendBounds(marker);
     this._markers[image.id] = marker;
   },
 

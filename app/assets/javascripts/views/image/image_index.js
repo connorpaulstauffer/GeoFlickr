@@ -17,8 +17,10 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
 
   addMap: function () {
     if (this._map) { return; }
-    var mapShow = new GeoFlickr.Views.MapShow();
-    // I'm not going to user addSubview because the map is only rendered once
+    var mapShow = new GeoFlickr.Views.MapShow({
+      collection: this.collection
+    });
+    // I'm not going to use addSubview because the map is only rendered once
     this.$("#map-container").html(mapShow.$el);
     this.setMapContainerHeight();
     mapShow.initializeMap();
