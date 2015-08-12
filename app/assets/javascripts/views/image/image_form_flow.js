@@ -7,10 +7,26 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
   },
 
   initialize: function (options) {
-    this._images = options.newImages,
-    this._modal = options.modal,
+    this._images = options.newImages;
+    this._modal = options.modal;
     this._index = 0;
     this.renderForms();
+    this.setupControls();
+  },
+
+  setupControls: function () {
+    if (this._images.length < 2) {
+      this.$("#image-form-flow-controls").css("display", "none");
+    } else if (this._index === 0) {
+      this.$("#left-control").css("display", "none");
+      this.$("#right-control").removeAttr("style");
+    } else if (this._index === this._images.length - 1) {
+      this.$("#right-control").css("display", "none");
+      this.$("#left-control").removeAttr("style");
+    } else {
+      this.$("#left-control").removeAttr("style");
+      this.$("#right-control").removeAttr("style");
+    }
   },
 
   renderForms: function () {
@@ -36,9 +52,10 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
 
   activateCurrentForm: function () {
     this.currentView().deactivate();
-    this.currentView() = this.subviews("#image-form-container")
+    this._currentView = this.subviews("#image-form-container")
                           ._wrapped[this._index];
     this.currentView().activate();
+    this.setupControls();
   },
 
   nextForm: function () {
@@ -62,6 +79,7 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
   render: function () {
     var content = this.template();
     this.$el.html(content);
+    this.setupControls();
     this.attachSubviews();
 
     return this;
