@@ -9,6 +9,7 @@
 #map-container {
   position: absolute;
   height: 100%;
+  padding: 0;
   #map-canvas {
     height: 100%;
     margin: 0;
@@ -16,22 +17,29 @@
   }
 }
 
-
-#photo-grid {
-  margin: 0 auto;
-  width: 100%;
-  .box {
-	  // margin: 1px;
-    margin-top: 1px;
-    box-sizing: border-box;
-    margin-bottom: 1px;
-    width: 33%;
-	  img {
-	  	max-width: 100%;
-	  	height: auto;
-	  }
-	}
+.row {
+  margin: 0;
 }
+
+#photo-grid-container {
+  padding: 0;
+  #photo-grid {
+    margin: 0 auto;
+    width: 100%;
+    .box {
+  	  // margin: 1px;
+      margin-top: 1px;
+      box-sizing: border-box;
+      margin-bottom: 1px;
+      width: 33%;
+  	  img {
+  	  	max-width: 100%;
+  	  	height: auto;
+  	  }
+  	}
+  }
+}
+
 
 .navbar {
   border-radius: 0;
