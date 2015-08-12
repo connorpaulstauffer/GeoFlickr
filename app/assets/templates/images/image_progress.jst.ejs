@@ -4,7 +4,7 @@
   <div class="progress">
     <div class="progress-bar progress-bar-success progress-bar-striped"
          role="progressbar"
-         id="<%= _.without(file.name.split(""), ".", ":", "(", ")", "/", "\\").join("") %>"
+         id="<%= _.without(file.name.split(""), ".", ":", "(", ")", "/", "\\", "-", " ").join("") %>"
          style="width: 0%">
     </div>
   </div>

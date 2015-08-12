@@ -47,7 +47,7 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
         var progressId = "#" + data.files[0].name.split(".")[0]
         var progressId = "#" + _.without(
           data.files[0].name.split(""),
-          ".", ":", "(", ")", "/", "\\"
+          ".", ":", "(", ")", "/", "\\", "-", " "
         ).join("");
         var bar = that.$(progressId);
         var width = parseInt(data.loaded / data.total * 100, 10);
