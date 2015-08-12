@@ -18,6 +18,7 @@ gem 'aws-sdk'
 gem 'figaro'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'jquery-fileupload-rails'
+gem 'geocoder'
 
 
 group :development, :test do
