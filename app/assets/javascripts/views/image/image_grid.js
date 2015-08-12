@@ -13,10 +13,23 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     this.addSubview("#photo-grid", imageGridItem);
   },
 
+  callMasonry: function () {
+    $("#photo-grid").imagesLoaded(function () {
+       return $("#photo-grid").masonry({
+          itemSelector: ".box",
+          columnWidth: function (containerWidth) {
+          return containerWidth / 3;
+        }
+      })
+    })
+  },
+
   render: function () {
     var content = this.template();
     this.$el.html(content);
     this.attachSubviews();
+    // Fix this with onRender
+    setTimeout(this.callMasonry.bind(this), 200)
 
     return this;
   }

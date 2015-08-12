@@ -45,12 +45,17 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
 
       progress: function (event, data) {
         var progressId = "#" + data.files[0].name.split(".")[0]
+        var progressId = "#" + _.without(
+          data.files[0].name.split(""),
+          ".", ":", "(", ")", "/", "\\"
+        ).join("");
         var bar = that.$(progressId);
         var width = parseInt(data.loaded / data.total * 100, 10);
         bar.css("width", width + "%");
       },
 
       success: function (model) {
+        that.collection.add(model);
         that._images.push(model);
       },
 
