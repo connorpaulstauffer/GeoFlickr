@@ -1,13 +1,17 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+#root {
+  margin-top: 50px;
+}
+
 #logo {
   font-family: 'Istok Web', sans-serif;
   font-size: 28px;
 }
 
 #map-container {
-  position: absolute;
+  position: fixed;
   height: 100%;
   padding: 0;
   #map-canvas {

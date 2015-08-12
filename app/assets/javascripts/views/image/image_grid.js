@@ -29,9 +29,9 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     this.$el.html(content);
     this.attachSubviews();
     // Fix this with onRender
-    setTimeout(this.callMasonry.bind(this), 200)
+    setTimeout(this.callMasonry.bind(this), 400)
     // this.onRender();
-    
+
     return this;
   }
 

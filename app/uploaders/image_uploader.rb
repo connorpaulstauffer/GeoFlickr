@@ -8,7 +8,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :thumb do
-    process :resize_to_fit => [400, 400]
+    process :resize_to_limit => [400, 600]
     process :quality => 400
   end
   def store_dir
