@@ -65,11 +65,11 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       collection: this.collection,
       newImages: this._images,
       modal: this._modal
-    })
+    });
+    this._modal.$el.find(".ok").text("Submit");
     this.$("#image-upload-container").css("display", "none");
     this.$("#image-upload-controls").css("display", "none");
     this.addSubview("#image-form-flow-container", imageForm);
-
   },
 
   render: function () {
