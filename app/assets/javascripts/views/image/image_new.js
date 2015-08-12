@@ -12,9 +12,10 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       cancelText: false,
       animate: true,
       okCloses: false
-    }).open(this.uploadImages.bind(this));
+    }).open();
 
     this._modal.$el.find(".modal-dialog").addClass("large");
+    this._modal.$el.find(".ok").on("click", this.uploadImages.bind(this));
     this.attachJQueryFileUpload();
   },
 
@@ -61,12 +62,13 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
   },
 
   uploadImages: function () {
+    this._modal.$el.find(".ok").off("click");
+    this._modal.$el.find(".ok").text("Submit");
     var imageForm = new GeoFlickr.Views.ImageFormFlow({
       collection: this.collection,
       newImages: this._images,
       modal: this._modal
     });
-    this._modal.$el.find(".ok").text("Submit");
     this.$("#image-upload-container").css("display", "none");
     this.$("#image-upload-controls").css("display", "none");
     this.addSubview("#image-form-flow-container", imageForm);

@@ -12,6 +12,7 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
     this._index = 0;
     this.renderForms();
     this.setupControls();
+    this._modal.$el.find(".ok").on("click", this.submitForms.bind(this));
   },
 
   setupControls: function () {
@@ -74,6 +75,10 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
 
   decrementIndex: function () {
     this._index = (this._index === 0) ? this._images.length - 1 : this._index - 1;
+  },
+
+  submitForms: function () {
+    this.subviews("#image-form-container")
   },
 
   render: function () {
