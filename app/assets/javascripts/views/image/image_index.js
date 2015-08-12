@@ -15,11 +15,20 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
     this.addSubview('#photo-grid-container', imageGrid);
   },
 
+  addMap: function () {
+    if (this._map) { return; }
+    var mapShow = new GeoFlickr.Views.MapShow();
+    // I'm not going to user addSubview because the map is only rendered once
+    this.$("#map-container").html(mapShow.$el);
+    mapShow.initializeMap();
+  },
+
   render: function () {
     var content = this.template();
     this.$el.html(content);
     this.attachSubviews();
     // this.onRender();
+    this.addMap();
 
     return this;
   }

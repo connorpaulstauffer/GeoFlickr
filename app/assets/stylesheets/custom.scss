@@ -6,6 +6,16 @@
   font-size: 28px;
 }
 
+#map-container {
+  position: absolute;
+  height: 100%;
+  #map-canvas {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}
+
 
 #photo-grid {
   margin: 0 auto;
