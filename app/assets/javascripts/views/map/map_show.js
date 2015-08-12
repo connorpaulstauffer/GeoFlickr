@@ -25,6 +25,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
 
   addMarker: function (image) {
     if (this._markers[image.id]) { return; }
+    if (!(image.get("latitude") && image.get("longitude"))) { return; }
     var view = this;
 
     var marker = new google.maps.Marker({

@@ -4,7 +4,7 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
   attributes: { "id": "image-upload" },
 
   initialize: function () {
-    var modal = new Backbone.BootstrapModal({
+    this._modal = new Backbone.BootstrapModal({
       content: this,
       title: 'Upload Images',
       okText: 'Upload',
@@ -12,13 +12,10 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       cancelText: false,
       animate: true
       // okCloses: false
-    }).open(this.createImages.bind(this));
-    modal.$el.find(".modal-dialog").addClass("large");
+    }).open(this.uploadImages.bind(this));
+
+    this._modal.$el.find(".modal-dialog").addClass("large");
     this.attachJQueryFileUpload();
-  },
-
-  addProgressBar: function () {
-
   },
 
   attachJQueryFileUpload: function () {
@@ -61,7 +58,15 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
     });
   },
 
-  createImages: function () {
+  uploadImages: function () {
+    debugger;
+    var imageForm = new GeoFlickr.Views.ImageForm({
+      collection: this.collection,
+      newImages: this._images,
+      modal: this._modal
+    })
+
+
     // Temporary. I will set up the image detail form flow here
     Backbone.history.navigate("", { trigger: true });
   },
