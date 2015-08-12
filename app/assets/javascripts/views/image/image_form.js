@@ -8,7 +8,7 @@ GeoFlickr.Views.ImageForm = Backbone.View.extend({
   },
 
   activate: function () {
-    this.$el.removeAttr("display");
+    this.$el.removeAttr("style");
   },
 
   deactivate: function () {

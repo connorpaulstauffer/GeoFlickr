@@ -25,13 +25,20 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
     });
   },
 
+  currentView: function () {
+    if (!this._currentView) {
+      this._currentView = this.subviews("#image-form-container")
+                            ._wrapped[0]
+    }
+
+    return this._currentView;
+  },
+
   activateCurrentForm: function () {
-    this._currentView = this._currentView || this.subviews("#image-form-container")
-                          ._wrapped[0]
-    this._currentView.deactivate();
-    this._currentView = this.subviews("#image-form-container")
+    this.currentView().deactivate();
+    this.currentView() = this.subviews("#image-form-container")
                           ._wrapped[this._index];
-    this._currentView.activate();
+    this.currentView().activate();
   },
 
   nextForm: function () {
