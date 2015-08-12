@@ -12,7 +12,8 @@ require 'open-uri'
 user = User.create!(email: "user@example.com", password: "password")
 
 data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, header_converters: :symbol, converters: :all}) do |row|
-  url = row.to_hash[:url]
+  image = row.to_hash
+  url = image[:url]
 
   extname = File.extname(url)
   basename = File.basename(url, extname)
@@ -24,5 +25,5 @@ data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, 
   end
 
   file.rewind
-  Image.create!(image: file, user: user)
+  Image.create!(image: file, user: user, address: image[:address])
 end
