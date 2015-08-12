@@ -1,12 +1,7 @@
 GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
   template: JST['images/image_new'],
 
-  // attributes: {
-  //   "enctype": "multipart/form-data",
-  //   "action": "api/images",
-  //   "method": "post",
-  //   "data-remote": "true"
-  // },
+  attributes: { "id": "image-upload" },
 
   initialize: function () {
     var modal = new Backbone.BootstrapModal({
@@ -18,6 +13,7 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       animate: true
       // okCloses: false
     }).open(this.createImages.bind(this));
+    modal.$el.find(".modal-dialog").addClass("large");
     this.attachJQueryFileUpload();
   },
 

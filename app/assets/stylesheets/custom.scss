@@ -56,10 +56,18 @@
   }
 }
 
+.modal-dialog.large {
+  width: 50%;
+}
+
+#image-upload {
+  width: 95%;
+  margin: 0 auto;
+}
+
 #image-upload-container {
   margin-right: 5px;
   margin-left: 5px;
-
   .column {
     padding: 5px;
   }
