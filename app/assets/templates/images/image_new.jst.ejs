@@ -13,10 +13,27 @@
             name="image[description]"></textarea>
 </div> -->
 
-<div class="form-group">
-  <label for="image-file">Image</label>
-  <input type="file"
-         id="image-file"
-         name="image[image]"
-         multiple="multiple">
+<div class="row" id="image-upload-container">
+  <div class="col-sm-6" id="progress-bars">
+
+  </div>
+
+  <div class="col-sm-6" id="file-drop-zone">
+    <div id="inner-file-drop-zone">
+      <div id="drop-zone-text">
+        <h3>Drag and drop images here</h3>
+      </div>
+    </div>
+  </div>
+
+<form action="api/images" method="post" enctype="multipart/form-data" data-remote="true">
+  <div class="form-group">
+    <label for="image-file">Or upload here:</label>
+    <input type="file"
+           class="btn btn-default"
+           id="image-file"
+           name="image[image]"
+           multiple="multiple">
+  </div>
+</form>
 </div>

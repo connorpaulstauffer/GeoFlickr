@@ -1,21 +1,17 @@
-GeoFlickr.Views.ImageNew = Backbone.View.extend({
+GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
   template: JST['images/image_new'],
 
-  progressTemplate: JST['images/image_progress'],
-
-  tagName: 'form',
-
-  attributes: {
-    "enctype": "multipart/form-data",
-    "action": "api/images",
-    "method": "post",
-    "data-remote": "true"
-  },
+  // attributes: {
+  //   "enctype": "multipart/form-data",
+  //   "action": "api/images",
+  //   "method": "post",
+  //   "data-remote": "true"
+  // },
 
   initialize: function () {
     var modal = new Backbone.BootstrapModal({
       content: this,
-      title: 'Upload Image',
+      title: 'Upload Images',
       okText: 'Upload',
       focusOk: false,
       cancelText: false,
@@ -23,6 +19,10 @@ GeoFlickr.Views.ImageNew = Backbone.View.extend({
       // okCloses: false
     }).open(this.createImages.bind(this));
     this.attachJQueryFileUpload();
+  },
+
+  addProgressBar: function () {
+
   },
 
   attachJQueryFileUpload: function () {
@@ -37,8 +37,8 @@ GeoFlickr.Views.ImageNew = Backbone.View.extend({
 
       add: function (event, data) {
         var file = data.files[0];
-        var uploadProgress = that.progressTemplate({object: file});
-        that.$el.append(uploadProgress);
+        var uploadProgress = new GeoFlickr.Views.ImageProgress({data: data});
+        that.addSubview("#progress-bars", uploadProgress);
         data.submit();
       },
 
@@ -48,12 +48,12 @@ GeoFlickr.Views.ImageNew = Backbone.View.extend({
 
       error: function () {
         debugger;
-      },
-
-      progress: function (event, data) {
-        var progress = parseInt(data.loaded / data.total * 100, 10);
-        return $(data.form.context).find('.bar').css('width', progress + "%");
       }
+
+      // progress: function (event, data) {
+      //   var progress = parseInt(data.loaded / data.total * 100, 10);
+      //   return $(data.form.context).find('.bar').css('width', progress + "%");
+      // }
     });
   },
 

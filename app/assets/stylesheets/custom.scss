@@ -25,3 +25,39 @@
 	  }
 	}
 }
+
+.navbar-inverse {
+  background-color: #03396c;
+  a {
+    color: #b3cde0 !important;
+  }
+  a:hover {
+    color: white !important;
+  }
+}
+
+#image-upload-container {
+  margin-right: 5px;
+  margin-left: 5px;
+  #file-drop-zone {
+    height: 400px;
+    background-color: #b3cde0;
+    border-radius: 5px;
+    padding: 20px;
+    #inner-file-drop-zone{
+      #drop-zone-text {
+        margin: 10px;
+        text-align: center;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      border-radius: 5px;
+      height: 100%;
+      width: 100%;
+      position: relative;
+      border-style: dashed;
+      border-color: #005b96;
+    }
+  }
+}
