@@ -23,6 +23,9 @@
     margin-top: 2px;
   }
   #map-container {
+    border-width: thin;
+    border-style: solid;
+    border-color: #03396c;
     // height: 75%;
     #map-canvas {
       height: 100%;
