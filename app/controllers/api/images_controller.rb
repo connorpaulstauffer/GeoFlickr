@@ -12,7 +12,7 @@ class Api::ImagesController < ApplicationController
     if params[:filter_data]
       images = filter_images(params[:filter_data])
     else
-      images = Image.from_center()
+      images = Image.from_center([37.78, -122.41])
     end
     render json: images
   end
