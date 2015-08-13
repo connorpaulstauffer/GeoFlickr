@@ -4,6 +4,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   initialize: function () {
     this.collection.each(this.addImageGridItem.bind(this));
     this.listenTo(this.collection, "add", this.addImageGridItem.bind(this))
+    this.listenTo(this.collection, "remove", this.removeImageGridItem.bind(this))
   },
 
   addImageGridItem: function (image) {
@@ -13,6 +14,11 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     // newly created images not getting added to grid
     // do I need to call render somewhere?
     this.addSubview("#photo-grid", imageGridItem);
+    this.callMasonry();
+  },
+
+  removeImageGridItem: function (image) {
+    this.removeModelSubview("#photo-grid", image);
     this.callMasonry();
   },
 
@@ -34,8 +40,4 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
 
     return this;
   }
-  //
-  // onRender: function () {
-  //   this.callMasonry();
-  // }
 });

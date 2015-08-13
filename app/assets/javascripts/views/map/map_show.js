@@ -23,6 +23,11 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     this._map.fitBounds(this._bounds);
   },
 
+  confineBounds: function () {
+    // create new bounds, loop through markers extending it, and fit map to them
+
+  },
+
   addMarker: function (image) {
     if (this._markers[image.id]) { return; }
     if (!(image.get("latitude") && image.get("longitude"))) { return; }
@@ -47,8 +52,11 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
 
   removeMarker: function (image) {
     var marker = this._markers[image.id];
-    marker.setMap(null);
-    delete this._markers[image.id];
+    if (marker) {
+      marker.setMap(null);
+      delete this._markers[image.id];
+    }
+    this.confineBounds();
   },
 
   showMarkerInfo: function (event, marker) {
