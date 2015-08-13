@@ -53,9 +53,9 @@ GeoFlickr.Views.ImageForm = Backbone.View.extend({
     this.$el.html(content);
 
     return this;
-  },
-
-  onRender: function () {
-    this.addMap();
   }
+
+  // onRender: function () {
+  //   this.addMap();
+  // }
 });

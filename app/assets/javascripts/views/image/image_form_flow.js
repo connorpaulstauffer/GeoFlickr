@@ -57,6 +57,8 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
                           ._wrapped[this._index];
     this.currentView().activate();
     this.setupControls();
+    // double check this
+    this._currentView.addMap();
   },
 
   nextForm: function () {
