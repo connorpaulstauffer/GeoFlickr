@@ -5,7 +5,6 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
 
   render: function () {
     var content = this.template({ image: this.model });
-    // debugger;
     this.$el.html(content);
 
     return this;
