@@ -25,11 +25,12 @@ GeoFlickr.Views.ImageForm = Backbone.View.extend({
   },
 
   searchOnMap: function (input) {
+    event.preventDefault();
     var that = this;
     this.imageFormMap._geocoder.geocode( { 'address': input}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         that.imageFormMap._map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
+        that._marker = new google.maps.Marker({
             map: that.imageFormMap._map,
             position: results[0].geometry.location
         });
@@ -51,6 +52,8 @@ GeoFlickr.Views.ImageForm = Backbone.View.extend({
     var content = this.template({ image: this.model });
     this.$el.html(content);
     this.addMap();
+    // hack to avoid a grey screen
+    // google.maps.event.trigger(this.imageFormMap._map, "bounds_changed")
 
     return this;
   }

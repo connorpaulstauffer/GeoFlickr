@@ -8,13 +8,13 @@ GeoFlickr.Views.ImageFormMap = Backbone.View.extend({
   },
 
   initializeMap: function () {
-    // var mapOptions = {
-    //   center: { lat: 37.7833, lng: -122.4167 },
-    //   zoom: 12
-    // };
+    var mapOptions = {
+      center: { lat: 37.7833, lng: -122.4167 },
+      zoom: 12
+    };
 
-    this._map = new google.maps.Map(this.el);
-    var bounds = new google.maps.LatLngBounds();
-    this._map.fitBounds(bounds);
+    this._map = new google.maps.Map(this.el, mapOptions);
+    // var bounds = new google.maps.LatLngBounds();
+    // this._map.fitBounds(bounds);
   }
 });
