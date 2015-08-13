@@ -15,25 +15,27 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
   },
 
   activate: function (event) {
-    // this.$("span").addClass("active");
     this.$(".overlay").addClass("active");
     this._imageGrid.activateImage(this.model.id);
   },
 
   deactivate: function (event) {
-    // this.$("span").removeClass("active");
     this.$(".overlay").removeClass("active");
     this._imageGrid.deactivateImage(this.model.id);
   },
 
   activateGlyph: function () {
-    this.$(".glyphicon").removeClass("glyphicon-star-empty");
-    this.$(".glyphicon").addClass("glyphicon-star");
+    var $thisGlyph = this.$(".glyphicon");
+    if ($thisGlyph.hasClass("favorited")) { return; }
+    $thisGlyph.removeClass("glyphicon-star-empty");
+    $thisGlyph.addClass("glyphicon-star");
   },
 
   deactivateGlyph: function () {
-    this.$(".glyphicon").removeClass("glyphicon-star");
-    this.$(".glyphicon").addClass("glyphicon-star-empty");
+    var $thisGlyph = this.$(".glyphicon");
+    if ($thisGlyph.hasClass("favorited")) { return; }
+    $thisGlyph.removeClass("glyphicon-star");
+    $thisGlyph.addClass("glyphicon-star-empty");
   },
 
   render: function () {
