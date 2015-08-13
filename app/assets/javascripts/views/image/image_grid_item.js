@@ -6,7 +6,8 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
   events: {
     "mouseenter": "activate",
     "mouseleave": "deactivate",
-    "hover span": "activateFavorite"
+    "mouseenter span": "activateGlyph",
+    "mouseleave span": "deactivateGlyph"
   },
 
   initialize: function (options) {
@@ -19,14 +20,20 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
     this._imageGrid.activateImage(this.model.id);
   },
 
-  activateFavorite: function () {
-    debugger;
-  },
-
   deactivate: function (event) {
     // this.$("span").removeClass("active");
     this.$(".overlay").removeClass("active");
     this._imageGrid.deactivateImage(this.model.id);
+  },
+
+  activateGlyph: function () {
+    this.$(".glyphicon").removeClass("glyphicon-star-empty");
+    this.$(".glyphicon").addClass("glyphicon-star");
+  },
+
+  deactivateGlyph: function () {
+    this.$(".glyphicon").removeClass("glyphicon-star");
+    this.$(".glyphicon").addClass("glyphicon-star-empty");
   },
 
   render: function () {
