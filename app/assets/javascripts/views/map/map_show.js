@@ -46,6 +46,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
       title: image.get("title") || "image"
     });
 
+    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
     google.maps.event.addListener(marker, 'click', function (event) {
       view.showMarkerInfo(event, marker);
     });
@@ -69,5 +70,15 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     });
 
     infoWindow.open(this._map, marker);
+  },
+
+  activateMarker: function (id) {
+    this._markers[id].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+    // this._markers[id].setAnimation(google.maps.Animation.BOUNCE);
+  },
+
+  deactivateMarker: function (id) {
+    this._markers[id].setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+    // this._markers[id].setAnimation(null);
   }
 });

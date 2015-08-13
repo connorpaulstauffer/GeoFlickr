@@ -15,7 +15,8 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
 
   addImageGrid: function () {
     var imageGrid = new GeoFlickr.Views.ImageGrid({
-      collection: this.collection
+      collection: this.collection,
+      imageIndex: this
     });
     this.addSubview("#photo-grid-container", imageGrid);
   },
@@ -70,6 +71,14 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
         debugger;
       }
     })
+  },
+
+  activateImage: function (id) {
+    this._mapShow.activateMarker(id);
+  },
+
+  deactivateImage: function (id) {
+    this._mapShow.deactivateMarker(id);
   },
 
   render: function () {

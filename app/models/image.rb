@@ -37,25 +37,23 @@ class Image < ActiveRecord::Base
       max_lng: center[1] + 50,
       min_lng: center[1] - 50
     }
-    Image.find_by_sql([
-      "SELECT
-        *, SQRT( POWER(? - latitude, 2) + POWER(? - longitude, 2) ) as distance_from_center
+
+    query = <<-SQL
+      SELECT
+        *,
+        SQRT( POWER(#{binds[:lat]} - latitude, 2) + POWER(#{binds[:lng]} - longitude, 2) )
+          as distance_from_center
       FROM
         images
       WHERE
-        latitude BETWEEN ? AND ?
-          AND longitude BETWEEN ? AND ?
+        latitude BETWEEN #{binds[:min_lat]} AND #{binds[:max_lat]}
+          AND longitude BETWEEN #{binds[:min_lng]} AND #{binds[:max_lng]}
       ORDER BY
         distance_from_center
       LIMIT
-        20", binds[:lat], binds[:lng], binds[:min_lat], binds[:max_lat], binds[:min_lng], binds[:max_lng]])
-    # # Image.select("*, SQRT( SQUARE(? - images.latitude) + SQUARE(? - images.longitude) ) as distance_from_center", :lat, :lng)
-    #   .where(<<-SQL, binds)
-    #   images.latitude BETWEEN :min_lat AND :max_lat
-    #     AND images.longitude BETWEEN :min_lng AND :max_lng
-    #   ORDER BY
-    #     images.distance_from_center
-    #   LIMIT 20
-    # SQL
+        20
+    SQL
+
+    Image.find_by_sql(query)
   end
 end
