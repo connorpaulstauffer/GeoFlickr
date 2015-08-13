@@ -24,8 +24,12 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
   },
 
   confineBounds: function () {
-    // create new bounds, loop through markers extending it, and fit map to them
-
+    // it would be nice to avoid doing this for every removed marker
+    this._bounds = new google.maps.LatLngBounds();
+    _(this._markers).forEach(function (marker) {
+      this._bounds.extend(marker.position);
+      this._map.fitBounds(this._bounds);
+    }.bind(this));
   },
 
   addMarker: function (image) {
