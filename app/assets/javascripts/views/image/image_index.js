@@ -60,10 +60,13 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
 
   searchByLocation: function () {
     var location = this.$("#index-search-input").val()
-    this.collection.fetch({
-      data: { filter_data: { location: location } }
+    var newCollection = new GeoFlickr.Collections.Images();
+    newCollection.fetch({
+      data: { filter_data: { location: location } },
+      success: function () {
+        debugger
+      }
     })
-    // var mapBounds = this._mapShow._map.getBounds();
   },
 
   render: function () {
