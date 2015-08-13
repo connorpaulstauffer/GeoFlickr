@@ -72,6 +72,8 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
     this.$("#image-upload-container").css("display", "none");
     this.$("#image-upload-controls").css("display", "none");
     this.addSubview("#image-form-flow-container", imageForm);
+    // ensures the map is added once its parent element is in the DOM
+    this.onRender();
   },
 
   render: function () {

@@ -51,10 +51,11 @@ GeoFlickr.Views.ImageForm = Backbone.View.extend({
   render: function () {
     var content = this.template({ image: this.model });
     this.$el.html(content);
-    this.addMap();
-    // hack to avoid a grey screen
-    // google.maps.event.trigger(this.imageFormMap._map, "bounds_changed")
 
     return this;
+  },
+
+  onRender: function () {
+    this.addMap();
   }
 });
