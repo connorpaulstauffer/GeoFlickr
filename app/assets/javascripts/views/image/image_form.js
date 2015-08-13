@@ -1,8 +1,6 @@
 GeoFlickr.Views.ImageForm = Backbone.View.extend({
   template: JST["images/image_form"],
 
-  tagName: "form",
-
   initialize: function (options) {
     if (options.hidden) { this.$el.css("display", "none"); }
   },
