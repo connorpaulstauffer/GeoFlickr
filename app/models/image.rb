@@ -20,6 +20,8 @@ class Image < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :album
+  has_many :favorites
+  has_many :favoriters, through: :favorites, source: :user
 
   mount_uploader :image, ImageUploader
 

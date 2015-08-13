@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
 
   has_many :sessions, dependent: :destroy
   has_many :images, dependent: :destroy
+  has_many :favorites
+  has_many :favorite_images, through: :favorites, source: :image
 
   def self.find_by_credentials(email, password)
     user = User.find_by_email(email)
