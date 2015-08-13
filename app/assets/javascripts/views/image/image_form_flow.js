@@ -78,7 +78,34 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
   },
 
   submitForms: function () {
-    this.subviews("#image-form-container")
+    var that = this;
+    // what if images have been deleted along the way?
+    var totalimages = this._images.length;
+    var i = 0;
+    this.eachSubview(function (subview, selector) {
+      if (selector === "#image-form-container") {
+        i++;
+        var formData = subview.$el.serializeJSON();
+        subview.model.save(formData, {
+          success: function (image, response) {
+            // this will change
+            that.collection.add(image);
+            if (i === totalimages) {
+              that._modal.close()
+              Backbone.history.navigate("", { trigger: true });
+            }
+          },
+
+          error: function () {
+            // need to handle errors eventually
+            // destroy model, etc.
+            if (i === totalimages) {
+              Backbone.history.navigate("", { trigger: true });
+            }
+          }
+        });
+      }
+    })
   },
 
   render: function () {
