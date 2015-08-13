@@ -11,11 +11,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
       model: image
     });
     this.addSubview("#photo-grid", imageGridItem);
-    // at least one image has to be in the container before triggering onMasonry
-    if (!this._masonryCalled) {
-      this.callMasonry();
-      this._masonryCalled = true;
-    }
+    this.callMasonry();
   },
 
   callMasonry: function () {
@@ -33,6 +29,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     var content = this.template();
     this.$el.html(content);
     this.attachSubviews();
+
     return this;
   }
 });
