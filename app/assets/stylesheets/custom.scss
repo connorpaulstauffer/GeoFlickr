@@ -71,18 +71,16 @@
           right: 8px;
           top: 8px;
           color: white;
-          font-size: 1.6em;
+          font-size: 1.8em;
+          // z-index: 10;
         }
         span.favorited {
-          
+          color: #C5B358;
         }
       }
 
       .overlay.active {
-        opacity: .75;
-        span {
-          opacity: 1;
-        }
+        opacity: 1;
       }
 
   	}
