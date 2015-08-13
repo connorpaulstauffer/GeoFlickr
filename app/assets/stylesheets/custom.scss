@@ -14,10 +14,21 @@
   position: fixed;
   height: 100%;
   padding: 0;
-  #map-canvas {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  #search-controls {
+    height: 25%;
+    border-width: thin;
+    border-style: solid;
+    border-color: #03396c;
+    margin-bottom: 2px;
+    margin-top: 2px;
+  }
+  #map-container {
+    // height: 75%;
+    #map-canvas {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
   }
 }
 

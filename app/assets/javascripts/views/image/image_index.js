@@ -29,7 +29,9 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
   setMapContainerHeight: function () {
     var windowHeight = $( window ).height();
     var navbarHeight = $(".navbar").height();
-    this.$("#map-container").height(windowHeight - navbarHeight - 2);
+    var searchHeight = $("#search-controls").height();
+    this.$("#map-and-search-container").height(windowHeight - navbarHeight - 2);
+    this.$("#map-container").height(windowHeight - searchHeight - navbarHeight + 2);
   },
 
   render: function () {
