@@ -11,8 +11,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     var imageGridItem = new GeoFlickr.Views.ImageGridItem({
       model: image
     });
-    // newly created images not getting added to grid
-    // do I need to call render somewhere?
+
     this.addSubview("#photo-grid", imageGridItem);
     this.callMasonry();
   },
@@ -23,6 +22,9 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   },
 
   callMasonry: function () {
+    // change this so it is only called for last image
+    this.$("#photo-grid").masonry('destroy');
+
     this.$("#photo-grid").imagesLoaded(function () {
        return $("#photo-grid").masonry({
           itemSelector: ".box",

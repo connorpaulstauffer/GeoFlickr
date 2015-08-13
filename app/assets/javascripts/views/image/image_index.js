@@ -58,6 +58,7 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
   },
 
   searchByLocation: function () {
+    var that = this;
     var location = this.$("#index-search-input").val()
     this.collection.fetch({
       data: { filter_data: { location: location } },
