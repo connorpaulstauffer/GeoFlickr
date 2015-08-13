@@ -58,7 +58,7 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
     this.currentView().activate();
     this.setupControls();
     // double check this
-    this._currentView.addMap();
+    this.currentView().addMap();
   },
 
   nextForm: function () {
@@ -119,6 +119,8 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
     this.$el.html(content);
     this.setupControls();
     this.attachSubviews();
+    // kind of a weird spot for this. try to refactor
+    this.activateCurrentForm();
 
     return this;
   }
