@@ -9,7 +9,11 @@ class Api::ImagesController < ApplicationController
   end
 
   def index
-    images = Image.all
+    if params[:filter_data]
+      images = filter_images(params[:filter_data])
+    else
+      images = Image.all
+    end
     render json: images
   end
 
@@ -23,6 +27,11 @@ class Api::ImagesController < ApplicationController
   end
 
   private
+  def filter_images(filter_data)
+    center = Geocoder.coordinates(filter_data[:location])
+    Image.from_center(center)
+  end
+
   def image_params
     params.require(:image).permit(
       :image,

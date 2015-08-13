@@ -3,6 +3,11 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
 
   className: "row",
 
+  events: {
+    "click #submit-search": "search",
+    "keypress #index-search-input": "handleSearchKeypress"
+  },
+
   initialize: function () {
     this.addImageGrid();
     this.addSearchControls();
@@ -23,14 +28,14 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
   },
 
   addMap: function () {
-    if (this._map) { return; }
-    var mapShow = new GeoFlickr.Views.MapShow({
+    if (this._mapShow) { return; }
+    this._mapShow = new GeoFlickr.Views.MapShow({
       collection: this.collection
     });
     // I'm not going to use addSubview because the map is only rendered once
-    this.$("#map-container").html(mapShow.$el);
+    this.$("#map-container").html(this._mapShow.$el);
     this.setMapContainerHeight();
-    mapShow.initializeMap();
+    this._mapShow.initializeMap();
   },
 
   setMapContainerHeight: function () {
@@ -39,6 +44,26 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
     var searchHeight = $("#search-controls").height();
     this.$("#map-and-search-container").height(windowHeight - navbarHeight - 2);
     this.$("#map-container").height(windowHeight - searchHeight - navbarHeight + 2);
+  },
+
+  search: function (event) {
+    event.preventDefault();
+    debugger;
+  },
+
+  handleSearchKeypress: function (event) {
+    if (event.which === 13) {
+      event.preventDefault();
+      this.searchByLocation();
+    }
+  },
+
+  searchByLocation: function () {
+    var location = this.$("#index-search-input").val()
+    this.collection.fetch({
+      data: { filter_data: { location: location } }
+    })
+    // var mapBounds = this._mapShow._map.getBounds();
   },
 
   render: function () {
