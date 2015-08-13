@@ -57,7 +57,11 @@
       span {
         position: absolute;
         display: none;
+        right: 5px;
+        top: 5px;
         color: white;
+        font-size: 1.4em;
+        opacity: .75;
       }
 
       span.active {
