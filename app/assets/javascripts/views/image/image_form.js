@@ -32,7 +32,8 @@ GeoFlickr.Views.ImageForm = Backbone.View.extend({
         that.imageFormMap._map.setCenter(results[0].geometry.location);
         that._marker = new google.maps.Marker({
             map: that.imageFormMap._map,
-            position: results[0].geometry.location
+            position: results[0].geometry.location,
+            draggable: true
         });
       } else {
         alert("Geocode was not successful for the following reason: " + status);

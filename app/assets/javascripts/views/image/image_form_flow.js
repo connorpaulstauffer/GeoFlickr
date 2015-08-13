@@ -98,7 +98,7 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
             that.collection.add(image);
             if (i === totalimages) {
               that._modal.close()
-              Backbone.history.navigate("", { trigger: true });
+              Backbone.history.navigate("/#");
             }
           },
 
@@ -106,7 +106,7 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
             // need to handle errors eventually
             // destroy model, etc.
             if (i === totalimages) {
-              Backbone.history.navigate("", { trigger: true });
+              Backbone.history.navigate("/#", { trigger: true });
             }
           }
         });
