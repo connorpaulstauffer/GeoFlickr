@@ -1,9 +1,22 @@
-<div class="input-group">
- <span class="input-group-addon" id="search-icon">
-   <span class="glyphicon glyphicon-search"></span>
- </span>
- <input type="text"
-        class="form-control"
-        name="search[location]"
-        id="index-search-input">
+<form class="navbar-form navbar-left">
+  <div class="input-group">
+   <span class="input-group-addon" id="search-icon">
+     <span class="glyphicon glyphicon-search"></span>
+   </span>
+   <input type="text"
+          class="form-control"
+          name="search[location]"
+          id="index-search-input">
+  </div>
+</form>
+
+<ul class="nav navbar-nav">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+       role="button" aria-haspopup="true" aria-expanded="false">
+       Image Tags <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" id="tag-label-list">
+    </ul>
+  </li>
 </div>

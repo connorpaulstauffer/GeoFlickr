@@ -48,7 +48,7 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
         this._tags.add(tag)
       }
       this.model.tags().add(tag);
-      this.$("tag-input").val("");
+      this.$("#tag-input").val("");
     }
   },
 
