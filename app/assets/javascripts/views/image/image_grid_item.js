@@ -7,12 +7,13 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
     "mouseenter": "activate",
     "mouseleave": "deactivate",
     "mouseenter span": "activateGlyph",
-    "mouseleave span": "deactivateGlyph"
+    "mouseleave span": "deactivateGlyph",
+    "click span": "toggleFavorite"
   },
 
   initialize: function (options) {
     this._imageGrid = options.imageGrid
-    this.listenTo(this.model, "change", this.setupFavoriteGlyph);
+    this.listenTo(this.model.favorite(), "change", this.setupFavoriteGlyph);
   },
 
   activate: function (event) {
@@ -23,6 +24,21 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
   deactivate: function (event) {
     this.$(".overlay").removeClass("active");
     this._imageGrid.deactivateImage(this.model.id);
+  },
+
+  toggleFavorite: function () {
+    this.model.isFavorited() ? this.unfavoriteImage() : this.favoriteImage();
+  },
+
+  favoriteImage: function () {
+    this.model.favorite().save({ image_id: this.model.id });
+    this.model.set({ favorites_count: this.model.get("favorites_count") + 1 });
+  },
+
+  unfavoriteImage: function () {
+    this.model.favorite().destroy();
+    this.model.favorite().clear();
+    this.model.set({ favorites_count: this.model.get("favorites_count") - 1 });
   },
 
   setupFavoriteGlyph: function () {
