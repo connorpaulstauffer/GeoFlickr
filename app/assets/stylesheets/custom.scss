@@ -51,7 +51,7 @@
       margin-bottom: 1px;
       width: 33%;
   	  img {
-  	  	max-width: 100%;
+  	  	width: 100%;
   	  	height: auto;
   	  }
 
@@ -176,4 +176,17 @@
   .search-controls-label {
     text-align: center;
   }
+}
+
+.pac-container {
+    z-index: 99999;
+}
+
+.pac-container:after {
+  background-image: none !important;
+  height: 0px;
+}
+
+.pac-container, .pac-item {
+  width: inherit !important;
 }

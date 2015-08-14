@@ -8,15 +8,15 @@
     <link href='http://fonts.googleapis.com/css?family=Istok+Web:400,700'
           rel='stylesheet'
           type='text/css'>
-          
+
     <% if Rails.env.production? %>
-      <% api_key = "AIzaSyBQvtC8Ho6n4xgSFcWoOgyDx39L_Y1QeU0" %>
+      <% api_key = "&key=AIzaSyBQvtC8Ho6n4xgSFcWoOgyDx39L_Y1QeU0" %>
     <% else %>
       <% api_key = '' %>
     <% end %>
 
     <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?<%= api_key %>"></script>
+            src="https://maps.googleapis.com/maps/api/js?libraries=places<%= api_key %>"></script>
   </head>
   <body>
     <%= render 'shared/navbar' %>

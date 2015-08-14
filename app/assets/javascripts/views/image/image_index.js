@@ -31,7 +31,6 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
     this._mapShow = new GeoFlickr.Views.MapShow({
       collection: this.collection
     });
-    // I'm not going to use addSubview because the map is only rendered once
     this.$("#map-container").html(this._mapShow.$el);
     this.setMapContainerHeight();
     this._mapShow.initializeMap();
@@ -40,9 +39,7 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
   setMapContainerHeight: function () {
     var windowHeight = $( window ).height();
     var navbarHeight = $(".navbar").height();
-    var searchHeight = $("#search-controls").height();
-    this.$("#map-and-search-container").height(windowHeight - navbarHeight - 2);
-    this.$("#map-container").height(windowHeight - searchHeight - navbarHeight + 2);
+    this.$("#map-container").height(windowHeight - navbarHeight);
   },
 
   search: function (event) {

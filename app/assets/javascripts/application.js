@@ -16,6 +16,7 @@
 //= require jquery.serializejson.min
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
+//= require jquery.geocomplete.min
 //= require bootstrap-sprockets
 //= require underscore
 //= require backbone

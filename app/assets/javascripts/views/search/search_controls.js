@@ -9,9 +9,14 @@ GeoFlickr.Views.SearchControls = Backbone.View.extend({
     "id": "search-control"
   },
 
+  attachGeocomplete: function () {
+    this.$("#index-search-input").geocomplete();
+  },
+
   render: function () {
     var content = this.template();
     this.$el.html(content);
+    this.attachGeocomplete();
 
     return this;
   }
