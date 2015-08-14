@@ -2,7 +2,8 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
   template: JST["images/image_form"],
 
   events: {
-    "keypress #search-input": "handleSearchKeypress"
+    "keypress #search-input": "handleSearchKeypress",
+    "keypress #tag-input": "handleTagKeypress"
   },
 
   initialize: function (options) {
@@ -11,11 +12,15 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
     this._tags = options.tags
     this._tags.each(this.addTagCheckbox.bind(this));
     this.listenTo(this._tags, "add", this.addTagCheckbox.bind(this));
+    // this.listenTo(this.model.tags(), "add", this.addTagCheckbox.bind(this));
   },
 
   addTagCheckbox: function (tag) {
-    var tagCheckbox = new GeoFlickr.Views.TagCheckbox({ model: tag });
-    this.addSubview("#tag-checkboxes", tagCheckbox);
+    var tagCheckbox = new GeoFlickr.Views.TagCheckbox({
+      model: tag,
+      image: this.model
+    });
+    this.addSubview("#tag-checkboxes", tagCheckbox, true);
   },
 
   addMap: function () {
@@ -30,6 +35,20 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
   handleSearchKeypress: function (event) {
     if (event.which === 13) {
       this.searchOnMap($(event.currentTarget).val());
+    }
+  },
+
+  handleTagKeypress: function (event) {
+    if (event.which === 13) {
+      event.preventDefault();
+      var label = $(event.currentTarget).val();
+      var tag = this._tags.where({ label: label })[0]
+      if (!tag) {
+        tag = new GeoFlickr.Models.Tag({ label: label })
+        this._tags.add(tag)
+      }
+      this.model.tags().add(tag);
+      this.$("tag-input").val("");
     }
   },
 

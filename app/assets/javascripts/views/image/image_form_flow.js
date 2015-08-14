@@ -44,7 +44,6 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
         tags: this._tags
       });
       this.addSubview("#image-form-container", imageForm);
-      debugger;
     }.bind(this));
   },
 
@@ -58,7 +57,9 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
   },
 
   activateCurrentForm: function () {
-    this.currentView().deactivate();
+    if (this.currentView()) {
+      this.currentView().deactivate();
+    }
     this._currentView = this.subviews("#image-form-container")
                           ._wrapped[this._index];
     this.currentView().activate();
