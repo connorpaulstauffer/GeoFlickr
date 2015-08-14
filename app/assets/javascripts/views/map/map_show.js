@@ -6,8 +6,9 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
   initialize: function () {
     this._markers = {};
 
-    this.listenTo(this.collection, "add", this.addMarker);
-    this.listenTo(this.collection, "remove", this.removeMarker);
+    // this.listenTo(this.collection, "add", this.addMarker);
+    // this.listenTo(this.collection, "remove", this.removeMarker);
+    this.listenTo(this.collection, "sync", this.setupMap);
   },
 
   initializeMap: function () {
@@ -23,6 +24,15 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     this.addMapListeners();
   },
 
+  setupMap: function () {
+    _(this._markers).each(this.removeMarker.bind(this));
+    var coordinates = $.parseJSON(this.collection.center);
+    this._center = new google.maps.LatLng(coordinates[0], coordinates[1]);
+    this._bounds = new google.maps.LatLngBounds(this._center);
+    // this._map.setCenter(this._center);
+    this.collection.each(this.addMarker.bind(this));
+  },
+
   addMapListeners: function () {
     google.maps.event.addListener(this._map, "zoom_changed", function () {
       if (this._map.getZoom() < this._minZoom) {
@@ -32,6 +42,8 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
   },
 
   extendBounds: function (marker) {
+    // use a loop to keep the map centered. call setCenter after fitBounds
+    // this._map.setCenter(this._center);
     this._bounds.extend(marker.position);
     this._map.fitBounds(this._bounds);
   },

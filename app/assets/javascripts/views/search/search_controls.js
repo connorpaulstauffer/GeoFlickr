@@ -16,7 +16,7 @@ GeoFlickr.Views.SearchControls = Backbone.View.extend({
 
   initialize: function (options) {
     this._mapShow = options.mapShow;
-    // this._geocoder = new google.maps.Geocoder();
+    this._geocoder = new google.maps.Geocoder();
   },
 
   attachGeocomplete: function () {
@@ -37,19 +37,14 @@ GeoFlickr.Views.SearchControls = Backbone.View.extend({
   },
 
   searchByLocation: function () {
-    var that = this;
+    // var that = this;
     var location = this.$("#index-search-input").val()
-    // this._geocoder.geocode({'address': location}, function(results, status) {
-    //    if (status === google.maps.GeocoderStatus.OK) {
-    //      that._mapShow._map.setCenter(results[0].geometry.location);
-    //    }
-    //  });
 
     this.collection.fetch({
       data: { filter_data: { location: location } },
 
       success: function (collection, response) {
-      },
+      }.bind(this),
 
       error: function () {
         debugger;

@@ -10,9 +10,13 @@ class Api::ImagesController < ApplicationController
 
   def index
     if params[:filter_data]
-      @images = filter_images(params[:filter_data])
+      center = Geocoder.coordinates(params[:filter_data][:location])
+      # byebug
+      @images = filter_images(center)
+      @center = center.to_json
     else
       @images = Image.from_center([37.78, -122.41])
+      @center = [37.78, -122.41].to_json
     end
     ActiveRecord::Associations::Preloader.new.preload(@images, :favorites)
     render :index
@@ -28,8 +32,7 @@ class Api::ImagesController < ApplicationController
   end
 
   private
-  def filter_images(filter_data)
-    center = Geocoder.coordinates(filter_data[:location])
+  def filter_images(center)
     Image.from_center(center)
   end
 
