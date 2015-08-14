@@ -3,15 +3,17 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     id: "map-canvas"
   },
 
+  searchInMapTemplate: JST["search/search_in_map"],
+
   initialize: function () {
     this._markers = {};
 
     // this.listenTo(this.collection, "add", this.addMarker);
     this.listenTo(this.collection, "remove", this.removeMarker);
-    this.listenTo(this.collection, "sync", this.setupMap);
+    this.listenTo(this.collection, "sync", this.resetMap);
     // the map currently doesn't move unless the collection changes
     // we want the
-    this.listenTo(this.collection, "change:center", this.setupMap);
+    this.listenTo(this.collection, "change:center", this.resetMap);
   },
 
   initializeMap: function () {
@@ -27,8 +29,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     this.addMapListeners();
   },
 
-  setupMap: function () {
-    // debugger
+  resetMap: function () {
     _(this._markers).each(this.removeMarker.bind(this));
     var coordinates = $.parseJSON(this.collection.center);
     this._center = new google.maps.LatLng(coordinates[0], coordinates[1]);
