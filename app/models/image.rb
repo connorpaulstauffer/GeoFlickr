@@ -30,7 +30,7 @@ class Image < ActiveRecord::Base
   after_validation :geocode, if: ->(this){ !(this.latitude.present? && this.longitude.present?) }
   after_validation :reverse_geocode, if: ->(this){ !this.address.present? }
 
-  def self.from_center(center)
+  def self.from_center(center, include_favorites = true)
     binds = {
       lat: center[0],
       lng: center[1],

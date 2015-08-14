@@ -10,11 +10,12 @@ class Api::ImagesController < ApplicationController
 
   def index
     if params[:filter_data]
-      images = filter_images(params[:filter_data])
+      @images = filter_images(params[:filter_data])
     else
-      images = Image.from_center([37.78, -122.41])
+      @images = Image.from_center([37.78, -122.41])
     end
-    render json: images
+    ActiveRecord::Associations::Preloader.new.preload(@images, :favorites)
+    render :index
   end
 
   def update

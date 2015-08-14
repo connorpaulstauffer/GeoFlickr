@@ -12,6 +12,7 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
 
   initialize: function (options) {
     this._imageGrid = options.imageGrid
+    this.listenTo(this.model, "change", this.setupFavoriteGlyph);
   },
 
   activate: function (event) {
@@ -24,23 +25,41 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
     this._imageGrid.deactivateImage(this.model.id);
   },
 
+  setupFavoriteGlyph: function () {
+    if (this.model.isFavorited()) {
+      this.$(".glyphicon").addClass("favorited");
+    } else {
+      this.$(".glyphicon").removeClass("favorited");
+    }
+    this.deactivateGlyph();
+  },
+
   activateGlyph: function () {
     var $thisGlyph = this.$(".glyphicon");
-    if ($thisGlyph.hasClass("favorited")) { return; }
-    $thisGlyph.removeClass("glyphicon-star-empty");
-    $thisGlyph.addClass("glyphicon-star");
+    if ($thisGlyph.hasClass("favorited")) {
+      $thisGlyph.removeClass("glyphicon-star");
+      $thisGlyph.addClass("glyphicon-star-empty");
+    } else {
+      $thisGlyph.removeClass("glyphicon-star-empty");
+      $thisGlyph.addClass("glyphicon-star");
+    }
   },
 
   deactivateGlyph: function () {
     var $thisGlyph = this.$(".glyphicon");
-    if ($thisGlyph.hasClass("favorited")) { return; }
-    $thisGlyph.removeClass("glyphicon-star");
-    $thisGlyph.addClass("glyphicon-star-empty");
+    if ($thisGlyph.hasClass("favorited")) {
+      $thisGlyph.removeClass("glyphicon-star-empty");
+      $thisGlyph.addClass("glyphicon-star");
+    } else {
+      $thisGlyph.removeClass("glyphicon-star");
+      $thisGlyph.addClass("glyphicon-star-empty");
+    }
   },
 
   render: function () {
     var content = this.template({ image: this.model });
     this.$el.html(content);
+    this.setupFavoriteGlyph();
 
     return this;
   }
