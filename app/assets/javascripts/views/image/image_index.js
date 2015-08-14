@@ -9,7 +9,6 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
 
   initialize: function () {
     this.addImageGrid();
-    this.addSearchControls();
   },
 
   addImageGrid: function () {
@@ -22,7 +21,8 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
 
   addSearchControls: function () {
     var searchControls = new GeoFlickr.Views.SearchControls({
-      collection: this.collection
+      collection: this.collection,
+      mapShow: this._mapShow
     });
     $("#index-search-controls").html(searchControls.render().$el);
   },
@@ -56,6 +56,7 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
     this.$el.html(content);
     this.attachSubviews();
     this.addMap();
+    this.addSearchControls();
 
     return this;
   }
