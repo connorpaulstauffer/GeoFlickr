@@ -1,4 +1,4 @@
-GeoFlickr.Views.ImageForm = Backbone.View.extend({
+GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
   template: JST["images/image_form"],
 
   events: {
@@ -7,6 +7,15 @@ GeoFlickr.Views.ImageForm = Backbone.View.extend({
 
   initialize: function (options) {
     if (options.hidden) { this.$el.css("display", "none"); }
+
+    this._tags = options.tags
+    this._tags.each(this.addTagCheckbox.bind(this));
+    this.listenTo(this._tags, "add", this.addTagCheckbox.bind(this));
+  },
+
+  addTagCheckbox: function (tag) {
+    var tagCheckbox = new GeoFlickr.Views.TagCheckbox({ model: tag });
+    this.addSubview("#tag-checkboxes", tagCheckbox);
   },
 
   addMap: function () {
@@ -50,8 +59,12 @@ GeoFlickr.Views.ImageForm = Backbone.View.extend({
   },
 
   render: function () {
-    var content = this.template({ image: this.model });
+    var content = this.template({
+      image: this.model,
+      tags: this._tags
+    });
     this.$el.html(content);
+    this.attachSubviews();
 
     return this;
   }

@@ -10,8 +10,13 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
     this._images = options.newImages;
     this._modal = options.modal;
     this._index = 0;
-    this.renderForms();
+
+    this._tags = new GeoFlickr.Collections.Tags();
+    this._tags.fetch();
+
     this.setupControls();
+    this.renderForms();
+
     this._modal.$el.find(".ok").on("click", this.submitForms.bind(this));
   },
 
@@ -31,15 +36,15 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
   },
 
   renderForms: function () {
-    var that = this;
     this._images.forEach(function (image, idx) {
       var hidden = (idx === 0) ? false : true;
       var imageForm = new GeoFlickr.Views.ImageForm({
         model: image,
-        hidden: hidden
+        hidden: hidden,
+        tags: this._tags
       });
-      that.addSubview("#image-form-container", imageForm);
-    });
+      this.addSubview("#image-form-container", imageForm);
+    }.bind(this));
   },
 
   currentView: function () {
