@@ -20,4 +20,8 @@ class ApplicationController < ActionController::Base
   def user_params
     params.require(:user).permit(:email, :password)
   end
+
+  def raise_current_user_error
+    render json: ["You must be logged in to do that"].to_json, status: :unproccessable_entity
+  end
 end

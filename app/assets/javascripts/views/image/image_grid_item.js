@@ -31,7 +31,12 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
   },
 
   favoriteImage: function () {
-    this.model.favorite().save({ image_id: this.model.id });
+    this.model.favorite().save({ image_id: this.model.id }, {
+      error: function (model, response) {
+        // set some sort of global error here and siaply it on the form
+        $("#log-in").trigger("click", [response.responseJSON]);
+      }
+    });
     this.model.set({ favorites_count: this.model.get("favorites_count") + 1 });
   },
 
