@@ -93,6 +93,7 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
       if (selector === "#image-form-container") {
         i++;
         var formData = subview.$el.find("#image-form-data").serializeJSON();
+        debugger;
         if (subview._marker) {
           formData.image.latitude = subview._marker.position.G;
           formData.image.longitude = subview._marker.position.K;

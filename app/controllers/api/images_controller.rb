@@ -45,7 +45,8 @@ class Api::ImagesController < ApplicationController
       :description,
       :latitude,
       :longitude,
-      :address
+      :address,
+      tag_ids: []
     )
   end
 end
