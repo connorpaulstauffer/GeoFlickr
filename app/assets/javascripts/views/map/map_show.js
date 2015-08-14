@@ -15,7 +15,17 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     // };
     this._map = new google.maps.Map(this.el);
     this._bounds = new google.maps.LatLngBounds();
+    this._minZoom = 2;
     this.collection.each(this.addMarker.bind(this));
+    this.addMapListeners();
+  },
+
+  addMapListeners: function () {
+    google.maps.event.addListener(this._map, "zoom_changed", function () {
+      if (this._map.getZoom() < this._minZoom) {
+        this._map.setZoom(this._minZoom)
+      };
+    }.bind(this));
   },
 
   extendBounds: function (marker) {
