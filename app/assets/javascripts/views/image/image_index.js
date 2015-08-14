@@ -23,7 +23,7 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
   addSearchControls: function () {
     var searchControls = new GeoFlickr.Views.SearchControls();
     $("#index-search-controls").html(searchControls.render().$el);
-    this.listenTo("#index-search-input", "keypress", this.handleSearchKeypress.bind(this));
+    $("#index-search-input").on("keypress", this.handleSearchKeypress.bind(this));
   },
 
   addMap: function () {
