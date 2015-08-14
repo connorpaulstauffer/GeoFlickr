@@ -182,10 +182,10 @@
     z-index: 99999;
 }
 
-.pac-container:after {
-  background-image: none !important;
-  height: 0px;
-}
+// .pac-container:after {
+//   background-image: none !important;
+//   height: 0px;
+// }
 
 .pac-container, .pac-item {
   width: inherit !important;
