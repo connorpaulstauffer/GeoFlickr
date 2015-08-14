@@ -11,9 +11,12 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
   },
 
   initializeMap: function () {
-    // var mapOptions = {
-    // };
-    this._map = new google.maps.Map(this.el);
+    var mapOptions = {
+      zoomControlOptions: {
+        style: google.maps.ZoomControlStyle.SMALL
+      }
+    };
+    this._map = new google.maps.Map(this.el, mapOptions);
     this._bounds = new google.maps.LatLngBounds();
     this._minZoom = 2;
     this.collection.each(this.addMarker.bind(this));

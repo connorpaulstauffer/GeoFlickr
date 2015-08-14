@@ -3,9 +3,9 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
 
   className: "row",
 
-  events: {
-    "click #submit-search": "search"
-  },
+  // events: {
+  //   "click #submit-search": "search"
+  // },
 
   initialize: function () {
     this.addImageGrid();
@@ -21,9 +21,10 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
   },
 
   addSearchControls: function () {
-    var searchControls = new GeoFlickr.Views.SearchControls();
+    var searchControls = new GeoFlickr.Views.SearchControls({
+      collection: this.collection
+    });
     $("#index-search-controls").html(searchControls.render().$el);
-    $("#index-search-input").on("keypress", this.handleSearchKeypress.bind(this));
   },
 
   addMap: function () {
@@ -40,33 +41,6 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
     var windowHeight = $( window ).height();
     var navbarHeight = $(".navbar").height();
     this.$("#map-container").height(windowHeight - navbarHeight);
-  },
-
-  search: function (event) {
-    event.preventDefault();
-    debugger;
-  },
-
-  handleSearchKeypress: function (event) {
-    if (event.which === 13) {
-      event.preventDefault();
-      this.searchByLocation();
-    }
-  },
-
-  searchByLocation: function () {
-    var that = this;
-    var location = $("#index-search-input").val()
-    this.collection.fetch({
-      data: { filter_data: { location: location } },
-
-      success: function (collection, response) {
-      },
-
-      error: function () {
-        debugger;
-      }
-    })
   },
 
   activateImage: function (id) {
