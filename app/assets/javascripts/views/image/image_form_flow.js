@@ -44,6 +44,7 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
         tags: this._tags
       });
       this.addSubview("#image-form-container", imageForm);
+      debugger;
     }.bind(this));
   },
 
@@ -93,7 +94,6 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
       if (selector === "#image-form-container") {
         i++;
         var formData = subview.$el.find("#image-form-data").serializeJSON();
-        debugger;
         if (subview._marker) {
           formData.image.latitude = subview._marker.position.G;
           formData.image.longitude = subview._marker.position.K;
@@ -101,7 +101,8 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
         subview.model.save(formData, {
           success: function (image, response) {
             // this will change
-            that.collection.add(image);
+            // image was in the wrong format. couldn't find thumbnail
+            // that.collection.add(image);
             if (i === totalimages) {
               that._modal.close()
               Backbone.history.navigate("/#");
