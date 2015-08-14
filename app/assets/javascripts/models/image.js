@@ -12,9 +12,22 @@ GeoFlickr.Models.Image = Backbone.Model.extend({
     return !this.favorite().isNew();
   },
 
+  tags: function () {
+    if (!this._tags) {
+      this._tags = new GeoFlickr.Collections.Tags();
+    }
+    return this._tags;
+  },
+
   parse: function (response) {
     if (response.favorite) {
       this.favorite().set(response.favorite);
+      delete response.favorite
+    }
+
+    if (response.tags) {
+      this.tags().set(response.tags);
+      delete response.tags;
     }
     return response;
   }

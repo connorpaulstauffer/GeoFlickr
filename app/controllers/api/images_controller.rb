@@ -18,7 +18,7 @@ class Api::ImagesController < ApplicationController
       @images = Image.from_center([37.78, -122.41])
       @center = [37.78, -122.41].to_json
     end
-    ActiveRecord::Associations::Preloader.new.preload(@images, :favorites)
+    ActiveRecord::Associations::Preloader.new.preload(@images, [:favorites])
     render :index
   end
 

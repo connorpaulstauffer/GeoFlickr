@@ -12,6 +12,12 @@ json.images do
       end
     end
 
+    # json.tags do
+    #   json.array! image.tags do |tag|
+    #     json.(tag, :id, :label)
+    #   end
+    # end
+
     json.favorites_count image.favorites.count
   end
 end
