@@ -7,8 +7,11 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     this._markers = {};
 
     // this.listenTo(this.collection, "add", this.addMarker);
-    // this.listenTo(this.collection, "remove", this.removeMarker);
+    this.listenTo(this.collection, "remove", this.removeMarker);
     this.listenTo(this.collection, "sync", this.setupMap);
+    // the map currently doesn't move unless the collection changes
+    // we want the
+    this.listenTo(this.collection, "change:center", this.setupMap);
   },
 
   initializeMap: function () {
@@ -25,6 +28,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
   },
 
   setupMap: function () {
+    // debugger
     _(this._markers).each(this.removeMarker.bind(this));
     var coordinates = $.parseJSON(this.collection.center);
     this._center = new google.maps.LatLng(coordinates[0], coordinates[1]);
