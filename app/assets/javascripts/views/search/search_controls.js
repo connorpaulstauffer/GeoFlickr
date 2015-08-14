@@ -1,12 +1,12 @@
 GeoFlickr.Views.SearchControls = Backbone.View.extend({
   template: JST["search/search_controls"],
 
-  className: "col-sm-12",
+  className: "navbar-form navbar-left",
 
   tagName: "form",
 
   attributes: {
-    "id": "search-form"
+    "id": "search-control"
   },
 
   render: function () {

@@ -4,8 +4,7 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
   className: "row",
 
   events: {
-    "click #submit-search": "search",
-    "keypress #index-search-input": "handleSearchKeypress"
+    "click #submit-search": "search"
   },
 
   initialize: function () {
@@ -22,9 +21,9 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
   },
 
   addSearchControls: function () {
-    // pass tags in here eventually
     var searchControls = new GeoFlickr.Views.SearchControls();
-    this.addSubview("#search-controls", searchControls);
+    $("#index-search-controls").html(searchControls.render().$el);
+    this.listenTo("#index-search-input", "keypress", this.handleSearchKeypress.bind(this));
   },
 
   addMap: function () {
@@ -60,7 +59,7 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
 
   searchByLocation: function () {
     var that = this;
-    var location = this.$("#index-search-input").val()
+    var location = $("#index-search-input").val()
     this.collection.fetch({
       data: { filter_data: { location: location } },
 
