@@ -10,20 +10,27 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
     this._images = options.newImages;
     this._modal = options.modal;
     this._index = 0;
+    this._firstRendered = false;
 
     this._tags = new GeoFlickr.Collections.Tags();
     this._tags.fetch();
 
     this.setupControls();
-    this.renderForms();
+    this._images.forEach(this.renderForm.bind(this));
+    // this.renderForms();
+
+    this.listenTo(this._images, "add", function () {
+      this.renderForm.bind(this);
+      this.setupControls();
+    }.bind(this));
 
     this._modal.$el.find(".ok").on("click", this.submitForms.bind(this));
   },
 
   setupControls: function () {
-    if (this._images.length < 2) {
-      this.$("#image-form-flow-controls").css("display", "none");
-    } else if (this._index === 0) {
+    // if (this._images.length < 2) {
+      // this.$("#image-form-flow-controls").css("display", "none");
+    if (this._index === 0) {
       this.$("#left-control").css("display", "none");
       this.$("#right-control").removeAttr("style");
     } else if (this._index === this._images.length - 1) {
@@ -35,16 +42,26 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
     }
   },
 
-  renderForms: function () {
-    this._images.forEach(function (image, idx) {
-      var hidden = (idx === 0) ? false : true;
-      var imageForm = new GeoFlickr.Views.ImageForm({
-        model: image,
-        hidden: hidden,
-        tags: this._tags
-      });
-      this.addSubview("#image-form-container", imageForm);
-    }.bind(this));
+  // renderForms: function () {
+  //   this._images.forEach(function (image, idx) {
+  //     var hidden = (idx === 0) ? false : true;
+  //     var imageForm = new GeoFlickr.Views.ImageForm({
+  //       model: image,
+  //       hidden: hidden,
+  //       tags: this._tags
+  //     });
+  //     this.addSubview("#image-form-container", imageForm);
+  //   }.bind(this));
+  // },
+
+  renderForm: function (image) {
+    var imageForm = new GeoFlickr.Views.ImageForm({
+      model: image,
+      hidden: this._firstRendered,
+      tags: this._tags
+    });
+    this._firstRendered = true;
+    this.addSubview("#image-form-container", imageForm);
   },
 
   currentView: function () {

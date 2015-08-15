@@ -45,6 +45,7 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
       var tag = this._tags.where({ label: label })[0]
       if (!tag) {
         tag = new GeoFlickr.Models.Tag({ label: label })
+        tag.save();
         this._tags.add(tag)
       }
       this.model.tags().add(tag);
