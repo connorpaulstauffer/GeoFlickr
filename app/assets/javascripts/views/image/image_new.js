@@ -16,7 +16,7 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
 
     this._anyLoaded = false;
     this._modal.$el.find(".modal-dialog").addClass("large");
-    this._modal.$el.find(".ok").on("click", this.uploadImages.bind(this));
+    // this._modal.$el.find(".ok").on("click", this.uploadImages.bind(this));
     this.attachJQueryFileUpload();
   },
 
@@ -51,8 +51,8 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
 
       success: function (model) {
         var image = new GeoFlickr.Models.Image(model);
-        this._images.push(image);
-        this._anyLoaded = true;
+        // this._images.push(image);
+        // this._anyLoaded = true;
         // that.collection.add(image);
         // that.collection.get()
       }.bind(this),
@@ -63,26 +63,27 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
     });
   },
 
-  uploadImages: function () {
-    //temporary to avoid form flow bug
-    if (!this._anyLoaded) { return; }
-    this._modal.$el.find(".ok").off("click");
-    this._modal.$el.find(".ok").text("Submit");
-    var imageForm = new GeoFlickr.Views.ImageFormFlow({
-      collection: this.collection,
-      newImages: this._images,
-      modal: this._modal
-    });
-    this.$("#image-upload-container").css("display", "none");
-    this.$("#image-upload-controls").css("display", "none");
-    this.addSubview("#image-form-flow-container", imageForm);
-    // ensures the map is added once its parent element is in the DOM
-    // this.onRender();
-  },
+  // uploadImages: function () {
+  //   //temporary to avoid form flow bug
+  //   if (!this._anyLoaded) { return; }
+  //   this._modal.$el.find(".ok").off("click");
+  //   this._modal.$el.find(".ok").text("Submit");
+  //   var imageForm = new GeoFlickr.Views.ImageFormFlow({
+  //     collection: this.collection,
+  //     newImages: this._images,
+  //     modal: this._modal
+  //   });
+  //   this.$("#image-upload-container").css("display", "none");
+  //   this.$("#image-upload-controls").css("display", "none");
+  //   this.addSubview("#image-form-flow-container", imageForm);
+  //   // ensures the map is added once its parent element is in the DOM
+  //   // this.onRender();
+  // },
 
   render: function () {
     var content = this.template();
     this.$el.html(content);
+    this.attachSubviews();
 
     return this;
   }

@@ -1,34 +1,71 @@
-<div class="row" id="image-upload-container">
-  <div class="col-sm-6 column">
+<!-- <div id="image-upload-container">
+  <div class="col-sm-4">
     <div id="progress-bars">
     </div>
   </div>
 
-  <div class="col-sm-6 column">
-    <div id="file-drop-zone">
-      <div id="inner-file-drop-zone">
-        <div id="drop-zone-text">
-          <h3>Drag and drop images here</h3>
+  <div class="col-sm-8">
+    <div id="upload-column">
+      <div class="row" id="file-drop-zone">
+        <div id="inner-file-drop-zone">
+          <div id="drop-zone-text">
+            <h3>Drag and drop images here</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="image-upload-controls">
+        <div class="col-sm-6">
+          <form action="api/images" method="post" enctype="multipart/form-data" data-remote="true">
+            <div class="form-group">
+              <label for="image-file">Or upload here:</label>
+              <input type="file"
+                     class="form-control"
+                     id="image-file"
+                     name="image[image]"
+                     multiple="multiple">
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="row" id="image-upload-controls">
-  <div class="col-sm-6">
-    <form action="api/images" method="post" enctype="multipart/form-data" data-remote="true">
-      <div class="form-group">
-        <label for="image-file">Or upload here:</label>
-        <input type="file"
-               class="form-control"
-               id="image-file"
-               name="image[image]"
-               multiple="multiple">
+    <div class="row" id="image-forms">
+    </div>
+  </div>
+</div> -->
+
+<div class="row" id="image-upload-container">
+  <div class="col-sm-4 column">
+    <div id="progress-bars">
+    </div>
+  </div>
+
+  <div class="col-sm-8 column">
+    <div id="upload-column">
+      <div class="row" id="file-drop-zone">
+        <div id="inner-file-drop-zone">
+          <div id="drop-zone-text">
+            <h3>Drag and drop images here</h3>
+          </div>
+        </div>
       </div>
-    </form>
-  </div>
-</div>
 
-<div class="row" id="image-form-flow-container">
+      <div class="row" id="file-upload-controls">
+        <form action="api/images" method="post" enctype="multipart/form-data" data-remote="true">
+          <div class="form-group">
+            <label for="image-file">Or upload here:</label>
+            <input type="file"
+                   class="form-control"
+                   id="image-file"
+                   name="image[image]"
+                   multiple="multiple">
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="image-forms">
+    </div>
+  </div>
 </div>

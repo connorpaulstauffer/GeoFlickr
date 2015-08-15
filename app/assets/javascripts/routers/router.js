@@ -18,9 +18,8 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
   },
 
   newImage: function () {
-    var image = new GeoFlickr.Models.Image();
+    // var image = new GeoFlickr.Models.Image();
     var newImageView = new GeoFlickr.Views.ImageNew({
-      model: image,
       collection: this.images()
     });
   },
