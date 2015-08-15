@@ -3,9 +3,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
 
   initialize: function (options) {
     this._imageIndex = options.imageIndex;
-    this.collection.each(this.addImageGridItem.bind(this));
-    this.listenTo(this.collection, "add", this.addImageGridItem.bind(this))
-    this.listenTo(this.collection, "remove", this.removeImageGridItem.bind(this))
+    // this.listenTo(this.collection, "remove", this.removeImageGridItem.bind(this))
   },
 
   addImageGridItem: function (image) {
@@ -15,26 +13,28 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     });
 
     this.addSubview("#photo-grid", imageGridItem);
-    this.callMasonry();
+
+    this.$imageGrid.imagesLoaded(function() {
+      this.$imageGrid.masonry("appended", imageGridItem.$el);
+    }.bind(this));
   },
 
-  removeImageGridItem: function (image) {
-    this.removeModelSubview("#photo-grid", image);
-    this.callMasonry();
-  },
+  // removeImageGridItem: function (image) {
+  //   this.removeModelSubview("#photo-grid", image);
+  //   this.callMasonry();
+  // },
 
-  callMasonry: function () {
-    // change this so it is only called for last image
-    this.$("#photo-grid").masonry('destroy');
+  initializeMasonry: function () {
+    this.$imageGrid = $("#photo-grid");
 
-    this.$("#photo-grid").imagesLoaded(function () {
-       return $("#photo-grid").masonry({
-          itemSelector: ".box",
-          columnWidth: function (containerWidth) {
+    this.$imageGrid.imagesLoaded(function () {
+      this.$imageGrid.masonry({
+        itemSelector: ".box",
+        columnWidth: function (containerWidth) {
           return containerWidth / 3;
         }
       })
-    })
+    }.bind(this))
   },
 
   activateImage: function (id) {
@@ -51,5 +51,11 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     this.attachSubviews();
 
     return this;
+  },
+
+  onRender: function () {
+    this.initializeMasonry();
+    // this.collection.each(this.addImageGridItem.bind(this));
+    this.listenTo(this.collection, "add", this.addImageGridItem.bind(this))
   }
 });
