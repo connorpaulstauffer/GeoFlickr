@@ -22,8 +22,8 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
 
   attachJQueryFileUpload: function () {
     var that = this;
-    this._images = [];
-    var invalid = [];
+    this._images = {};
+    // var invalid = [];
 
     this.$el.fileupload({
       dataType: "json",
@@ -50,7 +50,7 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       },
 
       success: function (model) {
-        var image = new GeoFlickr.Models.Image(model);
+        this.addImageForm(model);
         // this._images.push(image);
         // this._anyLoaded = true;
         // that.collection.add(image);
@@ -62,6 +62,13 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       }
     });
   },
+
+  addImageForm: function (image) {
+    // add image form to container
+    var image = new GeoFlickr.Models.Image(model);
+    var imageForm = new GeoFlickr.Views.ImageForm()
+    this.addSubview("#image-forms",)
+  }
 
   // uploadImages: function () {
   //   //temporary to avoid form flow bug
