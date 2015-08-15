@@ -7,12 +7,20 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
   },
 
   initialize: function (options) {
-    if (options.hidden) { this.$el.css("display", "none"); }
+    this.$el.css("display", "none");
 
     this._tags = options.tags
     this._tags.each(this.addTagCheckbox.bind(this));
     this.listenTo(this._tags, "add", this.addTagCheckbox.bind(this));
     // this.listenTo(this.model.tags(), "add", this.addTagCheckbox.bind(this));
+  },
+
+  display: function () {
+    this.$el.removeAttr("style")
+  },
+
+  hide: function () {
+    this.$el.css("display", "none");
   },
 
   addTagCheckbox: function (tag) {

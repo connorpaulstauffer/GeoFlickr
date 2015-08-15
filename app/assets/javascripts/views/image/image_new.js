@@ -14,6 +14,13 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       okCloses: false
     }).open();
 
+    this._imageForms = {};
+    this._progressBars = {};
+    this._completedProgressBars = {};
+
+    this._tags = new GeoFlickr.Collections.Tags();
+    this._tags.fetch();
+
     this._anyLoaded = false;
     this._modal.$el.find(".modal-dialog").addClass("large");
     // this._modal.$el.find(".ok").on("click", this.uploadImages.bind(this));
@@ -22,7 +29,7 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
 
   attachJQueryFileUpload: function () {
     var that = this;
-    this._images = {};
+    // this._images = {};
     // var invalid = [];
 
     this.$el.fileupload({
@@ -35,6 +42,7 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
           event: event
         });
         that.addSubview("#progress-bars", uploadProgress);
+        that._progressBars[data.files[0].name] = uploadProgress;
         data.submit();
       },
 
@@ -50,6 +58,11 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       },
 
       success: function (model) {
+        var fileName = model.image.url.split("/").reverse()[0];
+        var progressBar = this._progressBars[fileName];
+        this._completedProgressBars[model.id] = progressBar;
+        progressBar.makeSelectable(this, model);
+
         this.addImageForm(model);
         // this._images.push(image);
         // this._anyLoaded = true;
@@ -65,10 +78,36 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
 
   addImageForm: function (image) {
     // add image form to container
-    var image = new GeoFlickr.Models.Image(model);
-    var imageForm = new GeoFlickr.Views.ImageForm()
-    this.addSubview("#image-forms",)
-  }
+    var image = new GeoFlickr.Models.Image(image);
+    var imageForm = new GeoFlickr.Views.ImageForm({
+      model: image,
+      tags: this._tags
+    });
+
+    this.addSubview("#image-forms", imageForm);
+    this._imageForms[image.id] = imageForm;
+
+    if (!this._anyLoaded) {
+      this.displayForm(image);
+      this._anyLoaded = true;
+      this._completedProgressBars[image.id].activate();
+      this._activeImage = image;
+    }
+  },
+
+  displayForm: function (image) {
+    if (this._activeImage) {
+      this.hideActiveImageForm();
+    }
+    this.$("#upload-column").css("display", "none");
+    this._imageForms[image.id].display();
+    this._activeImage = image;
+  },
+
+  hideActiveImageForm: function () {
+    this._completedProgressBars[this._activeImage.id].deactivate();
+    this._imageForms[this._activeImage.id].deactivate();
+  },
 
   // uploadImages: function () {
   //   //temporary to avoid form flow bug
