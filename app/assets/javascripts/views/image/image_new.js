@@ -12,7 +12,7 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       cancelText: false,
       animate: true,
       okCloses: false
-    }).open();
+    }).open(this.uploadImages.bind(this));
 
     this._imageForms = {};
     this._progressBars = {};
@@ -29,8 +29,6 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
 
   attachJQueryFileUpload: function () {
     var that = this;
-    // this._images = {};
-    // var invalid = [];
 
     this.$el.fileupload({
       dataType: "json",
@@ -101,6 +99,7 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
     }
     this.$("#upload-column").css("display", "none");
     this._imageForms[image.id].display();
+    this._imageForms[image.id].addMap();
     this._activeImage = image;
   },
 
@@ -109,22 +108,43 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
     this._imageForms[this._activeImage.id].deactivate();
   },
 
-  // uploadImages: function () {
-  //   //temporary to avoid form flow bug
-  //   if (!this._anyLoaded) { return; }
-  //   this._modal.$el.find(".ok").off("click");
-  //   this._modal.$el.find(".ok").text("Submit");
-  //   var imageForm = new GeoFlickr.Views.ImageFormFlow({
-  //     collection: this.collection,
-  //     newImages: this._images,
-  //     modal: this._modal
-  //   });
-  //   this.$("#image-upload-container").css("display", "none");
-  //   this.$("#image-upload-controls").css("display", "none");
-  //   this.addSubview("#image-form-flow-container", imageForm);
-  //   // ensures the map is added once its parent element is in the DOM
-  //   // this.onRender();
-  // },
+  uploadImages: function () {
+    var numberOfImages = _(this._progressBars).keys().length;
+    if (numberOfImages > _(this._completedProgressBars).keys().length) {
+      return;
+    }
+
+    var i = 0;
+    this.subviews("#image-forms").each(function (form) {
+      i++;
+
+      var formData = form.$el.find("form").serializeJSON();
+      if (form._marker) {
+        formData.image.latitude = form._marker.position.G;
+        formData.image.longitude = form._marker.position.K;
+
+        form.model.save(formData, {
+          success: function (image, response) {
+            // this will change
+            // image was in the wrong format. couldn't find thumbnail
+            // that.collection.add(image);
+            if (i === numberOfImages) {
+              this._modal.close()
+              Backbone.history.navigate("/#");
+            }
+          }.bind(this),
+
+          error: function () {
+            // need to handle errors eventually
+            // destroy model, etc.
+            if (i === numberOfImages) {
+              Backbone.history.navigate("/#", { trigger: true });
+            }
+          }.bind(this)
+        });
+      }
+    }.bind(this))
+  },
 
   render: function () {
     var content = this.template();

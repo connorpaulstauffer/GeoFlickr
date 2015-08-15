@@ -171,6 +171,16 @@
   }
 }
 
+#image-forms {
+  .thumbnail {
+    height: 150px;
+    img {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
 #tag-checkboxes {
   width: inherit;
   height: 100px;
