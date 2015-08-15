@@ -14,6 +14,7 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       okCloses: false
     }).open();
 
+    this._anyLoaded = false;
     this._modal.$el.find(".modal-dialog").addClass("large");
     this._modal.$el.find(".ok").on("click", this.uploadImages.bind(this));
     this.attachJQueryFileUpload();
@@ -50,10 +51,11 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
 
       success: function (model) {
         var image = new GeoFlickr.Models.Image(model);
-        that._images.push(image);
+        this._images.push(image);
+        this._anyLoaded = true;
         // that.collection.add(image);
         // that.collection.get()
-      },
+      }.bind(this),
 
       error: function () {
         debugger;
@@ -62,6 +64,8 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
   },
 
   uploadImages: function () {
+    //temporary to avoid form flow bug
+    if (!this._anyLoaded) { return; }
     this._modal.$el.find(".ok").off("click");
     this._modal.$el.find(".ok").text("Submit");
     var imageForm = new GeoFlickr.Views.ImageFormFlow({

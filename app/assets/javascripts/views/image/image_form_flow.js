@@ -11,6 +11,7 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
     this._modal = options.modal;
     this._index = 0;
     this._firstRendered = false;
+    // this.addBackToUpload();
 
     this._tags = new GeoFlickr.Collections.Tags();
     this._tags.fetch();
@@ -26,10 +27,21 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
 
     this._modal.$el.find(".ok").on("click", this.submitForms.bind(this));
   },
+  //
+  // addBackToUpload: function () {
+  //   this._modal.$el.find(".modal-footer").append($("<button id='back-to-upload'>Back to upload</button>"))
+  //   this._modal.$el.find("#back-to-upload").on("click", this.backToUpload.bind(this));
+  // },
+  //
+  // backToUpload: function () {
+  //   this.$el.css("display", "none");
+  //   $("#image-upload-container").removeAttr("style");
+  //   $("#image-upload-controls").removeAttr("style");
+  //   this._modal.$el.find("#back-to-upload").css("display", "none");
+  // },
 
   setupControls: function () {
-    // if (this._images.length < 2) {
-      // this.$("#image-form-flow-controls").css("display", "none");
+    // if (this._images.length === 0) { return; }
     if (this._index === 0) {
       this.$("#left-control").css("display", "none");
       this.$("#right-control").removeAttr("style");
@@ -42,17 +54,6 @@ GeoFlickr.Views.ImageFormFlow = Backbone.CompositeView.extend({
     }
   },
 
-  // renderForms: function () {
-  //   this._images.forEach(function (image, idx) {
-  //     var hidden = (idx === 0) ? false : true;
-  //     var imageForm = new GeoFlickr.Views.ImageForm({
-  //       model: image,
-  //       hidden: hidden,
-  //       tags: this._tags
-  //     });
-  //     this.addSubview("#image-form-container", imageForm);
-  //   }.bind(this));
-  // },
 
   renderForm: function (image) {
     var imageForm = new GeoFlickr.Views.ImageForm({
