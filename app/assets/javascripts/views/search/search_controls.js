@@ -31,33 +31,17 @@ GeoFlickr.Views.SearchControls = Backbone.CompositeView.extend({
     this.$("#index-search-input").geocomplete();
   },
 
-  search: function (event) {
+  searchByLocation: function () {
     event.preventDefault();
-    debugger;
+    this._mapShow.searchByLocation(this.$("#index-search-input").val());
   },
 
   handleSearchKeypress: function (event) {
     if (event.which === 9) { event.preventDefault(); }
     if (event.which === 13) {
       event.preventDefault();
-      this.searchByLocation();
+      this._mapShow.searchByLocation(this.$("#index-search-input").val());
     }
-  },
-
-  searchByLocation: function () {
-    // var that = this;
-    var location = this.$("#index-search-input").val()
-
-    this.collection.fetch({
-      data: { filter_data: { location: location } },
-
-      success: function (collection, response) {
-      }.bind(this),
-
-      error: function () {
-        debugger;
-      }
-    })
   },
 
   render: function () {

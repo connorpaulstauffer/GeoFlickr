@@ -5,6 +5,10 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
 
   searchInMapTemplate: JST["search/search_in_map"],
 
+  events: {
+    "click #search-in-map": "search"
+  },
+
   initialize: function () {
     this._markers = {};
 
@@ -50,6 +54,32 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
         this._map.setZoom(this._minZoom)
       };
     }.bind(this));
+  },
+
+  searchByLocation: function (location) {
+    this.collection.fetch({
+      data: { filter_data: { location: location } },
+
+      success: function (collection, response) {
+      }.bind(this),
+
+      error: function () {
+        debugger;
+      }
+    })
+  },
+
+  search: function () {
+    var bounds = this._map.getBounds();
+
+    this.collection.fetch({
+      data: {
+        filter_data: {
+          latitude: [bounds.Ia.G, bounds.Ia.j],
+          longitude: [bounds.Ca.j, bounds.Ca.G]
+        }
+      }
+    })
   },
 
   extendBounds: function (marker) {
