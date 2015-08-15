@@ -1,4 +1,4 @@
-GeoFlickr.Views.SearchControls = Backbone.View.extend({
+GeoFlickr.Views.SearchControls = Backbone.CompositeView.extend({
   template: JST["search/search_controls"],
 
   attributes: {
@@ -13,6 +13,18 @@ GeoFlickr.Views.SearchControls = Backbone.View.extend({
   initialize: function (options) {
     this._mapShow = options.mapShow;
     this._geocoder = new google.maps.Geocoder();
+
+    // not sure if this is the right approach
+    this.collection.tags().each(this.addTagListItem.bind(this));
+    this.listenTo(this.collection.tags(), "add", this.addTagListItem);
+    this.listenTo(this.collection.tags(), "remove", this.removeTagListItem);
+  },
+
+  addTagListItem: function (tag) {
+    var tagListItem = new GeoFlickr.Views.TagListItem({
+      model: tag
+    })
+    this.addSubview("#tag-label-list", tagListItem);
   },
 
   attachGeocomplete: function () {

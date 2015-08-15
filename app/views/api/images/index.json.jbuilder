@@ -17,3 +17,7 @@ json.images do
 end
 
 json.center @center
+
+json.tags do
+  json.array! @tags
+end
