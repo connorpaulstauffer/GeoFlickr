@@ -27,6 +27,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     this._minZoom = 2;
     this.collection.each(this.addMarker.bind(this));
     this.addMapListeners();
+    this.addSearchInMapButton();
   },
 
   resetMap: function () {
@@ -36,6 +37,11 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     this._bounds = new google.maps.LatLngBounds(this._center);
     // this._map.setCenter(this._center);
     this.collection.each(this.addMarker.bind(this));
+  },
+
+  addSearchInMapButton: function () {
+    var button = this.searchInMapTemplate();
+    this.$el.append(button);
   },
 
   addMapListeners: function () {

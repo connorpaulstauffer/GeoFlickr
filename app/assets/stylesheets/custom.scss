@@ -35,6 +35,13 @@
   }
 }
 
+#search-in-map {
+  z-index: 9999;
+  position: absolute;
+  top: 29px;
+  left: 80px;
+}
+
 .row {
   margin: 0;
 }
