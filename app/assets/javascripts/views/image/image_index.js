@@ -57,7 +57,6 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
     this.attachSubviews();
     this.addMap();
     this.addSearchControls();
-    // debugger;
     this.onRender();
 
     return this;
