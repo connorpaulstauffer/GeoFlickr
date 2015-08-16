@@ -10,6 +10,18 @@
   font-size: 28px;
 }
 
+.slick-prev:before, .slick-next:before {
+    color: grey !important;
+}
+
+#slider-images {
+  width: 50%;
+  margin: 0 auto;
+  img {
+    height: 100px;
+  }
+}
+
 // #image-display {
 //   img {
 //     max-width: 100%;
