@@ -10,6 +10,16 @@
   font-size: 28px;
 }
 
+#image-display {
+  img {
+    max-width: 100%;
+  }
+}
+
+.image-show-container {
+  padding: 0;
+}
+
 #map-and-search-container {
   position: fixed;
   height: 100%;
