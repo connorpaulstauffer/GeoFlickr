@@ -29,6 +29,10 @@ GeoFlickr.Views.SearchControls = Backbone.CompositeView.extend({
     this.addSubview("#tag-label-list", tagListItem);
   },
 
+  removeTagListItem: function (tag) {
+    this.removeModelSubview("#tag-label-list", tag);
+  },
+
   attachGeocomplete: function () {
     this.$("#index-search-input").geocomplete();
   },
