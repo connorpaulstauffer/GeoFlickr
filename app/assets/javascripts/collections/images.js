@@ -10,16 +10,18 @@ GeoFlickr.Collections.Images = Backbone.Collection.extend({
     return this._tags;
   },
 
+  getOrFetch: function (id) {
+    var image = this.get(id) || new GeoFlickr.Models.Image({ id: id })
+    image.fetch();
+
+    return image;
+  },
+
   parse: function (response) {
     if (response.center) {
       this.center = response.center;
       delete response.center
     }
-
-    // if (response.bounds) {
-    //   this.bounds = response.bounds;
-    //   delete response.bounds;
-    // }
 
     if (response.tags) {
       this.tags().set(response.tags);

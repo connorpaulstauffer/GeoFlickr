@@ -33,7 +33,10 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
   },
 
   imageShow: function (id) {
+    var image = this.images().getOrFetch(id)
+    var imageShow = new GeoFlickr.Views.ImageShow({ model: image });
 
+    this.swap(imageShow);
   },
 
   swap: function (newView) {
