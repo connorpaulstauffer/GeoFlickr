@@ -8,7 +8,8 @@ GeoFlickr.Views.SearchControls = Backbone.CompositeView.extend({
   events: {
     "click #search-icon": "searchByLocation",
     "keydown #index-search-input": "handleSearchKeypress",
-    "change input:checkbox": "filterByTags"
+    "click input:checkbox": "handleCheckboxClick"
+    // "change input:checkbox": "filterByTags"
   },
 
   initialize: function (options) {
@@ -45,9 +46,23 @@ GeoFlickr.Views.SearchControls = Backbone.CompositeView.extend({
     }
   },
 
-  filterByTags: function (event) {
-    var checked = $(event.delegateTarget).find(":checked").serializeJSON()["search"]["tag_ids"];
-    this._mapShow.filterByTags(checked);
+  handleCheckboxClick: function (event) {
+    $(event.delegateTarget).find(":checked").each(function (idx, checkbox) {
+      if (checkbox !== event.target) {
+        $(checkbox).attr("checked", false);
+      }
+    });
+    this.filterByTag(event);
+  },
+
+  filterByTag: function (event) {
+    var formData = $(event.delegateTarget).find(":checked").serializeJSON();
+    if (formData["search"]) {
+      var checked = formData["search"]["tag_ids"];
+      this._mapShow.filterByTags(checked);
+    } else {
+      this._mapShow.search();
+    }
   },
 
   render: function () {
