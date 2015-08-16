@@ -11,14 +11,17 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
   addImageCarousel: function () {
     var imageCarousel = new GeoFlickr.Views.ImageCarousel({
       activeImage: this.model,
-      images: this.model.userImages();
-    })
+      images: this.model.userImages()
+    });
+
+    this.addSubview("#image-carousel-container", imageCarousel);
   },
 
   render: function () {
     var content = this.template()
     this.$el.html(content);
     this.attachSubviews();
+    this.onRender();
 
     return this;
   }

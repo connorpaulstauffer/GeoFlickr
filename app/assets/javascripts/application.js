@@ -17,7 +17,7 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require jquery.geocomplete.min
-//= require slick.min
+//= require jquery.slick
 //= require bootstrap-sprockets
 //= require underscore
 //= require backbone
