@@ -17,6 +17,11 @@ class ImageUploader < CarrierWave::Uploader::Base
     process quality: 100
   end
 
+  version :macro do
+    process resize_to_limit: [800, 800]
+    process quality: 800   
+  end
+
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end

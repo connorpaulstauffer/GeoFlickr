@@ -1,7 +1,7 @@
 <% if (image) { %>
   <% if (image.get("image").image) { %>
-    <img src="<%= image.get("image").image.thumb.url %>" id="image-src"/>
+    <img src="<%= image.get("image").image.macro.url %>" class="img-responsive"/>
   <% } else { %>
-    <img src="<%= image.get("image").thumb.url %>" id="image-src"/>
+    <img src="<%= image.get("image").macro.url %>" class="img-responsive"/>
   <% } %>
 <% } %>
