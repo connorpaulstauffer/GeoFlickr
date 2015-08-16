@@ -23,7 +23,6 @@ GeoFlickr.Models.Image = Backbone.Model.extend({
     if (!this._userImages) {
       this._userImages = new GeoFlickr.Collections.Images();
     }
-    this._userImages.fetch();
 
     return this._userImages
   },

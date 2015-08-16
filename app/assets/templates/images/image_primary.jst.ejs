@@ -1,0 +1,7 @@
+<% if (image) { %>
+  <% if (image.get("image").image) { %>
+    <img src="<%= image.get("image").image.thumb.url %>" id="image-src"/>
+  <% } else { %>
+    <img src="<%= image.get("image").thumb.url %>" id="image-src"/>
+  <% } %>
+<% } %>

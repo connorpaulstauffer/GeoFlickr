@@ -14,13 +14,31 @@
     color: grey !important;
 }
 
-#slider-images {
-  width: 50%;
-  margin: 0 auto;
-  img {
-    height: 100px;
+#image-carousel-container {
+  // margin-top: 52px;
+  #primary-image {
+    // max-height: 80%;
+    #primary-image-container {
+      // max-height: 100%;
+      img {
+        max-height: 100%;
+        max-width: 100%;
+      }
+    }
+  }
+  #slider-images {
+    width: 50%;
+    margin: 0 auto;
+    img {
+      height: 100px;
+    }
+    .slider-item {
+      margin-left: 2px;
+      margin-right: 2px;
+    }
   }
 }
+
 
 // #image-display {
 //   img {
