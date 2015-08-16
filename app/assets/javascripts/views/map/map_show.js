@@ -14,7 +14,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
 
     // this.listenTo(this.collection, "add", this.addMarker);
     this.listenTo(this.collection, "remove", this.removeMarker);
-    this.listenTo(this.collection, "sync", this.resetMap);
+    this.listenTo(this.collection, "sync", this.handleSync);
     // the map currently doesn't move unless the collection changes
     // we want the
     this.listenTo(this.collection, "change:center", this.resetMap);
@@ -34,13 +34,31 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     this.addSearchInMapButton();
   },
 
+  handleSync: function () {
+    if (this.collection.center) {
+      this.resetMap();
+    } else {
+      this.resetMarkers();
+    }
+  },
+
+  resetMarkers: function () {
+    _(this._markers).each(this.removeMarker.bind(this));
+    this.collection.each(function (image) {
+      this.addMarker(image, false);
+    }.bind(this));
+  },
+
   resetMap: function () {
+    if (!this.collection.center) { return; }
     _(this._markers).each(this.removeMarker.bind(this));
     var coordinates = $.parseJSON(this.collection.center);
     this._center = new google.maps.LatLng(coordinates[0], coordinates[1]);
     this._bounds = new google.maps.LatLngBounds(this._center);
     // this._map.setCenter(this._center);
-    this.collection.each(this.addMarker.bind(this));
+    this.collection.each(function (image) {
+      this.addMarker(image, true);
+    }.bind(this));
   },
 
   addSearchInMapButton: function () {
@@ -70,16 +88,46 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
   },
 
   search: function () {
-    var bounds = this._map.getBounds();
+    this.collection.center = null;
+    var mapBounds = this._map.getBounds();
+    var ne = mapBounds.getNorthEast();
+    var sw = mapBounds.getSouthWest();
 
-    this.collection.fetch({
-      data: {
-        filter_data: {
-          latitude: [bounds.Ia.G, bounds.Ia.j],
-          longitude: [bounds.Ca.j, bounds.Ca.G]
-        }
-      }
-    })
+    var filterData = {
+      lat: [sw.lat(), ne.lat()],
+      lng: [sw.lng(), ne.lng()]
+    };
+
+    this.collection.fetch({ data: { filter_data: filterData } });
+
+    // var bounds = this._map.getBounds()
+    // var center = this._map.getCenter();
+    // // handle behavior of wrapped map
+    // var lng = [bounds.Ca.j, bounds.Ca.G].sort();
+    // if (center.K < lng[0] || center.K > lng[1]) {
+    //   var longitude = [
+    //     [-180, bounds.Ca.G],
+    //     [bounds.Ca.j, 180]
+    //   ]
+    // } else {
+    //   var longitude = [bounds.Ca.G, bounds.Ca.j];
+    // }
+    // var latitude = [bounds.Ia.G, bounds.Ia.j];
+    //
+    // this.collection.fetch({
+    //   data: {
+    //     filter_data: {
+    //       bounds: {
+    //         latitude: latitude,
+    //         longitude: longitude
+    //       }
+    //     }
+    //   }
+    // }, {
+    //   success: function () {
+    //     debugger
+    //   }
+    // })
   },
 
   extendBounds: function (marker) {
@@ -89,16 +137,16 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     this._map.fitBounds(this._bounds);
   },
 
-  confineBounds: function () {
-    // it would be nice to avoid doing this for every removed marker
-    this._bounds = new google.maps.LatLngBounds();
-    _(this._markers).forEach(function (marker) {
-      this._bounds.extend(marker.position);
-      this._map.fitBounds(this._bounds);
-    }.bind(this));
-  },
+  // confineBounds: function () {
+  //   // it would be nice to avoid doing this for every removed marker
+  //   this._bounds = new google.maps.LatLngBounds();
+  //   _(this._markers).forEach(function (marker) {
+  //     this._bounds.extend(marker.position);
+  //     this._map.fitBounds(this._bounds);
+  //   }.bind(this));
+  // },
 
-  addMarker: function (image) {
+  addMarker: function (image, extendBounds) {
     if (this._markers[image.id]) { return; }
     if (!(image.get("latitude") && image.get("longitude"))) { return; }
     var view = this;
@@ -117,7 +165,9 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
       view.showMarkerInfo(event, marker);
     });
 
-    this.extendBounds(marker);
+    if (extendBounds) {
+      this.extendBounds(marker);
+    }
     this._markers[image.id] = marker;
   },
 
@@ -127,7 +177,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
       marker.setMap(null);
       delete this._markers[image.id];
     }
-    this.confineBounds();
+    // this.confineBounds();
   },
 
   showMarkerInfo: function (event, marker) {

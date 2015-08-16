@@ -16,11 +16,16 @@ GeoFlickr.Collections.Images = Backbone.Collection.extend({
       delete response.center
     }
 
+    // if (response.bounds) {
+    //   this.bounds = response.bounds;
+    //   delete response.bounds;
+    // }
+
     if (response.tags) {
       this.tags().set(response.tags);
       delete response.tags;
     }
-    
+
     return response.images;
   }
 });

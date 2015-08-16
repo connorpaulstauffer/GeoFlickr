@@ -48,4 +48,37 @@ class Image < ActiveRecord::Base
          .order("distance_from_center")
          .limit(20)
   end
+
+  def self.from_bounds(filter_data)
+    binds = {
+      :lat_min => filter_data['lat'][0],
+      :lat_max => filter_data['lat'][1],
+      :lng_min => filter_data['lng'][0],
+      :lng_max => filter_data['lng'][1]
+    }
+
+    if binds[:lng_min].to_f > binds[:lng_max].to_f
+      # Wrap around the International Date Line
+      Image.where(<<-SQL, binds)
+        (images.longitude BETWEEN :lng_min AND 180
+          OR images.longitude BETWEEN -180 AND :lng_max)
+        AND images.latitude BETWEEN :lat_min AND :lat_max
+      SQL
+    else
+      Image.where(<<-SQL, binds)
+        images.latitude BETWEEN :lat_min AND :lat_max
+          AND images.longitude BETWEEN :lng_min AND :lng_max
+      SQL
+    end
+
+    # lat = bounds[:latitude]
+    # lng = bounds[:longitude]
+    # if lng[0].is_a?(Array)
+    #   Image.includes(:favorites, :tags)
+    #     .where("((latitude BETWEEN #{lat[0][0]} AND #{lat[0][1]}) OR (latitude BETWEEN #{lat[1][0]} AND #{lat[1][1]})) AND longitude BETWEEN #{lng[0]} AND #{lng[1]}")
+    # else
+    #   Image.includes(:favorites, :tags)
+    #     .where("latitude BETWEEN #{lat[0]} AND #{lat[1]} AND longitude BETWEEN #{lng[0]} AND #{lng[1]}")
+    # end
+  end
 end
