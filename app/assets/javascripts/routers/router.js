@@ -1,7 +1,8 @@
 GeoFlickr.Routers.Router = Backbone.Router.extend({
   routes: {
     "": "imageIndex",
-    "images/new": "newImage"
+    "images/new": "newImage",
+    "images/:id": "imageShow"
   },
 
   initialize: function (options) {
@@ -29,6 +30,10 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
       collection: this.images()
     });
     this.swap(imageIndex);
+  },
+
+  imageShow: function (id) {
+
   },
 
   swap: function (newView) {

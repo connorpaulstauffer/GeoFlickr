@@ -8,6 +8,11 @@ class Api::ImagesController < ApplicationController
     end
   end
 
+  def show
+    @image = Image.includes(:favorites, :tags).find(params[:id])
+    render 'show'
+  end
+
   def index
     if params[:filter_data]
       if params[:filter_data][:location]

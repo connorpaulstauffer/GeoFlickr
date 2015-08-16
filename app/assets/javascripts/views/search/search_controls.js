@@ -9,7 +9,6 @@ GeoFlickr.Views.SearchControls = Backbone.CompositeView.extend({
     "click #search-icon": "searchByLocation",
     "keydown #index-search-input": "handleSearchKeypress",
     "click input:checkbox": "handleCheckboxClick"
-    // "change input:checkbox": "filterByTags"
   },
 
   initialize: function (options) {
