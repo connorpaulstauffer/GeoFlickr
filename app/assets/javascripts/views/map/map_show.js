@@ -93,41 +93,37 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     var ne = mapBounds.getNorthEast();
     var sw = mapBounds.getSouthWest();
 
-    var filterData = {
+    var bounds = {
       lat: [sw.lat(), ne.lat()],
       lng: [sw.lng(), ne.lng()]
     };
 
-    this.collection.fetch({ data: { filter_data: filterData } });
+    this.collection.fetch({ data: {
+      filter_data: {
+        bounds: bounds
+      }
+    } });
+  },
 
-    // var bounds = this._map.getBounds()
-    // var center = this._map.getCenter();
-    // // handle behavior of wrapped map
-    // var lng = [bounds.Ca.j, bounds.Ca.G].sort();
-    // if (center.K < lng[0] || center.K > lng[1]) {
-    //   var longitude = [
-    //     [-180, bounds.Ca.G],
-    //     [bounds.Ca.j, 180]
-    //   ]
-    // } else {
-    //   var longitude = [bounds.Ca.G, bounds.Ca.j];
-    // }
-    // var latitude = [bounds.Ia.G, bounds.Ia.j];
-    //
-    // this.collection.fetch({
-    //   data: {
-    //     filter_data: {
-    //       bounds: {
-    //         latitude: latitude,
-    //         longitude: longitude
-    //       }
-    //     }
-    //   }
-    // }, {
-    //   success: function () {
-    //     debugger
-    //   }
-    // })
+  filterByTags: function (checked) {
+    this.collection.center = null;
+    var mapBounds = this._map.getBounds();
+    var ne = mapBounds.getNorthEast();
+    var sw = mapBounds.getSouthWest();
+
+    var filterData = {
+      bounds: {
+        lat: [sw.lat(), ne.lat()],
+        lng: [sw.lng(), ne.lng()]
+      },
+      tags: checked
+    };
+
+    this.collection.fetch({
+      data: {
+        filter_data: filterData
+      }
+    })
   },
 
   extendBounds: function (marker) {

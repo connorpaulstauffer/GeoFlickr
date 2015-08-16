@@ -15,12 +15,14 @@ class Api::ImagesController < ApplicationController
         @images = Image.from_center(center)
         @center = center.to_json
       else
-        @images = Image.from_bounds(params[:filter_data])
+        tags = params[:filter_data][:tags]
+        @images = Image.from_bounds(params[:filter_data][:bounds], tags)
       end
     else
       @images = Image.from_center([37.78, -122.41])
       @center = [37.78, -122.41].to_json
     end
+
     @tags = @images.map(&:tags).flatten.uniq
     render :index
   end
