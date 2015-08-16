@@ -9,6 +9,10 @@ if current_user
   end
 end
 
+json.user_images do
+  json.array! @image.user.images
+end
+
 json.favorites_count @image.favorites.count
 
 json.tags do

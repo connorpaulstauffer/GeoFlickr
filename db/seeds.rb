@@ -9,11 +9,13 @@
 require 'csv'
 require 'open-uri'
 
-if !User.find_by_email("user@example.com")
+user = User.find_by_email("user@example.com")
+
+if !user
   user = User.create!(email: "user@example.com", password: "password")
 end
 
-Image.destroy_all
+user.images.destroy_all
 
 data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, header_converters: :symbol, converters: :all}) do |row|
   image = row.to_hash
