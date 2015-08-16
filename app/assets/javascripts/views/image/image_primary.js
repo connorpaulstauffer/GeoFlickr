@@ -20,10 +20,11 @@ GeoFlickr.Views.PrimaryImage = Backbone.View.extend({
     this.$el.html(content);
 
     return this;
-  },
-
-  onRender: function () {
-    var parentHeight = this.$el.parent().height();
-    this.$el.height(parentHeight);
   }
+
+  // onRender: function () {
+  //   debugger
+  //   var parentHeight = this.$el.parent().height();
+  //   this.$el.height(parentHeight);
+  // }
 });
