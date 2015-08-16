@@ -1,5 +1,9 @@
 <% if (image.get("image").image) { %>
-  <img src="<%= image.get("image").image.micro.url %>">
+  <a href="javascript:void(0)">
+    <img src="<%= image.get("image").image.micro.url %>">
+  </a>
 <% } else { %>
-  <img src="<%= image.get("image").micro.url %>">
+  <a href="javascript:void(0)">
+    <img src="<%= image.get("image").micro.url %>">
+  </a>
 <% } %>

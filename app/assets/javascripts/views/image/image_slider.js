@@ -18,7 +18,8 @@ GeoFlickr.Views.ImageSlider = Backbone.CompositeView.extend({
       infinite: true,
       speed: 1,
       slidesToShow: 1,
-      variableWidth: true
+      variableWidth: true,
+      focusOnSelect: true
     });
   },
 

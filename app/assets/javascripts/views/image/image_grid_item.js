@@ -26,7 +26,8 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
     this._imageGrid.deactivateImage(this.model.id);
   },
 
-  toggleFavorite: function () {
+  toggleFavorite: function (event) {
+    event.preventDefault();
     this.model.isFavorited() ? this.unfavoriteImage() : this.favoriteImage();
   },
 
