@@ -39,6 +39,7 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     var content = this.template()
     this.$el.html(content);
     this.attachSubviews();
+    this.$("#slider-images").addClass("small");
 
     return this;
   },
@@ -46,8 +47,8 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
   onRender: function () {
     var windowHeight = $( window ).height();
     var navbarHeight = $(".navbar").height();
-    this.$el.height(windowHeight - navbarHeight - 200);
-    this.$("#primary-image").height(windowHeight - navbarHeight - 300);
+    this.$el.height(windowHeight - navbarHeight - 100);
+    this.$("#primary-image").height(windowHeight - navbarHeight - 135);
     Backbone.CompositeView.prototype.onRender.call(this);
   }
 })
