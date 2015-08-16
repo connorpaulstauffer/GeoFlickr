@@ -37,26 +37,27 @@
       left: 50%;
       transform: translateX(-50%);
       margin: 0 auto;
+      width: 25%;
+      #slider-wrapper {
+        margin-left: 40px;
+        margin-right: 40px;
+      }
       .slider-item {
         margin-left: 2px;
         margin-right: 2px;
+        height: 25px;
       }
-
+      img {
+        height: 100%;
+      }
       #variable-width-slider {
         margin-bottom: 5px;
       }
     }
 
-    #slider-images.small {
-      width: 25%;
-      img {
-        height: 25px;
-      }
-    }
-
     #slider-images.large {
       width: 50%;
-      img {
+      .slider-item {
         height: 100px;
       }
     }

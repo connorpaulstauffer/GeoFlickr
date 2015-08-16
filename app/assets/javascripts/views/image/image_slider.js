@@ -5,6 +5,8 @@ GeoFlickr.Views.ImageSlider = Backbone.CompositeView.extend({
     "afterChange #variable-width-slider": "handleSliderChange"
   },
 
+  attributes: { "id": "slider-wrapper"},
+
   initialize: function (options) {
     this._carousel = options.carousel;
     this._primaryImage = options.activeImage
@@ -12,10 +14,10 @@ GeoFlickr.Views.ImageSlider = Backbone.CompositeView.extend({
 
   activateSlider: function () {
     this.$("#variable-width-slider").slick({
-      infinite: true,
-      speed: 300,
-      slidesToShow: 1,
       centerMode: true,
+      infinite: true,
+      speed: 1,
+      slidesToShow: 1,
       variableWidth: true
     });
   },

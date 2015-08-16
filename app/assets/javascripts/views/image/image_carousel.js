@@ -3,11 +3,36 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
 
   attributes: { "id": "image-carousel" },
 
+  events: {
+    "mouseenter #slider-images": "expandSlider",
+    "mouseleave #slider-images": "shrinkSlider"
+
+  },
+
   initialize: function (options) {
     this._activeImage = options.activeImage;
     this._images = options.images;
     this.addImageSlider();
     // this.setPrimaryImage(this._activeImage);
+  },
+
+  expandSlider: function () {
+    this.$("#slider-images").addClass("large");
+    this.$(".slider-item").each(function (idx, slider) {
+      var width = $(slider).find("img").width()
+      $(slider).css("width", width);
+    });
+  },
+
+  shrinkSlider: function () {
+    this.$("#slider-images").removeClass("large");
+    var slickIdx = this.$("#variable-width-slider").slick("slickCurrentSlide");
+    this.$("#variable-width-slider").slick("goTo", slickIdx);
+
+    this.$(".slider-item").each(function (idx, slider) {
+      var width = $(slider).find("img").width()
+      $(slider).css("width", width);
+    });
   },
 
   addImageSlider: function () {
@@ -39,7 +64,6 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     var content = this.template()
     this.$el.html(content);
     this.attachSubviews();
-    this.$("#slider-images").addClass("small");
 
     return this;
   },
