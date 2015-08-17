@@ -10,6 +10,18 @@
   font-size: 28px;
 }
 
+.user-info {
+  margin: 10px;
+  display: inline-block;
+  h4 {
+    display: inline;
+  }
+  .user-avatar {
+    height: 75px;
+    width: 75px;
+  }
+}
+
 .slick-prev:before, .slick-next:before {
     color: grey !important;
 }
