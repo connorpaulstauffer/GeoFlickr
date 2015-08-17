@@ -13,7 +13,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
       imageGrid: this
     });
 
-    this.addSubview("#photo-grid", imageGridItem);
+    this.addSubview(".photo-grid", imageGridItem);
 
     this.$imageGrid.imagesLoaded(function() {
       this.$imageGrid.masonry("appended", imageGridItem.$el);
@@ -21,13 +21,13 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   },
 
   removeImageGridItem: function (image) {
-    this.removeModelSubview("#photo-grid", image);
+    this.removeModelSubview(".photo-grid", image);
     // you could probably use the masonry remove method here
     this.$imageGrid.masonry("reload");
   },
 
   initializeMasonry: function () {
-    this.$imageGrid = $("#photo-grid");
+    this.$imageGrid = this.$(".photo-grid");
 
     this.$imageGrid.imagesLoaded(function () {
       this.$imageGrid.masonry({

@@ -50,6 +50,7 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
 
       this.addSubview("#user-favorites-container", userFavorites);
       this._userFavorites = userFavorites;
+      userFavorites.onRender();
     }
 
     this.$("#user-images-container").css("display", "none");
