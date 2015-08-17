@@ -9,4 +9,9 @@ class Api::UsersController < ApplicationController
       render json: errors, status: :unprocessable_entity
     end
   end
+
+  def show
+    @user = User.includes(:favorite_images, :images).find(params[:id])
+    render 'show'
+  end
 end
