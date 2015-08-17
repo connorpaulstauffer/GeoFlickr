@@ -23,6 +23,14 @@
   }
 }
 
+#banner-image {
+  height: 300px;
+  overflow-y: hidden;
+  img {
+    width: 100%;
+  }
+}
+
 .slick-prev:before, .slick-next:before {
     color: grey !important;
 }
