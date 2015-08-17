@@ -40,7 +40,23 @@
   #image-carousel-container {
     background-color: #555555;
     #primary-image {
-      // max-height: 80%;
+      position: relative;
+      #left-arrow {
+        position: absolute;
+        display: block;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        font-size: 3em;
+      }
+      #right-arrow {
+        position: absolute;
+        display: block;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        font-size: 3em;
+      }
       #primary-image-container {
         img {
           margin: 0 auto;

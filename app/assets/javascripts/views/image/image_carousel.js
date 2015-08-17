@@ -5,8 +5,9 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
 
   events: {
     "mouseenter #slider-images": "expandSlider",
-    "mouseleave #slider-images": "shrinkSlider"
-
+    "mouseleave #slider-images": "shrinkSlider",
+    "click #left-arrow": "prevSlide",
+    "click #right-arrow": "nextSlide"
   },
 
   initialize: function (options) {
@@ -58,6 +59,14 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     this.addSubview("#primary-image", this._primaryImageView);
     // Fixes height to a pixel value every time primary image renders
     this.$("#primary-image-container").height(this.$("#primary-image").height());
+  },
+
+  nextSlide: function () {
+    $("#variable-width-slider").slick("slickNext");
+  },
+
+  prevSlide: function () {
+    $("#variable-width-slider").slick("slickPrev");
   },
 
   render: function () {

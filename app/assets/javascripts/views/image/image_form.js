@@ -86,6 +86,10 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
     this.$el.css("display", "none");
   },
 
+  attachGeocomplete: function () {
+    this.$("#search-input").geocomplete();
+  },
+
   render: function () {
     var content = this.template({
       image: this.model,
@@ -93,7 +97,8 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
     });
     this.$el.html(content);
     this.attachSubviews();
-
+    this.attachGeocomplete();
+    
     return this;
   }
 
