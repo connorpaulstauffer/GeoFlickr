@@ -141,7 +141,7 @@
   margin: 0;
 }
 
-#photo-grid-container {
+.image-grid-container {
   padding: 0;
   #photo-grid {
     margin: 0 auto;
@@ -156,8 +156,6 @@
   	  	width: 100%;
   	  	height: auto;
   	  }
-
-
       .overlay {
         position: absolute;
         width:100%;

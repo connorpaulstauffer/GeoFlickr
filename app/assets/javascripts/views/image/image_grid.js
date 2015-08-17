@@ -2,7 +2,9 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   template: JST['images/image_grid'],
 
   initialize: function (options) {
-    this._imageIndex = options.imageIndex;
+    if (options.imageIndex) {
+      this._imageIndex = options.imageIndex;
+    }
   },
 
   addImageGridItem: function (image) {
@@ -38,11 +40,15 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   },
 
   activateImage: function (id) {
-    this._imageIndex.activateImage(id);
+    if (this._imageIndex) {
+      this._imageIndex.activateImage(id);
+    }
   },
 
   deactivateImage: function (id) {
-    this._imageIndex.deactivateImage(id);
+    if (this._imageIndex) {
+      this._imageIndex.deactivateImage(id);
+    }
   },
 
   render: function () {
