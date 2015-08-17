@@ -31,7 +31,7 @@ GeoFlickr.Models.Image = Backbone.Model.extend({
     if (!this._user) {
       this._user = new GeoFlickr.Models.User();
     }
-
+    // this._user.fetch()
     return this._user;
   },
 

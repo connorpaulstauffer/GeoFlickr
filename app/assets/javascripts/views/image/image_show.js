@@ -6,6 +6,7 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
   initialize: function () {
     // this.listenTo(this.model, "sync", this.render);
     this.addImageCarousel();
+    this.addUserInfo();
   },
 
   addImageCarousel: function () {
@@ -15,6 +16,14 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
     });
 
     this.addSubview("#image-carousel-container", imageCarousel);
+  },
+
+  addUserInfo: function () {
+    var userInfo = new GeoFlickr.Views.UserInfo({
+      model: this.model.user()
+    });
+
+    this.addSubview("#user-info-container", userInfo);
   },
 
   render: function () {

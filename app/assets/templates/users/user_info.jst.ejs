@@ -1,0 +1,5 @@
+<% if (user) { %>
+  <% if (user.get("email")) { %>
+    <%= user.get("email").split("@")[0] %>
+  <% } %>
+<% } %>
