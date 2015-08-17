@@ -8,8 +8,20 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
 
   initialize: function (options) {
     this.$rootEl = options.$rootEl;
-    this.$rootView = new GeoFlickr.Views.Root();
+    this.$rootContent = this.$rootEl.find("#content");
+    this.$navBar = this.$rootEl.find("#navbar")
+    // this.$rootView = new GeoFlickr.Views.Root();
     this.images().fetch();
+    this.setupNavBar();
+  },
+
+  setupNavBar: function () {
+    var navBar = new GeoFlickr.Views.NavBar({
+      currentUser: this.$rootEl.data("current-user")
+    });
+
+    this.$navBar.html(navBar.$el);
+    navBar.render();
   },
 
   images: function () {
@@ -51,7 +63,7 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
   swap: function (newView) {
     this._currentView && this.currentView.remove();
     this.currentView = newView;
-    this.$rootEl.html(newView.$el);
+    this.$rootContent.html(newView.$el);
     newView.render()
 
     return newView;
