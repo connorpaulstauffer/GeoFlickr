@@ -11,20 +11,22 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
     this.addImageGrid();
   },
 
+  addTagDropdown: function () {
+    var tagDropdown = new GeoFlickr.Views.TagDropdown({
+      mapShow: this._mapShow,
+      collection: this.collection
+    })
+
+    $("#tag-dropdown").html(tagDropdown.$el);
+    tagDropdown.render();
+  },
+
   addImageGrid: function () {
     var imageGrid = new GeoFlickr.Views.ImageGrid({
       collection: this.collection,
       imageIndex: this
     });
     this.addSubview("#photo-grid-container", imageGrid);
-  },
-
-  addSearchControls: function () {
-    var searchControls = new GeoFlickr.Views.SearchControls({
-      collection: this.collection,
-      mapShow: this._mapShow
-    });
-    $("#index-search-controls").html(searchControls.render().$el);
   },
 
   addMap: function () {
@@ -56,7 +58,7 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
     this.$el.html(content);
     this.attachSubviews();
     this.addMap();
-    this.addSearchControls();
+    this.addTagDropdown();
     this.onRender();
 
     return this;

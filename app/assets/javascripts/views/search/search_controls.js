@@ -1,13 +1,15 @@
-GeoFlickr.Views.SearchControls = Backbone.CompositeView.extend({
-  template: JST["search/search_controls"],
+GeoFlickr.Views.TagDropdown = Backbone.CompositeView.extend({
+  template: JST["search/tag_dropdown"],
 
-  attributes: {
-    "id": "search-control"
-  },
+  // attributes: {
+  //   "id": "search-control"
+  // },
+
+  tagName: "li",
+
+  className: "dropdown",
 
   events: {
-    "click #search-icon": "searchByLocation",
-    "keydown #index-search-input": "handleSearchKeypress",
     "click input:checkbox": "handleCheckboxClick"
   },
 
@@ -32,23 +34,6 @@ GeoFlickr.Views.SearchControls = Backbone.CompositeView.extend({
     this.removeModelSubview("#tag-label-list", tag);
   },
 
-  attachGeocomplete: function () {
-    this.$("#index-search-input").geocomplete();
-  },
-
-  searchByLocation: function () {
-    event.preventDefault();
-    this._mapShow.searchByLocation(this.$("#index-search-input").val());
-  },
-
-  handleSearchKeypress: function (event) {
-    if (event.which === 9) { event.preventDefault(); }
-    if (event.which === 13) {
-      event.preventDefault();
-      this._mapShow.searchByLocation(this.$("#index-search-input").val());
-    }
-  },
-
   handleCheckboxClick: function (event) {
     $(event.delegateTarget).find(":checked").each(function (idx, checkbox) {
       if (checkbox !== event.target) {
@@ -71,7 +56,6 @@ GeoFlickr.Views.SearchControls = Backbone.CompositeView.extend({
   render: function () {
     var content = this.template();
     this.$el.html(content);
-    this.attachGeocomplete();
 
     return this;
   }

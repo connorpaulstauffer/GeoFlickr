@@ -4,7 +4,9 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   events: {
       'click #sign-up': 'openSignUpModal',
       'click #log-in': 'openLogInModal',
-      'click #sign-out': 'signOut'
+      'click #sign-out': 'signOut',
+      "click #search-icon": "searchByLocation",
+      "keydown #index-search-input": "handleSearchKeypress",
   },
 
   initialize: function (options) {
@@ -98,11 +100,30 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     })
   },
 
+  attachGeocomplete: function () {
+    this.$("#search-input").geocomplete();
+  },
+
+  searchByLocation: function () {
+    event.preventDefault();
+    this._mapShow.searchByLocation(this.$("#search-input").val());
+  },
+
+  handleSearchKeypress: function (event) {
+    if (event.which === 9) { event.preventDefault(); }
+    if (event.which === 13) {
+      event.preventDefault();
+      this._mapShow.searchByLocation(this.$("#search-input").val());
+    }
+  },
+
   render: function () {
     var content = this.template({
       currentUserId: this.currentUserId
     });
     this.$el.html(content);
+    this.attachGeocomplete();
+
     // this.attachSubviews();
 
     return this;
