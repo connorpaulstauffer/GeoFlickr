@@ -24,7 +24,15 @@ GeoFlickr.Models.Image = Backbone.Model.extend({
       this._userImages = new GeoFlickr.Collections.Images();
     }
 
-    return this._userImages
+    return this._userImages;
+  },
+
+  user: function () {
+    if (!this._user) {
+      this._user = new GeoFlickr.Models.User();
+    }
+
+    return this._user;
   },
 
   parse: function (response) {
@@ -36,6 +44,11 @@ GeoFlickr.Models.Image = Backbone.Model.extend({
     if (response.tags) {
       this.tags().set(response.tags);
       delete response.tags;
+    }
+
+    if (response.user) {
+      this.user().set(response.user)
+      delete response.user
     }
 
     if (response.user_images) {

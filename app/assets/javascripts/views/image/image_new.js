@@ -127,7 +127,7 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
           success: function (image, response) {
             // this will change
             // image was in the wrong format. couldn't find thumbnail
-            // that.collection.add(image);
+            // this.collection.add(image);
             if (i === numberOfImages) {
               this._modal.close()
               Backbone.history.navigate("/#");

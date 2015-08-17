@@ -1,4 +1,4 @@
-json.(@image, :id, :image, :user_id, :title, :latitude, :longitude, :address)
+json.(@image, :id, :image, :title, :latitude, :longitude, :address)
 
 if current_user
   favorite = @image.favorites.find_by(user_id: current_user.id)
@@ -8,6 +8,8 @@ if current_user
     end
   end
 end
+
+json.user @image.user
 
 json.user_images do
   json.array! @image.user.images

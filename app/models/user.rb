@@ -7,6 +7,8 @@
 #  password_digest :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  avatar          :string
+#  banner          :string
 #
 
 class User < ActiveRecord::Base
@@ -20,6 +22,9 @@ class User < ActiveRecord::Base
   has_many :images, dependent: :destroy
   has_many :favorites
   has_many :favorite_images, through: :favorites, source: :image
+
+  mount_uploader :avatar, ImageUploader
+  mount_uploader :banner, ImageUploader
 
   def self.find_by_credentials(email, password)
     user = User.find_by_email(email)
