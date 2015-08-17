@@ -1,6 +1,12 @@
 GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
   template: JST["users/user_show"],
 
+  events: {
+    "click #user-images-link": "addUserImages",
+    "click #user-favorites-link": "addFavoriteImages"
+
+  },
+
   initialize: function () {
     this.addUserBanner();
     this.addUserImages();
@@ -15,16 +21,39 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
   },
 
   addUserImages: function () {
-    if (this._currentView) {
-      this.removeSubview("#user-content-container", this._currentView);
+    if (this.$("#user-images-link").hasClass("active")) { return; }
+    this.$("#user-favorites-link").removeClass("active")
+    this.$("#user-images-link").addClass("active")
+
+    if (!this._userImages) {
+      var userImages = new GeoFlickr.Views.ImageGrid({
+        collection: this.model.images()
+      });
+
+      this.addSubview("#user-images-container", userImages);
+      this._userImages = userImages;
     }
 
-    var imageGrid = new GeoFlickr.Views.ImageGrid({
-      collection: this.model.images()
-    });
+    this.$("#user-favorites-container").css("display", "none");
+    this.$("#user-images-container").removeAttr("style");
+  },
 
-    this.addSubview("#user-content-container", imageGrid);
-    this._currentView = imageGrid;
+  addFavoriteImages: function () {
+    if (this.$("#user-favorites-link").hasClass("active")) { return; }
+    this.$("#user-images-link").removeClass("active")
+    this.$("#user-favorites-link").addClass("active")
+
+    if (!this._userFavorites) {
+      var userFavorites = new GeoFlickr.Views.ImageGrid({
+        collection: this.model.favoriteImages()
+      });
+
+      this.addSubview("#user-favorites-container", userFavorites);
+      this._userFavorites = userFavorites;
+    }
+
+    this.$("#user-images-container").css("display", "none");
+    this.$("#user-favorites-container").removeAttr("style");
   },
 
   render: function () {
@@ -34,5 +63,10 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
     this.onRender();
 
     return this;
+  },
+
+  onRender: function () {
+    this.$("#user-images-link").addClass("active");
+    Backbone.CompositeView.prototype.onRender.call(this);
   }
 });
