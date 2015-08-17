@@ -14,6 +14,10 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
   initialize: function (options) {
     this._imageGrid = options.imageGrid
     this.listenTo(this.model.favorite(), "change", this.setupFavoriteGlyph);
+    // debugger
+    this.listenTo(this.model, "change", function () {
+      // debugger;
+    })
   },
 
   activate: function (event) {

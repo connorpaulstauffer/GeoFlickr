@@ -19,7 +19,7 @@ GeoFlickr.Models.User = Backbone.Model.extend({
 
   parse: function (response) {
     if (response.images) {
-      this.images().set(response.images);
+      this.images().set(response.images, { parse: true });
       delete response.images;
     }
 

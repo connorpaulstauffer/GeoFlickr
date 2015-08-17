@@ -40,7 +40,6 @@ GeoFlickr.Models.Image = Backbone.Model.extend({
       this.favorite().set(response.favorite);
       delete response.favorite
     }
-
     if (response.tags) {
       this.tags().set(response.tags);
       delete response.tags;

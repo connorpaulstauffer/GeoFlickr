@@ -1,9 +1,13 @@
 json.(@user, :id, :email, :avatar, :banner)
 
 json.images do
-  json.array! @user.images
+  json.array! @user.images do |this_image|
+    json.partial! "api/images/image", image: this_image
+  end
 end
 
 json.favorite_images do
-  json.array! @user.favorite_images
+  json.array! @user.favorite_images do |this_image|
+    json.partial! "api/images/image", image: this_image
+  end
 end

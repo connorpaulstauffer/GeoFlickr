@@ -26,6 +26,7 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
     this.$("#user-images-link").addClass("active")
 
     if (!this._userImages) {
+      // debugger;
       var userImages = new GeoFlickr.Views.ImageGrid({
         collection: this.model.images()
       });

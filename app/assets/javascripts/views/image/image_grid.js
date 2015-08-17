@@ -5,6 +5,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     if (options.imageIndex) {
       this._imageIndex = options.imageIndex;
     }
+    // debugger;
   },
 
   addImageGridItem: function (image) {
