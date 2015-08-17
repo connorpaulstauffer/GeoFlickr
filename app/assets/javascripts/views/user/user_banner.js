@@ -7,12 +7,14 @@ GeoFlickr.Views.UserBanner = Backbone.CompositeView.extend({
   },
 
   attachBannerImage: function () {
-    debugger
-    // if (!this.model)
+    if (!this.model.get("banner")) { return; }
+    var url = this.model.get("banner").banner.url;
+    var img = $("<img>");
+    img.attr("src", url)
+    this.$("#banner-image").html(img)
   },
 
   render: function () {
-    debugger
     var content = this.template({
       user: this.model
     })
