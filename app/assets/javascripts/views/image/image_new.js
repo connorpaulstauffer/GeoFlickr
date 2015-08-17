@@ -14,17 +14,38 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       okCloses: false
     }).open(this.uploadImages.bind(this));
 
+    this._modal.on("cancel", this.handleClose.bind(this));
+    $("body").on("click", this.handleClick.bind(this));
+
     this._imageForms = {};
     this._progressBars = {};
     this._completedProgressBars = {};
+    this._fileNames = [];
 
     this._tags = new GeoFlickr.Collections.Tags();
     this._tags.fetch();
 
     this._anyLoaded = false;
     this._modal.$el.find(".modal-dialog").addClass("large");
-    // this._modal.$el.find(".ok").on("click", this.uploadImages.bind(this));
     this.attachJQueryFileUpload();
+  },
+
+  handleClick: function (event) {
+    if ($(event.target).hasClass("fade")) {
+      event.preventDefault();
+      this.handleClose();
+      this._modal.close()
+    }
+  },
+
+  handleClose: function () {
+    $.ajax({
+      url: "api/images/destroy_by_filenames",
+      data: { file_names: this._fileNames }
+    })
+
+    $("body").off("click");
+    Backbone.history.history.back();
   },
 
   attachJQueryFileUpload: function () {
@@ -34,6 +55,7 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       dataType: "json",
 
       add: function (event, data) {
+        that._fileNames.push(data.files[0].name);
         var file = data.files[0];
         var uploadProgress = new GeoFlickr.Views.ImageProgress({
           data: data,
@@ -62,10 +84,6 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
         progressBar.makeSelectable(this, model);
 
         this.addImageForm(model);
-        // this._images.push(image);
-        // this._anyLoaded = true;
-        // that.collection.add(image);
-        // that.collection.get()
       }.bind(this),
 
       error: function () {
@@ -125,12 +143,10 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
 
         form.model.save(formData, {
           success: function (image, response) {
-            // this will change
-            // image was in the wrong format. couldn't find thumbnail
-            // this.collection.add(image);
+
             if (i === numberOfImages) {
               this._modal.close()
-              Backbone.history.navigate("/#");
+              Backbone.history.navigate("#/images" + images.id, { trigger: true });
             }
           }.bind(this),
 
@@ -138,7 +154,7 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
             // need to handle errors eventually
             // destroy model, etc.
             if (i === numberOfImages) {
-              Backbone.history.navigate("/#", { trigger: true });
+              Backbone.history.navigate("#/images" + images.id, { trigger: true });
             }
           }.bind(this)
         });

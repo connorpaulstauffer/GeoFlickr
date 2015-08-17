@@ -1,6 +1,7 @@
 class Api::ImagesController < ApplicationController
   def create
     image = current_user.images.new(image_params)
+    image.file_name = image.image.file.filename
     if image.save
       render json: image
     else
@@ -39,6 +40,15 @@ class Api::ImagesController < ApplicationController
     else
       render json: image.errors.full_messages, status: :unproccessable_entity
     end
+  end
+
+  def destroy_by_filenames
+    params[:file_names].try(:each) do |file_name|
+      image = Image.find_by(file_name: file_name)
+      image.destroy if image
+    end
+
+    render json: params[:file_names].to_json
   end
 
   private
