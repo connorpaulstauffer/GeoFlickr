@@ -1,15 +1,15 @@
-url,lat,lang,address,credit
-http://proof.nationalgeographic.com/files/2015/04/150501-bestpod-volcANO.jpg,,,"Volcan De Fuego, Guatemala",Andrew Shepard
-http://proof.nationalgeographic.com/files/2014/11/PastedGraphic-2.jpg,,,"Nordaustlandet, Svalbard, Norway",Paul Nicklen
-http://proof.nationalgeographic.com/files/2015/07/NationalGeographic_1203310.jpg,,,"Jiuzhaigou Nature Reserve, China",Michael S. Yamashita
-http://i.imgur.com/YY3bLP7.jpg,,,"Alabama Hills, CA",
-http://i.imgur.com/nZQuJZM.jpg,,,"Kirkjufell, Iceland",
-http://i.imgur.com/cGSXKCP.jpg,,,"Lake Solitude, Grand Teton National Park, Wyoming",
-http://i.imgur.com/zynuyMO.jpg,,,"Trona, CA",
-http://i.imgur.com/1SHZTmz.jpg,,,"Hvitserkur, Iceland",
-http://i.imgur.com/9lDdLYR.jpg,,,"Lofoten Islands, Norway",
-http://farm9.staticflickr.com//8868//18205140545_c48ca49018_h.jpg,,,"Steptoe Butte State Park, Washington",Craig Goodwin
-https://patrikoberlinfotografie.files.wordpress.com/2015/07/dsc_7214.jpg,,,"Arches National Park, Utah",Patrik Oberlin
-http://i.imgur.com/sh19kFj.jpg,,,"Handies Peak, Colorado",
-http://i.imgur.com/fYYulaI.jpg,,,"Lagos, Portugal",
-http://proof.nationalgeographic.com/files/2015/07/prod-yourshot-345431-6054565.jpg,,,"Vestrahorn, Iceland",Sophie Carr
+url,lat,lang,address,credit,tags
+http://proof.nationalgeographic.com/files/2015/04/150501-bestpod-volcANO.jpg,,,"Volcan De Fuego, Guatemala",Andrew Shepard,
+http://proof.nationalgeographic.com/files/2014/11/PastedGraphic-2.jpg,,,"Nordaustlandet, Svalbard, Norway",Paul Nicklen,
+http://proof.nationalgeographic.com/files/2015/07/NationalGeographic_1203310.jpg,,,"Jiuzhaigou Nature Reserve, China",Michael S. Yamashita,
+http://i.imgur.com/YY3bLP7.jpg,,,"Alabama Hills, CA",,
+http://i.imgur.com/nZQuJZM.jpg,,,"Kirkjufell, Iceland",,
+http://i.imgur.com/cGSXKCP.jpg,,,"Lake Solitude, Grand Teton National Park, Wyoming",,
+http://i.imgur.com/zynuyMO.jpg,,,"Trona, CA",,
+http://i.imgur.com/1SHZTmz.jpg,,,"Hvitserkur, Iceland",,
+http://i.imgur.com/9lDdLYR.jpg,,,"Lofoten Islands, Norway",,
+http://farm9.staticflickr.com//8868//18205140545_c48ca49018_h.jpg,,,"Steptoe Butte State Park, Washington",Craig Goodwin,
+https://patrikoberlinfotografie.files.wordpress.com/2015/07/dsc_7214.jpg,,,"Arches National Park, Utah",Patrik Oberlin,
+http://i.imgur.com/sh19kFj.jpg,,,"Handies Peak, Colorado",,
+http://i.imgur.com/fYYulaI.jpg,,,"Lagos, Portugal",,
+http://proof.nationalgeographic.com/files/2015/07/prod-yourshot-345431-6054565.jpg,,,"Vestrahorn, Iceland",Sophie Carr,

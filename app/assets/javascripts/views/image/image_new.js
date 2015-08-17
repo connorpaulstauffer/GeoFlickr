@@ -3,6 +3,11 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
 
   attributes: { "id": "image-upload" },
 
+  events: {
+    "click #left-control": "previousForm",
+    "click #right-control": "nextForm"
+  },
+
   initialize: function () {
     this._modal = new Backbone.BootstrapModal({
       content: this,
@@ -84,6 +89,9 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
         progressBar.makeSelectable(this, model);
 
         this.addImageForm(model);
+        if (_(this._progressBars).keys().length > 1) {
+          this.$("#image-form-flow-controls").removeAttr("style");
+        }
       }.bind(this),
 
       error: function () {
@@ -137,35 +145,55 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
       i++;
 
       var formData = form.$el.find("form").serializeJSON();
+
       if (form._marker) {
         formData.image.latitude = form._marker.position.G;
         formData.image.longitude = form._marker.position.K;
+      }
 
-        form.model.save(formData, {
-          success: function (image, response) {
-
-            if (i === numberOfImages) {
-              this._modal.close()
-              Backbone.history.navigate("#/images" + images.id, { trigger: true });
-            }
-          }.bind(this),
+      form.model.save(formData, {
+        success: function (image, response) {
+          if (i === numberOfImages) {
+            this._modal.close()
+            Backbone.history.navigate("#/images/" + image.id, { trigger: true });
+          }
+        }.bind(this),
 
           error: function () {
             // need to handle errors eventually
             // destroy model, etc.
             if (i === numberOfImages) {
-              Backbone.history.navigate("#/images" + images.id, { trigger: true });
+              Backbone.history.navigate("#/images" + image.id, { trigger: true });
             }
           }.bind(this)
         });
-      }
+
     }.bind(this))
+  },
+
+  nextForm: function () {
+    var $nextProgressBar = this.$(".panel-success").next();
+    if ($nextProgressBar.length > 0) {
+      $nextProgressBar.trigger("click");
+    } else {
+      this.$("#progress-bars").children().first().trigger("click");
+    }
+  },
+
+  previousForm: function () {
+    var $prevProgressBar = this.$(".panel-success").prev();
+    if ($prevProgressBar.length > 0) {
+      $prevProgressBar.trigger("click");
+    } else {
+      this.$("#progress-bars").children().last().trigger("click");
+    }
   },
 
   render: function () {
     var content = this.template();
     this.$el.html(content);
     this.attachSubviews();
+    this.$("#image-form-flow-controls").css("display", "none");
 
     return this;
   }

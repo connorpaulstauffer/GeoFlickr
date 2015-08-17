@@ -2,7 +2,7 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
   template: JST["images/image_form"],
 
   events: {
-    "keypress #search-input": "handleSearchKeypress",
+    "keydown #form-search-input": "handleSearchKeypress",
     "keypress #tag-input": "handleTagKeypress"
   },
 
@@ -42,6 +42,7 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
 
   handleSearchKeypress: function (event) {
     if (event.which === 13) {
+      event.preventDefault();
       this.searchOnMap($(event.currentTarget).val());
     }
   },
@@ -87,7 +88,7 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
   },
 
   attachGeocomplete: function () {
-    this.$("#search-input").geocomplete();
+    this.$("#form-search-input").geocomplete();
   },
 
   render: function () {
@@ -98,7 +99,7 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
     this.$el.html(content);
     this.attachSubviews();
     this.attachGeocomplete();
-    
+
     return this;
   }
 
