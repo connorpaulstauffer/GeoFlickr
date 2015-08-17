@@ -2,6 +2,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   template: JST['images/image_grid'],
 
   initialize: function (options) {
+    // debugger;
     if (options.imageIndex) {
       this._imageIndex = options.imageIndex;
     }

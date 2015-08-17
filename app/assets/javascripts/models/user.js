@@ -19,12 +19,16 @@ GeoFlickr.Models.User = Backbone.Model.extend({
 
   parse: function (response) {
     if (response.images) {
-      this.images().set(response.images, { parse: true });
+      collectionResponse = {};
+      collectionResponse["images"] = response.images
+      this.images().set(collectionResponse, { parse: true });
       delete response.images;
     }
 
     if (response.favorite_images) {
-      this.favoriteImages().set(response.favorite_images);
+      collectionResponse = {};
+      collectionResponse["images"] = response.favorite_images
+      this.favoriteImages().set(collectionResponse, { parse: true });
       delete response.favorite_images;
     }
 

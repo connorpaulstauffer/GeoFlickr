@@ -4,7 +4,6 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
   events: {
     "click #user-images-link": "addUserImages",
     "click #user-favorites-link": "addFavoriteImages"
-
   },
 
   initialize: function () {
@@ -14,7 +13,7 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
 
   addUserBanner: function () {
     var userBanner = new GeoFlickr.Views.UserBanner({
-    model: this.model
+      model: this.model
     })
 
     this.addSubview("#user-banner-container", userBanner);
@@ -26,7 +25,6 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
     this.$("#user-images-link").addClass("active")
 
     if (!this._userImages) {
-      // debugger;
       var userImages = new GeoFlickr.Views.ImageGrid({
         collection: this.model.images()
       });
