@@ -106,14 +106,16 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
 
   searchByLocation: function () {
     event.preventDefault();
-    this._mapShow.searchByLocation(this.$("#search-input").val());
+    var location = this.$("#search-input").val();
+    Backbone.history.navigate("?location=" + location, { trigger: true });
   },
 
   handleSearchKeypress: function (event) {
+    debugger;
     if (event.which === 9) { event.preventDefault(); }
     if (event.which === 13) {
-      event.preventDefault();
-      this._mapShow.searchByLocation(this.$("#search-input").val());
+      // event.preventDefault();
+      this.searchByLocation();
     }
   },
 
