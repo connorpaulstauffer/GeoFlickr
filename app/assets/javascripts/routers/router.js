@@ -43,6 +43,7 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
   userShow: function (id) {
     var user = new GeoFlickr.Models.User({ id: id });
     var userShow = new GeoFlickr.Views.UserShow({ model: user });
+    user.fetch();
 
     this.swap(userShow);
   },
