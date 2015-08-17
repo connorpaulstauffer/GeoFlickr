@@ -1,11 +1,13 @@
-<div class="user-info">
-  <% if (user) { %>
-    <% if (this.model.get("avatar")) { %>
-      <img src="<%= this.model.get("avatar").micro.url %>" class="img-circle user-avatar" />
-    <%  } %>
+<% if (user) { %>
+  <a href="#/users/<%= user.id %>">
+    <div>
+      <% if (user.get("avatar")) { %>
+        <img src="<%= this.model.get("avatar").micro.url %>" class="img-circle user-avatar" />
+      <%  } %>
 
-    <% if (user.get("email")) { %>
-      <h4><%= user.get("email") %></h4>
-    <% } %>
-  <% } %>
-</div>
+      <% if (user.get("email")) { %>
+        <h4><%= user.get("email") %></h4>
+      <% } %>      
+    </div>
+  </a>
+<% } %>

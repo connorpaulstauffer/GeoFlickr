@@ -1,13 +1,7 @@
 GeoFlickr.Views.UserInfo = Backbone.View.extend({
   template: JST["users/user_info"],
 
-  tagName: "a",
-
-  attributes: function () {
-    return {
-      "href": "#/users/" + this.model.id
-    }
-  },
+  className: "user-info",
 
   initialize: function () {
     this.listenTo(this.model, "change", this.render);
