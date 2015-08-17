@@ -3,7 +3,8 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
 
   events: {
       'click #sign-up': 'openSignUpModal',
-      'click #log-in': 'openLogInModal'
+      'click #log-in': 'openLogInModal',
+      'click #sign-out': 'signOut'
   },
 
   initialize: function (options) {
@@ -24,6 +25,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
       animate: true,
       okCloses: false
     }).open(this.signUpUser.bind(this, signUpView));
+    this.activeModal = modal;
   },
 
   openLogInModal: function (event, parameters) {
@@ -38,7 +40,8 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
       enterTriggersOk: true,
       animate: true,
       okCloses: false
-    }).open(this.logInUser.bind(this, logInView));
+    }).open(this.logInUser.bind(this, logInView, modal));
+    this.activeModal = modal;
   },
 
   signUpUser: function (signUpView) {
@@ -52,9 +55,12 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
       delete userData['user']['password-confirmation'];
 
       newUser.save(userData, {
-        success: function () {
-          window.location.reload(true);
-        },
+        success: function (user, response) {
+          this.currentUserId = user.id;
+          this.render();
+          this.activeModal.close();
+          this.activeModal = null;
+        }.bind(this),
 
         error: function (model, resp) {
           signUpView.addErrors(resp.responseJSON)
@@ -63,18 +69,32 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     }
   },
 
-  logInUser: function (logInView) {
+  logInUser: function (logInView, modal) {
     var userData = logInView.$el.serializeJSON();
     var newSession = new GeoFlickr.Models.Session();
 
     newSession.save(userData, {
-      success: function () {
-        window.location.reload(true);
-      },
+      success: function (user, response) {
+        this.currentUserId = user.id
+        this.render()
+        this.activeModal.close();
+        this.activeModal = null;
+      }.bind(this),
 
       error: function (model, resp) {
         logInView.addErrors(resp.responseJSON)
       }
+    })
+  },
+
+  signOut: function (event) {
+    event.preventDefault();
+    var dummySession = new GeoFlickr.Models.Session({ id: 0 });
+    dummySession.destroy({
+      success: function () {
+        this.currentUserId = null;
+        this.render();
+      }.bind(this)
     })
   },
 
