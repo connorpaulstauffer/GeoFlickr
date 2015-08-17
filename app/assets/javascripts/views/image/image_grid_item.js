@@ -14,15 +14,21 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
   initialize: function (options) {
     this._imageGrid = options.imageGrid
     this.listenTo(this.model.favorite(), "change", this.setupFavoriteGlyph);
-    // debugger
-    this.listenTo(this.model, "change", function () {
-      // debugger;
-    })
+    this.listenTo(this.model, "change", this.attachImage);
   },
 
   activate: function (event) {
     this.$(".overlay").addClass("active");
     this._imageGrid.activateImage(this.model.id);
+  },
+
+  attachImage: function () {
+    if (this.model.get("image")) {
+      var url = this.model.get("image").image.thumb.url;
+      var img = $("<img>");
+      img.attr("src", url);
+      this.$("#grid-image").html(img);
+    }
   },
 
   deactivate: function (event) {
@@ -38,7 +44,7 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
   favoriteImage: function () {
     this.model.favorite().save({ image_id: this.model.id }, {
       error: function (model, response) {
-        // set some sort of global error here and siaply it on the form
+        // set some sort of global error here and display it on the form
         $("#log-in").trigger("click", [response.responseJSON]);
       }
     });
@@ -86,6 +92,7 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
     var content = this.template({ image: this.model });
     this.$el.html(content);
     this.setupFavoriteGlyph();
+    this.attachImage();
 
     return this;
   }
