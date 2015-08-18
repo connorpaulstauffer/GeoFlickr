@@ -38,7 +38,9 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
       cancelText: false,
       enterTriggersOk: true,
       animate: true,
-      okCloses: false
+      okCloses: false,
+      offerSignUp: true,
+      offerGuestLogin: true
     }).open(this.logInUser.bind(this, logInView, modal));
     this.activeModal = modal;
     this.activeModal.bind("shown", function () {
@@ -48,20 +50,20 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   addSignUpOption: function () {
-    var span = $("<span id='sign-up-option'>");
-    span.html("Don't have an account?  ");
-    var link = $("<a href='javascript:void(0)' id='sign-up-option-link'>");
-    link.text("Sign Up");
-    span.append(link);
-    $(".modal-footer").prepend(span);
+    // var span = $("<span id='sign-up-option'>");
+    // span.html("Don't have an account?  ");
+    // var link = $("<a href='javascript:void(0)' id='sign-up-option-link'>");
+    // link.text("Sign Up");
+    // span.append(link);
+    // $(".modal-footer").prepend(span);
     $("#sign-up-option-link").on("click", this.switchToSignUp.bind(this));
   },
 
   addGuestLogin: function () {
-    var button = $("<a href='javascript:void(0)' id='guest-login'>");
-    button.addClass("btn btn-success");
-    button.text("Guest Login");
-    $(".modal-footer").prepend(button);
+    // var button = $("<a href='javascript:void(0)' id='guest-login'>");
+    // button.addClass("btn btn-success");
+    // button.text("Guest Login");
+    // $(".modal-footer").prepend(button);
     $("#guest-login").on("click", this.loginAsGuest.bind(this));
   },
 

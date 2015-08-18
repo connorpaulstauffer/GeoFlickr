@@ -15,33 +15,11 @@ if !user
   user = User.new(email: "demo@geoflickr.com", password: "password")
 
   url = "https://spiritualoasis.files.wordpress.com/2006/10/earth-from-space-western.jpg"
-
-  extname = File.extname(url)
-  basename = File.basename(url, extname)
-  avatar = Tempfile.new([basename, extname])
-  avatar.binmode
-
-  open(url) do |data|
-    avatar.write data.read
-  end
-  avatar.rewind
-
-  user.avatar = avatar
+  user.avatar = file_from_url(url)
 
 
   url = "https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg"
-
-  extname = File.extname(url)
-  basename = File.basename(url, extname)
-  banner = Tempfile.new([basename, extname])
-  banner.binmode
-
-  open(url) do |data|
-    banner.write data.read
-  end
-  banner.rewind
-
-  user.banner = banner
+  user.banner = file_from_url(url)
 
   user.save!
 end
@@ -51,7 +29,10 @@ user.images.destroy_all
 data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, header_converters: :symbol, converters: :all}) do |row|
   image = row.to_hash
   url = image[:url]
+  Image.create!(image: file_from_url(url), user: user, address: image[:address])
+end
 
+def file_from_url(url)
   extname = File.extname(url)
   basename = File.basename(url, extname)
   file = Tempfile.new([basename, extname])
@@ -62,5 +43,5 @@ data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, 
   end
 
   file.rewind
-  Image.create!(image: file, user: user, address: image[:address])
+  file
 end
