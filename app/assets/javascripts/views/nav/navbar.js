@@ -41,7 +41,10 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
       okCloses: false
     }).open(this.logInUser.bind(this, logInView, modal));
     this.activeModal = modal;
-    this.activeModal.bind("shown", this.addSignUpOption.bind(this));
+    this.activeModal.bind("shown", function () {
+      this.addGuestLogin();
+      this.addSignUpOption();
+    }.bind(this));
   },
 
   addSignUpOption: function () {
@@ -52,6 +55,41 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     span.append(link);
     $(".modal-footer").prepend(span);
     $("#sign-up-option-link").on("click", this.switchToSignUp.bind(this));
+  },
+
+  addGuestLogin: function () {
+    var button = $("<a href='javascript:void(0)' id='guest-login'>");
+    button.addClass("btn btn-success");
+    button.text("Guest Login");
+    $(".modal-footer").prepend(button);
+    $("#guest-login").on("click", this.loginAsGuest.bind(this));
+  },
+
+  loginAsGuest: function () {
+    var email = "demo@geoflickr.com";
+    var password = "password";
+
+    setTimeout(function () {
+      this.animateInput("#user-email", email, function () {
+        this.animateInput("#user-password", password, function () {
+          $(".ok").trigger("click");
+        }.bind(this));
+      }.bind(this));
+    }.bind(this), 0);
+  },
+
+  animateInput: function (selector, text, success) {
+    var _index = 0;
+    var textInterval = setInterval(function () {
+      var $el = $(selector);
+      var currentVal = $el.val();
+      _index++;
+      $el.val(text.substr(0, _index));
+      if (_index >= text.length) {
+        clearInterval(textInterval);
+        success();
+      }
+    }.bind(this), 50);
   },
 
   switchToSignUp: function () {

@@ -9,10 +9,10 @@
 require 'csv'
 require 'open-uri'
 
-user = User.find_by_email("user@example.com")
+user = User.find_by_email("demo@geoflickr.com")
 
 if !user
-  user = User.new(email: "user@example.com", password: "password")
+  user = User.new(email: "demo@geoflickr.com", password: "password")
 
   url = "https://spiritualoasis.files.wordpress.com/2006/10/earth-from-space-western.jpg"
 
