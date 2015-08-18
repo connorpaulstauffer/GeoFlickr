@@ -46,6 +46,7 @@
   width: 100%;
   background-color: black;
   #welcome-content {
+    width: 80%;
     position: absolute;
     top: 25%;
     left: 50%;
@@ -59,6 +60,26 @@
       #header-adjective {
         color: #b3cde0;
         font-size: 46px;
+      }
+      #header-cursor {
+        color: #b3cde0;
+        font-size: 38px;
+        position: relative;
+        top: -6px;       
+      }
+      .blink {
+        animation: blink 0.8s steps(5, start) infinite;
+        -webkit-animation: blink 0.8s steps(5, start) infinite;
+      }
+      @keyframes blink {
+        to {
+          visibility: hidden;
+        }
+      }
+      @-webkit-keyframes blink {
+        to {
+          visibility: hidden;
+        }
       }
     }
     form {

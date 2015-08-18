@@ -34,21 +34,41 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
   },
 
   activateHeader: function () {
+    this.blinkCursor();
     setTimeout(function () {
+      this.stopBlinkingCursor();
       this.animateHeader("Beautiful", function () {
+        this.blinkCursor();
         setTimeout(function () {
+          this.stopBlinkingCursor();
           this.clearHeader(function () {
             this.animateHeader("Awe Inspiring", function () {
+              this.blinkCursor();
               setTimeout(function () {
+                this.stopBlinkingCursor();
                 this.clearHeader(function() {
-                  this.animateHeader("Your")
-                }.bind(this))
-              }.bind(this), 2000)
-            }.bind(this))
+                  this.animateHeader("Your", function () {
+                    this.blinkCursor();
+                    setTimeout(function() {
+                      this.stopBlinkingCursor();
+                      this.$("#header-cursor").css("visibility", "hidden");
+                    }.bind(this), 3000)
+                  }.bind(this));
+                }.bind(this));
+              }.bind(this), 3000)
+            }.bind(this));
           }.bind(this));
-        }.bind(this), 2000);
-      }.bind(this))
-    }.bind(this), 0);
+        }.bind(this), 3000);
+      }.bind(this));
+    }.bind(this), 3000);
+  },
+
+  blinkCursor: function () {
+    this.$("#header-cursor").addClass("blink");
+  },
+
+  stopBlinkingCursor: function () {
+    this.$("#header-cursor").removeClass("blink");
   },
 
   animateHeader: function (text, callback) {
@@ -64,7 +84,7 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
       }
 
       $header.html(text.substr(0, idx));
-    }.bind(this), 250)
+    }.bind(this), 175)
   },
 
   clearHeader: function (callback) {
