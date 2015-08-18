@@ -10,6 +10,19 @@
   font-size: 28px;
 }
 
+.modal-footer {
+  position: relative;
+  #sign-up-option {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    display: inline-block;
+    float: left;
+    text-align: left;
+  }
+}
+
 .user-info {
   margin: 10px;
   display: inline-block;

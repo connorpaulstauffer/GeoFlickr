@@ -14,8 +14,6 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   openSignUpModal: function (event) {
-    event.preventDefault();
-
     var signUpView = new GeoFlickr.Views.SignUp();
     var modal = new Backbone.BootstrapModal({
       content: signUpView,
@@ -31,7 +29,6 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   openLogInModal: function (event, parameters) {
-    event.preventDefault();
     var logInView = new GeoFlickr.Views.LogIn({ parameters: parameters });
     var modal = new Backbone.BootstrapModal({
       content: logInView,
@@ -44,6 +41,22 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
       okCloses: false
     }).open(this.logInUser.bind(this, logInView, modal));
     this.activeModal = modal;
+    this.activeModal.bind("shown", this.addSignUpOption.bind(this));
+  },
+
+  addSignUpOption: function () {
+    var span = $("<span id='sign-up-option'>");
+    span.html("Don't have an account?  ");
+    var link = $("<a href='javascript:void(0)' id='sign-up-option-link'>");
+    link.text("Sign Up");
+    span.append(link);
+    $(".modal-footer").prepend(span);
+    $("#sign-up-option-link").on("click", this.switchToSignUp.bind(this));
+  },
+
+  switchToSignUp: function () {
+    this.activeModal.close();
+    this.openSignUpModal();
   },
 
   signUpUser: function (signUpView) {
