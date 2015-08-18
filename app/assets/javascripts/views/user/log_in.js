@@ -27,11 +27,7 @@ GeoFlickr.Views.LogIn = Backbone.CompositeView.extend({
       this.addErrors(this._messages);
       this._messages = null;
     }
-  },
-
-  addSignUpOption: function () {
-    debugger;
-  },
+  }
 
   render: function () {
     var content = this.template({ errors: this.errors });

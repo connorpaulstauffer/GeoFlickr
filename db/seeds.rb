@@ -9,6 +9,20 @@
 require 'csv'
 require 'open-uri'
 
+def file_from_url(url)
+  extname = File.extname(url)
+  basename = File.basename(url, extname)
+  file = Tempfile.new([basename, extname])
+  file.binmode
+
+  open(url) do |data|
+    file.write data.read
+  end
+
+  file.rewind
+  file
+end
+
 user = User.find_by_email("demo@geoflickr.com")
 
 if !user
@@ -30,18 +44,4 @@ data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, 
   image = row.to_hash
   url = image[:url]
   Image.create!(image: file_from_url(url), user: user, address: image[:address])
-end
-
-def file_from_url(url)
-  extname = File.extname(url)
-  basename = File.basename(url, extname)
-  file = Tempfile.new([basename, extname])
-  file.binmode
-
-  open(url) do |data|
-    file.write data.read
-  end
-
-  file.rewind
-  file
 end
