@@ -19,6 +19,14 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
     this.addSubview("#user-banner-container", userBanner);
   },
 
+  handleScroll: function () {
+    if ($( window ).scrollTop() > 299) {
+      this.$("#user-navbar").addClass("stuck");
+    } else {
+      this.$("#user-navbar").removeClass("stuck");
+    }
+  },
+
   addUserImages: function () {
     if (this.$("#user-images-link").hasClass("active")) { return; }
     this.$("#user-favorites-link").removeClass("active")
@@ -61,6 +69,7 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
     this.$el.html(content);
     this.attachSubviews();
     this.onRender();
+    $( window ).on("scroll", this.handleScroll.bind(this));
 
     return this;
   },

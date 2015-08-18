@@ -407,3 +407,13 @@
     text-align: center;
   }
 }
+
+#user-navbar {
+  z-index: 999;
+  width: 100%;
+}
+
+.stuck#user-navbar {
+  position: fixed;
+  top: 50px;
+}
