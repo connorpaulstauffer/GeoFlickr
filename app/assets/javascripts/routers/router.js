@@ -40,8 +40,8 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
   },
 
   welcome: function () {
-    var welcomeView = new Geoflickr.Views.Welcome();
-    this.swap(welcomeView);
+    var welcomeView = new GeoFlickr.Views.Welcome();
+    this.swap(welcomeView, true);
   },
 
   images: function () {
@@ -91,7 +91,12 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
     this.swap(userShow);
   },
 
-  swap: function (newView) {
+  swap: function (newView, welcomeNav) {
+    if (welcomeNav) {
+      this.$navBar.addClass("welcome");
+    } else {
+      this.$navBar.removeClass("welcome");
+    }
     // temporary
     $("#tag-dropdown").empty();
     this._currentView && this.currentView.remove();
