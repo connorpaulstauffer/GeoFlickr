@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :images, dependent: :destroy
   has_many :favorites
   has_many :favorite_images, through: :favorites, source: :image
+  has_many :comments
 
   mount_uploader :avatar, ImageUploader
   mount_uploader :banner, ImageUploader

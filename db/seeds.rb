@@ -43,5 +43,14 @@ user.images.destroy_all
 data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, header_converters: :symbol, converters: :all}) do |row|
   image = row.to_hash
   url = image[:url]
-  Image.create!(image: file_from_url(url), user: user, address: image[:address])
+  image = Image.create!(image: file_from_url(url), user: user, address: image[:address])
+
+  (1...10).to_a.sample.times do
+    comment = user.comments.create({
+      content: Faker::Lorem.sentence,
+      image: image,
+      user: user,
+      created_at: Faker::Time.between(DateTime.now - 35, DateTime.now)
+    })
+  end
 end

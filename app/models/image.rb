@@ -13,6 +13,7 @@
 #  address     :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  file_name   :string
 #
 
 class Image < ActiveRecord::Base
@@ -24,6 +25,7 @@ class Image < ActiveRecord::Base
   has_many :favoriters, through: :favorites, source: :user
   has_many :taggings
   has_many :tags, through: :taggings, source: :tag
+  has_many :comments
 
   mount_uploader :image, ImageUploader
 

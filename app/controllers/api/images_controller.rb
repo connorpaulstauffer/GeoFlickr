@@ -10,7 +10,13 @@ class Api::ImagesController < ApplicationController
   end
 
   def show
-    @image = Image.includes(:favorites, :tags, user: :images).find(params[:id])
+    @image = Image.includes(
+      :favorites,
+      :tags,
+      comments: :user,
+      user: :images
+    ).find(params[:id])
+
     render 'show'
   end
 

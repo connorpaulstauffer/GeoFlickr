@@ -17,7 +17,6 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
 
     if (!this.imageRatio) {
       var that = this;
-      var imageRatio;
       $("<img/>").attr("src", $img.attr("src")).load(function() {
           that.imageRatio = this.height / this.width;
           if (that.imageRatio > windowRatio) {

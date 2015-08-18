@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :favorites, only: [:create, :destroy]
     resources :tags, only: [:create, :index]
     resources :taggings, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
   end
 
 end
