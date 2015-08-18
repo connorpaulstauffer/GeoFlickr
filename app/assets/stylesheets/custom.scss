@@ -40,7 +40,7 @@
 }
 
 .welcome-container {
-  overflow-y: hidden;
+  overflow: hidden;
   position: absolute;
   top: -50px;
   width: 100%;
@@ -65,7 +65,7 @@
         color: #b3cde0;
         font-size: 38px;
         position: relative;
-        top: -6px;       
+        top: -6px;
       }
       .blink {
         animation: blink 0.8s steps(5, start) infinite;
@@ -107,7 +107,8 @@
   #welcome-banner {
     position: absolute;
     top: 0;
-    width: 100%;
+    // width: 100%;
+    // min-height: 100%;
   }
 }
 

@@ -8,7 +8,31 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
     "click #welcome-search-submit": "searchByLocation"
   },
 
-  setHeight: function () {
+  setDimensions: function () {
+    var windowHeight = $( window ).height()
+    var windowWidth = $( window ).width()
+    var windowRatio = windowHeight / windowWidth;
+    var $img = this.$("img");
+    $img.removeAttr("style");
+
+    if (!this.imageRatio) {
+      var that = this;
+      var imageRatio;
+      $("<img/>").attr("src", $img.attr("src")).load(function() {
+          that.imageRatio = this.height / this.width;
+          if (that.imageRatio > windowRatio) {
+            $img.width(windowWidth)
+          } else {
+            $img.height(windowHeight)
+          }
+      });
+    } else {
+      if (this.imageRatio > windowRatio) {
+        $img.width(windowWidth)
+      } else {
+        $img.height(windowHeight)
+      }
+    }
     this.$el.height($( window ).height())
   },
 
@@ -104,10 +128,16 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
   render: function () {
     var content = this.template();
     this.$el.html(content);
-    this.setHeight();
+    this.setDimensions();
+    $( window ).on("resize", this.setDimensions.bind(this));
     this.attachGeocomplete();
     this.activateHeader();
 
     return this;
+  },
+
+  remove: function () {
+    $( window ).off("resize", this.setDimensions);
+    Backbone.View.prototype.remove.apply(this, arguments);
   }
 });
