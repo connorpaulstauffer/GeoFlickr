@@ -21,6 +21,7 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'jquery-fileupload-rails'
 gem 'geocoder'
 gem "jquery-slick-rails"
+gem 'rails_12factor', group: :production
 
 
 group :development, :test do

@@ -154,6 +154,9 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   searchByLocation: function () {
     event.preventDefault();
     var location = this.$("#search-input").val();
+    if (location === "") {
+      location = "San Francisco, CA"
+    }
     Backbone.history.navigate("images/?location=" + location, { trigger: true });
   },
 
