@@ -6,7 +6,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
       'click #log-in': 'openLogInModal',
       'click #sign-out': 'signOut',
       "click #search-icon": "searchByLocation",
-      "keydown #search-input": "handleSearchKeypress",
+      "keydown #search-input": "handleSearchKeypress"
   },
 
   initialize: function (options) {

@@ -2,11 +2,11 @@
 @import "bootstrap";
 
 #root {
-  // margin-top: 50px;
   position: relative;
 }
 
 #content {
+  margin-top: 50px;
   position: relative;
 }
 
@@ -29,10 +29,18 @@
   }
 }
 
+.pac-container {
+    z-index: 99999;
+}
+
+.pac-container, .pac-item {
+  width: inherit !important;
+}
+
 .welcome-container {
   overflow-y: hidden;
   position: absolute;
-  top: 0;
+  top: -50px;
   width: 100%;
   background-color: black;
   #welcome-content {
@@ -48,17 +56,22 @@
       color: white;
     }
     form {
+      margin-top: 20px !important;
       #welcome-search {
         width: 300px;
-        height: 34px;
+        height: 40px;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
+        border-right: none;
       }
       a {
-        margin-left: -4px;
-        height: 34px;
+        font-family: 'Istok Web', sans-serif;
+        font-size: 16px;
+        margin-left: -5px;
+        height: 40px;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+        width: 100px;
       }
       margin: 0 auto;
       width: 400px;;
@@ -391,17 +404,4 @@
   .search-controls-label {
     text-align: center;
   }
-}
-
-.pac-container {
-    z-index: 99999;
-}
-
-// .pac-container:after {
-//   background-image: none !important;
-//   height: 0px;
-// }
-
-.pac-container, .pac-item {
-  width: inherit !important;
 }
