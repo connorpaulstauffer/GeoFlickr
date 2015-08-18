@@ -10,7 +10,8 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   initialize: function (options) {
-    this.currentUserId = (options.currentUser === "") ? null : options.currentUser;
+    this.currentUserId = options.currentUserId;
+    this.router = options.router;
   },
 
   openSignUpModal: function (event) {
@@ -102,6 +103,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
       newUser.save(userData, {
         success: function (user, response) {
           this.currentUserId = user.id;
+          this.router.currentUserId = user.id;
           this.render();
           this.activeModal.close();
           this.activeModal = null;
@@ -121,6 +123,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     newSession.save(userData, {
       success: function (user, response) {
         this.currentUserId = user.id
+        this.router.currentUserId = user.id;
         this.render()
         this.activeModal.close();
         this.activeModal = null;
@@ -138,6 +141,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     dummySession.destroy({
       success: function () {
         this.currentUserId = null;
+        this.router.currentUserId = null;
         this.render();
       }.bind(this)
     })
@@ -150,7 +154,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   searchByLocation: function () {
     event.preventDefault();
     var location = this.$("#search-input").val();
-    Backbone.history.navigate("?location=" + location, { trigger: true });
+    Backbone.history.navigate("images/?location=" + location, { trigger: true });
   },
 
   handleSearchKeypress: function (event) {

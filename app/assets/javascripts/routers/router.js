@@ -1,7 +1,8 @@
 GeoFlickr.Routers.Router = Backbone.Router.extend({
   routes: {
-    "": "imageIndex",
-    "?*querystring": "imageIndex",
+    "": "welcomeOrIndex",
+    "images": "imageIndex",
+    "images/?*querystring": "imageIndex",
     "images/new": "newImage",
     "images/:id": "imageShow",
     "users/:id": "userShow"
@@ -9,6 +10,11 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
 
   initialize: function (options) {
     this.$rootEl = options.$rootEl;
+    if (this.$rootEl.data("current-user") == "") {
+      this.currentUserId = null;
+    } else {
+      this.currentUserId = this.$rootEl.data("current-user");
+    }
     this.$rootContent = this.$rootEl.find("#content");
     this.$navBar = this.$rootEl.find("#navbar");
     this.images().fetch();
@@ -17,11 +23,25 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
 
   setupNavBar: function () {
     var navBar = new GeoFlickr.Views.NavBar({
-      currentUser: this.$rootEl.data("current-user")
+      currentUserId: this.currentUserId,
+      router: this
     });
 
     this.$navBar.html(navBar.$el);
     navBar.render();
+  },
+
+  welcomeOrIndex: function () {
+    if (this.currentUserId) {
+      Backbone.history.navigate("images", { trigger: true })
+    } else {
+      this.welcome();
+    }
+  },
+
+  welcome: function () {
+    var welcomeView = new Geoflickr.Views.Welcome();
+    this.swap(welcomeView);
   },
 
   images: function () {
