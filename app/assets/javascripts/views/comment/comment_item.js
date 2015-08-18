@@ -1,7 +1,7 @@
 GeoFlickr.Views.CommentItem = Backbone.View.extend({
   template: JST["comments/comment_item"],
 
-  className: "row",
+  className: "row comment-row",
 
   initialize: function () {
     this.listenTo(this.model, "change", this.attachAvatar);

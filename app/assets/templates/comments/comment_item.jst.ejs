@@ -1,10 +1,16 @@
-<div class="col-sm-2 avatar">
+<div class="col-sm-2">
+  <a href="#/users/<%= comment.get("user").id %>" class="avatar"></a>
 </div>
 
-<div class="col-sm-10">
-  <a href="#/users/<%= comment.get("user").id %>">
-    <%= comment.get("user").email %>
-  </a>
+<div class="col-sm-10 comment">
+  <span>
+    <a href="#/users/<%= comment.get("user").id %>">
+      <%= comment.get("user").email %>
+    </a>
+
+    <%= comment.get("created_at_ago") %>
+  </span>
+
 
   <p><%= comment.get("content") %></p>
 </div>

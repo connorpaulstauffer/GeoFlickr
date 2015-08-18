@@ -443,3 +443,24 @@
   position: fixed;
   top: 50px;
 }
+
+#comments-container {
+  margin-top: 20px;
+  margin-left: 20px;
+  #comment-items {
+    .comment-row {
+      padding: 5px;
+      .avatar {
+        img {
+          width: 40px;
+          height: 40px;
+          display: block;
+          margin: 0 auto;
+        }
+      }
+      .comment {
+        padding-left: 0;
+      }
+    }
+  }
+}
