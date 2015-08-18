@@ -25,7 +25,7 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.serve_static_files = true
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
