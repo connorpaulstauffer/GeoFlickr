@@ -2,13 +2,59 @@
 @import "bootstrap";
 
 #root {
-  margin-top: 50px;
+  // margin-top: 50px;
+  position: relative;
+}
+
+#content {
+  position: relative;
 }
 
 #logo {
   font-family: 'Istok Web', sans-serif;
   font-size: 28px;
 }
+
+#navbar.welcome {
+  .navbar {
+    background: transparent;
+    border: none;
+    .navbar-inner {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+  }
+  #navbar-search {
+    display: none;
+  }
+}
+
+.welcome-container {
+  overflow-y: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: black;
+  #welcome-content {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    h1 {
+      text-align: center;
+      font-family: 'Istok Web', sans-serif;
+      font-size: 38px;
+      text-transform: uppercase;
+      color: white;
+    }
+  }
+  #welcome-banner {
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
 
 .modal-footer {
   position: relative;
