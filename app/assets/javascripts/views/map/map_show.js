@@ -276,7 +276,6 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
       marker.setMap(null);
       delete this._markers[image.id];
     }
-    // this.confineBounds();
   },
 
   showMarkerInfo: function (event, marker) {

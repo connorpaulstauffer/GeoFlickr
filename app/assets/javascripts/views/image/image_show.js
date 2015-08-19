@@ -19,6 +19,15 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
     this.addSubview("#image-carousel-container", imageCarousel);
   },
 
+  addMap: function () {
+    if (this._map) { return; }
+    this.imageShowMap = new GeoFlickr.Views.ImageShowMap({
+      model: this.model
+    });
+    this.$("#image-show-map-container").html(this.imageShowMap.$el);
+    this.imageShowMap.initializeMap();
+  },
+
   addComments: function () {
     var comments = new GeoFlickr.Views.CommentIndex({
       collection: this.model.comments(),
@@ -40,6 +49,7 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
     var content = this.template()
     this.$el.html(content);
     this.attachSubviews();
+    this.addMap();
     this.onRender();
 
     return this;
