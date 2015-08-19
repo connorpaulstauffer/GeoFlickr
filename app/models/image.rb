@@ -38,10 +38,10 @@ class Image < ActiveRecord::Base
     binds = {
       lat: center[0],
       lng: center[1],
-      max_lat: center[0] + 20,
-      min_lat: center[0] - 20,
-      max_lng: center[1] + 20,
-      min_lng: center[1] - 20
+      max_lat: center[0] + 5,
+      min_lat: center[0] - 5,
+      max_lng: center[1] + 5,
+      min_lng: center[1] - 5
     }
 
     Image.includes(:favorites, :tags)

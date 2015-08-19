@@ -136,7 +136,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     var coordinates = $.parseJSON(this.collection.center);
     this._center = new google.maps.LatLng(coordinates[0], coordinates[1]);
     this._bounds = new google.maps.LatLngBounds(this._center);
-    // this._map.setCenter(this._center);
+
     this.collection.each(function (image) {
       this.addMarker(image, true);
     }.bind(this));
@@ -155,18 +155,19 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     }.bind(this));
   },
 
-  searchByLocation: function (location) {
-    this.collection.fetch({
-      data: { filter_data: { location: location } },
-
-      success: function (collection, response) {
-      }.bind(this),
-
-      error: function () {
-        debugger;
-      }
-    })
-  },
+  // searchByLocation: function (location) {
+  //   this.collection.fetch({
+  //     data: { filter_data: { location: location } },
+  //
+  //     success: function (collection, response) {
+  //       debugger
+  //     }.bind(this),
+  //
+  //     error: function () {
+  //       debugger;
+  //     }
+  //   })
+  // },
 
   search: function () {
     this.collection.center = null;

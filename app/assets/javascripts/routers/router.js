@@ -70,7 +70,15 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
       var location = querystring.split("=")[1];
       var images = new GeoFlickr.Collections.Images();
       images.fetch({
-        data: { filter_data: { location: location } }
+        data: { filter_data: { location: location } },
+
+        success: function (collection, response) {
+          debugger
+        }.bind(this),
+
+        error: function () {
+
+        }.bind(this)
       })
 
       var imageIndex = new GeoFlickr.Views.ImageIndex({
