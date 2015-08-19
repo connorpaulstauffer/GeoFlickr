@@ -300,6 +300,9 @@
         vertical-align: middle;
       }
     }
+    #no-images-alert-container.hidden {
+      display: none;
+    }
   }
   .photo-grid {
     margin: 0 auto;

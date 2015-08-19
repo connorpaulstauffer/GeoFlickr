@@ -107,6 +107,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
 
     var coordinates = $.parseJSON(this.collection.center);
     this._center = new google.maps.LatLng(coordinates[0], coordinates[1]);
+    this._bounds = new google.maps.LatLngBounds(this._center);
 
     if (this.collection.length == 0) {
       this.extendForEmptyCollection();
@@ -120,8 +121,6 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
   },
 
   extendForEmptyCollection: function () {
-      this._bounds = new google.maps.LatLngBounds(this._center);
-
       var northeast = new google.maps.LatLng(
         this._center.G + 5,
         this._center.K - 5
