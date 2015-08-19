@@ -60,12 +60,12 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
     this.blinkCursor();
     setTimeout(function () {
       this.stopBlinkingCursor();
-      this.animateHeader("Beautiful", function () {
+      this.animateHeader("Geotagged", function () {
         this.blinkCursor();
         setTimeout(function () {
           this.stopBlinkingCursor();
           this.clearHeader(function () {
-            this.animateHeader("Inspired", function () {
+            this.animateHeader("Stunning", function () {
               this.blinkCursor();
               setTimeout(function () {
                 this.stopBlinkingCursor();

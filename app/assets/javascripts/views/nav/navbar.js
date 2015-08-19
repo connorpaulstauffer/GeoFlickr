@@ -176,6 +176,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   handleSearchKeypress: function (event) {
     if (event.which === 9) { event.preventDefault(); }
     if (event.which === 13) {
+      debugger;
       // event.preventDefault();
       this.searchByLocation();
     }
