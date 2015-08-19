@@ -176,20 +176,6 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     }.bind(this));
   },
 
-  // searchByLocation: function (location) {
-  //   this.collection.fetch({
-  //     data: { filter_data: { location: location } },
-  //
-  //     success: function (collection, response) {
-  //       debugger
-  //     }.bind(this),
-  //
-  //     error: function () {
-  //       debugger;
-  //     }
-  //   })
-  // },
-
   search: function () {
     this.collection.center = null;
     var mapBounds = this._map.getBounds();
@@ -264,12 +250,18 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
         lng: image.get("longitude")
       },
       map: this._map,
-      title: image.get("title") || "image"
+      title: image.get("address"),
+      image: '<img src="' + image.get("image").image.micro.url + '" class="marker-image">'
     });
 
     marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
-    google.maps.event.addListener(marker, 'click', function (event) {
+
+    google.maps.event.addListener(marker, 'mouseover', function (event) {
       view.showMarkerInfo(event, marker);
+    });
+
+    google.maps.event.addListener(marker, 'mouseout', function (event) {
+      view.hideMarkerInfo(event, marker);
     });
 
     if (extendBounds) {
@@ -287,12 +279,25 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     // this.confineBounds();
   },
 
-  showMarkerInfo: function (event, marker) {ai
+  showMarkerInfo: function (event, marker) {
     var infoWindow = new google.maps.InfoWindow({
-      content: marker.title
+      content: marker.image
     });
 
     infoWindow.open(this._map, marker);
+    marker.infoWindow = infoWindow;
+
+    google.maps.event.addListener(infoWindow, 'domready', function() {
+      var iwOuter = $('.gm-style-iw');
+      var iwBackground = iwOuter.prev();
+      iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+      iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+      iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index' : '1'});
+    });
+  },
+
+  hideMarkerInfo: function (event, marker) {
+    marker.infoWindow.close();
   },
 
   activateMarker: function (id) {

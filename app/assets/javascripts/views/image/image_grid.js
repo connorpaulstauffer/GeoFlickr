@@ -74,7 +74,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
 
   onRender: function () {
     this.initializeMasonry();
-    if (this.collection.length == 0) {
+    if (this.collection.length == 0 && this._imageIndex) {
       this.displayNoResultsAlert();
     }
     this.collection.each(this.addImageGridItem.bind(this));
