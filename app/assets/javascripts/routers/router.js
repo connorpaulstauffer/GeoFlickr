@@ -22,7 +22,7 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
     }
     this.$rootContent = this.$rootEl.find("#content");
     this.$navBar = this.$rootEl.find("#navbar");
-    this.images().fetch();
+    // this.images().fetch();
     this.setupNavBar();
   },
 
@@ -63,9 +63,22 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
 
   imageIndex: function (querystring) {
     if (!querystring) {
-      var imageIndex = new GeoFlickr.Views.ImageIndex({
-        collection: this.images()
-      });
+      var images = new GeoFlickr.Collections.Images();
+      images.fetch({
+        data: { filter_data: { location: location } },
+
+        success: function (collection, response) {
+          var imageIndex = new GeoFlickr.Views.ImageIndex({
+            collection: collection
+          });
+
+          this.swap(imageIndex);
+        }.bind(this),
+
+        error: function () {
+          debugger;
+        }.bind(this)
+      })
     } else {
       var location = querystring.split("=")[1];
       var images = new GeoFlickr.Collections.Images();

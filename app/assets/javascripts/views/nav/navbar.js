@@ -2,6 +2,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   template: JST["nav/navbar"],
 
   events: {
+      'click #logo': "goToIndex",
       'click #sign-up': 'openSignUpModal',
       'click #log-in': 'openLogInModal',
       'click #sign-out': 'signOut',
@@ -11,6 +12,10 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
 
   initialize: function (options) {
     this.router = options.router;
+  },
+
+  goToIndex: function () {
+    Backbone.history.navigate("images", { trigger: true });
   },
 
   openSignUpModal: function (event) {
