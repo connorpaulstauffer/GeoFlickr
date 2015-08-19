@@ -208,9 +208,17 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
   },
 
   extendBounds: function (marker) {
-    // use a loop to keep the map centered. call setCenter after fitBounds
-    // this._map.setCenter(this._center);
     this._bounds.extend(marker.position);
+    // extend equally in opposite direction to maintain center
+    var lat_diff = marker.position.G - this._center.G
+    var lng_diff = marker.position.K - this._center.K
+
+    var inverse_lat = this._center.G - lat_diff
+    var inverse_lng = this._center.K - lng_diff
+
+    var inverse_position = new google.maps.LatLng(inverse_lat, inverse_lng);
+    this._bounds.extend(inverse_position);
+
     this._map.fitBounds(this._bounds);
   },
 
@@ -257,7 +265,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     // this.confineBounds();
   },
 
-  showMarkerInfo: function (event, marker) {
+  showMarkerInfo: function (event, marker) {ai
     var infoWindow = new google.maps.InfoWindow({
       content: marker.title
     });

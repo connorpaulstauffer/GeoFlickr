@@ -24,26 +24,30 @@ def file_from_url(url)
 end
 
 user = User.find_by_email("demo@geoflickr.com")
+user.destroy!
+user = User.new(email: "demo@geoflickr.com", password: "password")
 
-if !user
-  user = User.new(email: "demo@geoflickr.com", password: "password")
+url = "https://spiritualoasis.files.wordpress.com/2006/10/earth-from-space-western.jpg"
+user.avatar = file_from_url(url)
 
-  url = "https://spiritualoasis.files.wordpress.com/2006/10/earth-from-space-western.jpg"
-  user.avatar = file_from_url(url)
+url = "https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg"
+user.banner = file_from_url(url)
 
+user.save!
 
-  url = "https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg"
-  user.banner = file_from_url(url)
-
-  user.save!
-end
-
-user.images.destroy_all
 
 data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, header_converters: :symbol, converters: :all}) do |row|
-  image = row.to_hash
-  url = image[:url]
-  image = Image.create!(image: file_from_url(url), user: user, address: image[:address])
+  this_row = row.to_hash
+  url = this_row[:url]
+  image = Image.create!(image: file_from_url(url), user: user, address: this_row[:address])
+
+  tags = this_row[:tags] ? this_row[:tags].split(" ") : []
+  tags.each do |tag|
+    this_tag = Tag.find_by_label(tag)
+    this_tag = Tag.create!({ label: tag }) unless this_tag
+    Tagging.create({ image: image, tag: this_tag })
+  end
+
 
   (1...10).to_a.sample.times do
     comment = user.comments.create({

@@ -38,17 +38,17 @@ class Image < ActiveRecord::Base
     binds = {
       lat: center[0],
       lng: center[1],
-      max_lat: center[0] + 50,
-      min_lat: center[0] - 50,
-      max_lng: center[1] + 50,
-      min_lng: center[1] - 50
+      max_lat: center[0] + 20,
+      min_lat: center[0] - 20,
+      max_lng: center[1] + 20,
+      min_lng: center[1] - 20
     }
 
     Image.includes(:favorites, :tags)
          .select("images.*, SQRT( POWER(#{binds[:lat]} - latitude, 2) + POWER(#{binds[:lng]} - longitude, 2) ) as distance_from_center")
          .where("latitude BETWEEN #{binds[:min_lat]} AND #{binds[:max_lat]} AND longitude BETWEEN #{binds[:min_lng]} AND #{binds[:max_lng]}")
          .order("distance_from_center")
-         .limit(20)
+         .limit(50)
   end
 
   def self.from_bounds(filter_data, tags)

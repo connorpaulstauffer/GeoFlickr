@@ -174,9 +174,15 @@
         font-size: 3em;
       }
       #primary-image-container {
+        // position: relative;
         img {
+          // position: absolute;
+          // top: 50%;
+          // left: 50%;
+          // transform: translateY(-50%) !important;
+          // transform: translateX(-50%) !important;
           margin: 0 auto;
-          height: 100%;
+          max-height: 100%;
           max-width: 100%;
         }
       }
