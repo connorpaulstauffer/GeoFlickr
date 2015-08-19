@@ -5,7 +5,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
       'click #sign-up': 'openSignUpModal',
       'click #log-in': 'openLogInModal',
       'click #sign-out': 'signOut',
-      "click #search-icon": "searchByLocation",
+      "click #search-icon": "handleSearchButton",
       "keydown #search-input": "handleSearchKeypress"
   },
 
@@ -164,9 +164,13 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     this.$("#search-input").geocomplete();
   },
 
-  searchByLocation: function () {
-    event.preventDefault();
-    var location = this.$("#search-input").val();
+  handleSearchButton: function () {
+    var location = $(".pac-container").find(".pac-item").first().text();
+    // this.$("#search-input").val(location);
+    this.searchByLocation(location);
+  },
+
+  searchByLocation: function (location) {
     if (location === "") {
       alert("Invalid location. Please try again.");
     } else {
@@ -177,8 +181,8 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   handleSearchKeypress: function (event) {
     if (event.which === 9) { event.preventDefault(); }
     if (event.which === 13) {
-      // event.preventDefault();
-      this.searchByLocation();
+      var location = $(event.target).val();
+      this.searchByLocation(location);
     }
   },
 
