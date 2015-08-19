@@ -1,15 +1,27 @@
 GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   template: JST['images/image_grid'],
 
+  attributes: { "id": "image-grid-contents" },
+
   initialize: function (options) {
-    // debugger;
     if (options.imageIndex) {
       this._imageIndex = options.imageIndex;
     }
-    // debugger;
+    if (this.collection.length == 0) {
+      this.displayNoResultsAlert();
+    }
+  },
+
+  displayNoResultsAlert: function () {
+    var noImagesAlert = new GeoFlickr.Views.NoImagesAlert();
+    this.noImagesAlert = noImagesAlert;
+    this.addSubview("#no-images-alert-container", noImagesAlert);
   },
 
   addImageGridItem: function (image) {
+    if ( this.noImagesAlert ) {
+      this.removeSubview("#no-images-alert-container", this.noImagesAlert);
+    }
     var imageGridItem = new GeoFlickr.Views.ImageGridItem({
       model: image,
       imageGrid: this

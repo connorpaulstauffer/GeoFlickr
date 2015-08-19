@@ -281,6 +281,26 @@
 
 .image-grid-container {
   padding: 0;
+  // background-color: #e3e3e3;
+  #image-grid-contents {
+    #no-images-alert-container {
+      width: 75%;
+      padding: 30px;
+      margin: 0 auto;
+      margin-top: 100px;
+      position: relative;
+      border-style: solid;
+      border-width: thin;
+      border-radius: 5px;
+      border-color: #999999;
+      background-color: #b3cde0;
+      #no-images-alert {
+        position: relative;
+        font-size: 18px;
+        vertical-align: middle;
+      }
+    }
+  }
   .photo-grid {
     margin: 0 auto;
     width: 100%;

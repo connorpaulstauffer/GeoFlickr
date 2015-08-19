@@ -168,7 +168,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     event.preventDefault();
     var location = this.$("#search-input").val();
     if (location === "") {
-      alert("Invalid location search. Please try again.");
+      alert("Invalid location. Please try again.");
     } else {
       Backbone.history.navigate("images/?location=" + location, { trigger: true });
     }
