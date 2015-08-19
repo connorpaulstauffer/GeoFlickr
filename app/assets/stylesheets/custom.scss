@@ -447,19 +447,34 @@
 #comments-container {
   margin-top: 20px;
   margin-left: 20px;
+  margin-bottom: 50px;
+  .avatar {
+    img {
+      width: 40px;
+      height: 40px;
+      display: block;
+      margin: 0 auto;
+    }
+  }
   #comment-items {
     .comment-row {
       padding: 5px;
-      .avatar {
-        img {
-          width: 40px;
-          height: 40px;
-          display: block;
-          margin: 0 auto;
-        }
-      }
       .comment {
         padding-left: 0;
+      }
+    }
+  }
+  #comment-form {
+    .comment-form-row {
+      padding: 5px;
+    }
+    #comment-input {
+      padding-left: 0;
+    }
+    #submit-comment {
+      float: right;
+      .hidden {
+        display: none;
       }
     }
   }

@@ -21,7 +21,8 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
 
   addComments: function () {
     var comments = new GeoFlickr.Views.CommentIndex({
-      collection: this.model.comments()
+      collection: this.model.comments(),
+      image: this.model
     })
 
     this.addSubview("#comments-container", comments);

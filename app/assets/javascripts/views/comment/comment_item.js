@@ -4,12 +4,16 @@ GeoFlickr.Views.CommentItem = Backbone.View.extend({
   className: "row comment-row",
 
   initialize: function () {
-    this.listenTo(this.model, "change", this.attachAvatar);
+    this.listenTo(this.model.user(), "change", function () {
+      debugger;
+      this.render()
+    });
   },
 
   attachAvatar: function () {
-    if (this.model.get("user").avatar) {
-      var url = this.model.get("user").avatar.avatar.micro.url;
+    if (!this.model.user().id) { return; }
+    if (this.model.user().get("avatar")) {
+      var url = this.model.user().get("avatar").avatar.micro.url;
       var img = $("<img class='img-circle'>");
       img.attr("src", url);
       this.$(".avatar").html(img);

@@ -1,14 +1,18 @@
-<div class="col-sm-2">
-  <a href="#/users/<%= comment.get("user").id %>" class="avatar"></a>
-</div>
+<% if (comment.user().id) { %>
+  <div class="col-sm-2">
+    <a href="#/users/<%= comment.user().id %>" class="avatar"></a>
+  </div>
+<%  } %>
 
 <div class="col-sm-10 comment">
   <span>
-    <a href="#/users/<%= comment.get("user").id %>">
-      <%= comment.get("user").email %>
-    </a>
+    <% if (comment.user().id) { %>
+      <a href="#/users/<%= comment.user().id %>">
+        <%= comment.user().get("email") %>
+      </a>
 
-    <%= comment.get("created_at_ago") %>
+      <%= comment.get("created_at_ago") %>
+    <%  } %>
   </span>
 
 

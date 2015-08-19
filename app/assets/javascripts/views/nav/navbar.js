@@ -10,7 +10,6 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   initialize: function (options) {
-    this.currentUserId = options.currentUserId;
     this.router = options.router;
   },
 
@@ -102,9 +101,15 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
 
       newUser.save(userData, {
         success: function (user, response) {
-          this.currentUserId = user.id;
-          this.router.currentUserId = user.id;
+          // global
+          currentUser = new GeoFlickr.Models.User({
+            id: user.id
+          })
+          currentUser.fetch();
           this.render();
+          // need to do something like this
+          // this.router.currentView.render();
+          Backbone.history.loadUrl();
           this.activeModal.close();
           this.activeModal = null;
         }.bind(this),
@@ -122,9 +127,15 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
 
     newSession.save(userData, {
       success: function (user, response) {
-        this.currentUserId = user.id
-        this.router.currentUserId = user.id;
+        // global
+        currentUser = new GeoFlickr.Models.User({
+          id: user.id
+        })
+        currentUser.fetch();
         this.render()
+        // need to do something like this
+        // this.router.currentView.render();
+        Backbone.history.loadUrl();
         this.activeModal.close();
         this.activeModal = null;
       }.bind(this),
@@ -140,8 +151,10 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     var dummySession = new GeoFlickr.Models.Session({ id: 0 });
     dummySession.destroy({
       success: function () {
-        this.currentUserId = null;
-        this.router.currentUserId = null;
+        currentUser = null;
+        // need to do something like this
+        Backbone.history.loadUrl();
+        // this.router.currentView.render();
         this.render();
       }.bind(this)
     })
@@ -170,7 +183,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
 
   render: function () {
     var content = this.template({
-      currentUserId: this.currentUserId
+      currentUser: currentUser
     });
     this.$el.html(content);
     this.attachGeocomplete();

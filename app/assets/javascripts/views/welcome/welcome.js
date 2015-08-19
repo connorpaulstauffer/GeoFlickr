@@ -65,7 +65,7 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
         setTimeout(function () {
           this.stopBlinkingCursor();
           this.clearHeader(function () {
-            this.animateHeader("Awe Inspiring", function () {
+            this.animateHeader("Inspired", function () {
               this.blinkCursor();
               setTimeout(function () {
                 this.stopBlinkingCursor();

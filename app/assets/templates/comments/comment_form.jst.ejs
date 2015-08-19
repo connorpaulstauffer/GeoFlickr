@@ -1,0 +1,17 @@
+<% if (currentUser) { %>
+  <div class="col-sm-2">
+    <a href="#/users/<%= currentUser.id %>" class="avatar"></a>
+  </div>
+
+  <div class="col-sm-10" id="comment-input">
+    <form>
+      <div class="form-group">
+        <textarea name="comment[content]"
+                  class="form-control"></textarea>
+      </div>
+      <button type="submit"
+              id="submit-comment"
+              class="btn btn-primary hidden">Comment</button>
+    </form>
+  </div>
+<%  } %>

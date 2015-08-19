@@ -9,9 +9,9 @@ GeoFlickr.Models.Comment = Backbone.Model.extend({
     return this._user;
   },
 
-  parse: function () {
+  parse: function (response) {
     if (response.user) {
-      this.user().set(response.user);
+      this.user().set(response.user, { parse: true });
       delete response.user;
     }
 

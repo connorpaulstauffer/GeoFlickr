@@ -54,7 +54,7 @@ GeoFlickr.Models.Image = Backbone.Model.extend({
     }
 
     if (response.user) {
-      this.user().set(response.user)
+      this.user().set(response.user, { parse: true })
       delete response.user
     }
 
@@ -65,7 +65,7 @@ GeoFlickr.Models.Image = Backbone.Model.extend({
 
     if (response.comments) {
       // might need to call parse here
-      this.comments().set(response.comments)
+      this.comments().set(response.comments, { parse: true })
       delete response.comments
     }
 
