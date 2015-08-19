@@ -73,19 +73,18 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
         data: { filter_data: { location: location } },
 
         success: function (collection, response) {
-          debugger
+          var imageIndex = new GeoFlickr.Views.ImageIndex({
+            collection: collection
+          });
+
+          this.swap(imageIndex);
         }.bind(this),
 
         error: function () {
-
+          debugger;
         }.bind(this)
       })
-
-      var imageIndex = new GeoFlickr.Views.ImageIndex({
-        collection: images
-      });
     }
-    this.swap(imageIndex);
   },
 
   imageShow: function (id) {

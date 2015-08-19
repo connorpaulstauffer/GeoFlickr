@@ -108,7 +108,10 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     this._map = new google.maps.Map(this.el, mapOptions);
     this._map.mapTypes.set("map_style", styledMap);
     this._map.setMapTypeId("map_style");
-    this._bounds = new google.maps.LatLngBounds();
+
+    var coordinates = $.parseJSON(this.collection.center);
+    this._center = new google.maps.LatLng(coordinates[0], coordinates[1]);
+    this._bounds = new google.maps.LatLngBounds(this._center);
     this._minZoom = 2;
     this.collection.each(this.addMarker.bind(this));
     this.addMapListeners();
