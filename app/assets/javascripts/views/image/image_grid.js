@@ -31,7 +31,6 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     this.$imageGrid.imagesLoaded(function() {
       this.$imageGrid.masonry("appended", imageGridItem.$el);
       this.$imageGrid.masonry();
-      // imageGridItem.$el.width(this.$imageGrid.data("masonry").columnWidth - 4)
     }.bind(this));
   },
 
@@ -67,6 +66,11 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     }
   },
 
+  reloadMasonry: function () {
+    // this.$imageGrid.masonry();
+    // this.$imageGrid.masonry("reloadItems");
+  },
+
   render: function () {
     var content = this.template();
     this.$el.html(content);
@@ -83,5 +87,6 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     this.collection.each(this.addImageGridItem.bind(this));
     this.listenTo(this.collection, "add", this.addImageGridItem.bind(this))
     this.listenTo(this.collection, "remove", this.removeImageGridItem.bind(this))
+    $( window ).on("resize", this.reloadMasonry.bind(this));
   }
 });
