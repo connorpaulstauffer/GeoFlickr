@@ -51,12 +51,12 @@ class Image < ActiveRecord::Base
          .limit(50)
   end
 
-  def self.from_bounds(filter_data, tags)
+  def self.from_bounds(bounds, tag)
     binds = {
-      :lat_min => filter_data['lat'][0],
-      :lat_max => filter_data['lat'][1],
-      :lng_min => filter_data['lng'][0],
-      :lng_max => filter_data['lng'][1]
+      :lat_min => bounds['lat'][0],
+      :lat_max => bounds['lat'][1],
+      :lng_min => bounds['lng'][0],
+      :lng_max => bounds['lng'][1]
     }
 
     if binds[:lng_min].to_f > binds[:lng_max].to_f
@@ -73,7 +73,7 @@ class Image < ActiveRecord::Base
       SQL
     end
 
-    images = images.joins(:tags).where("tags.id IN #{"(" + tags.join(",") + ")"}") if tags
+    images = images.joins(:tags).where("tags.id = #{tag}") if tag
     images
   end
 end

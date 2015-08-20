@@ -218,6 +218,20 @@ a:hover {
       }
     }
   }
+
+  #image-tags-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    #tag-index-items {
+      width: 50%;
+      .tag-item-container {
+        display: inline-block;
+        padding-right: 5px;
+        padding-bottom: 5px;
+      }
+    }
+  }
+
   #image-carousel-container {
     background-color: #555555;
     #primary-image {
@@ -549,6 +563,7 @@ a:hover {
   margin-top: 20px;
   margin-left: 20px;
   margin-bottom: 50px;
+  padding-right: 50px;
   .avatar {
     img {
       width: 40px;

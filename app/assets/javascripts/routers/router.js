@@ -61,41 +61,33 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
     });
   },
 
-  imageIndex: function (querystring) {
-    if (!querystring) {
-      this.images().fetch({
-        data: { filter_data: { location: location } },
+  imageIndex: function (queryString) {
+    var params = this.parseQueryString(queryString);
 
-        success: function (collection, response) {
-          var imageIndex = new GeoFlickr.Views.ImageIndex({
-            collection: collection
-          });
+    this.images().fetch({
+      data: { filter_data: params },
 
-          this.swap(imageIndex);
-        }.bind(this),
+      success: function (collection, response) {
+        var imageIndex = new GeoFlickr.Views.ImageIndex({
+          collection: collection
+        });
 
-        error: function () {
-          debugger;
-        }.bind(this)
-      })
-    } else {
-      var location = querystring.split("=")[1];
-      this.images().fetch({
-        data: { filter_data: { location: location } },
+        this.swap(imageIndex);
+      }.bind(this),
 
-        success: function (collection, response) {
-          var imageIndex = new GeoFlickr.Views.ImageIndex({
-            collection: collection
-          });
+      error: function () {
+        debugger;
+      }.bind(this)
+    });
+  },
 
-          this.swap(imageIndex);
-        }.bind(this),
-
-        error: function () {
-          debugger;
-        }.bind(this)
-      })
-    }
+  parseQueryString: function (queryString) {
+    var params = {};
+    if (!queryString) { return params; }
+    // only searching by one criteria at a time
+    var array = queryString.split("=");
+    params[array[0]] = array[1];
+    return params;
   },
 
   imageShow: function (id) {

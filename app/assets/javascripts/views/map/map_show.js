@@ -105,7 +105,13 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     this._map.mapTypes.set("map_style", styledMap);
     this._map.setMapTypeId("map_style");
 
-    var coordinates = $.parseJSON(this.collection.center);
+    // maybe the collections could alternatively have bounds
+    if (this.collection.center) {
+      var coordinates = $.parseJSON(this.collection.center);
+    } else {
+      var coordinates = [37, -122];
+    }
+
     this._center = new google.maps.LatLng(coordinates[0], coordinates[1]);
     this._bounds = new google.maps.LatLngBounds(this._center);
 
@@ -194,7 +200,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     } });
   },
 
-  filterByTags: function (checked) {
+  filterByTag: function (checked) {
     this.collection.center = null;
     var mapBounds = this._map.getBounds();
     var ne = mapBounds.getNorthEast();
@@ -205,7 +211,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
         lat: [sw.lat(), ne.lat()],
         lng: [sw.lng(), ne.lng()]
       },
-      tags: checked
+      tag: checked
     };
 
     this.collection.fetch({

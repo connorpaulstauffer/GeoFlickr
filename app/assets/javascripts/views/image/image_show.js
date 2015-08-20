@@ -13,6 +13,7 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
     this.addComments();
     this.addImageStats();
     this.addImageAddress();
+    this.addTagIndex();
   },
 
   setImage: function (image) {
@@ -30,6 +31,7 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
     this.addUserInfo();
     this.addImageStats();
     this.addImageAddress();
+    this.addTagIndex();
     this.comments.onRender();
   },
 
@@ -41,6 +43,14 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
     } else {
       this.listenToOnce(this.model, "change:address", this.addImageAddress);
     }
+  },
+
+  addTagIndex: function () {
+    this.tagIndex = new GeoFlickr.Views.TagIndex({
+      collection: this.model.tags()
+    })
+
+    this.addSubview("#image-tags-container", this.tagIndex);
   },
 
   addImageStats: function () {
@@ -87,7 +97,7 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
   },
 
   searchByLocation: function () {
-    var location = this.$("#image-address-link").text();
+    var location = this.model.get("address");
     Backbone.history.navigate("images/?location=" + location, { trigger: true });
   },
 

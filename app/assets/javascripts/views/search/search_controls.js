@@ -47,7 +47,7 @@ GeoFlickr.Views.TagDropdown = Backbone.CompositeView.extend({
     var formData = $(event.delegateTarget).find(":checked").serializeJSON();
     if (formData["search"]) {
       var checked = formData["search"]["tag_ids"];
-      this._mapShow.filterByTags(checked);
+      this._mapShow.filterByTag(checked[0]);
     } else {
       this._mapShow.search();
     }
