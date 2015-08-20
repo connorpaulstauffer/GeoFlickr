@@ -105,7 +105,7 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     var navbarHeight = $(".navbar").height();
     this.$el.height(windowHeight - navbarHeight - 100);
 
-    if (this._images.length === 0) {
+    if (this._images.length < 2) {
       this.$("#primary-image").height(windowHeight - navbarHeight - 100);
       this.setOnlyImage(this._activeImage)
     } else {
