@@ -321,7 +321,9 @@ a:hover {
   padding: 0;
   // background-color: #e3e3e3;
   #image-grid-contents {
-    // padding: 2px;
+    position: relative;
+    top: 1px;
+    padding: 1px;
     #no-images-alert-container {
       width: 75%;
       padding: 30px;
@@ -350,13 +352,10 @@ a:hover {
   .photo-grid {
     width: 100%;
     .box {
-      box-sizing: border-box;
       margin: 0;
       border: 0;
-      // padding: 2px;
-      width: 33%;
-      margin-bottom: 1px;
-      margin-top: 1px;
+      border: solid white 1px;
+      width: 33.3%;
   	  img {
   	  	width: 100%;
   	  	height: auto;

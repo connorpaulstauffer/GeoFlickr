@@ -30,6 +30,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
 
     this.$imageGrid.imagesLoaded(function() {
       this.$imageGrid.masonry("appended", imageGridItem.$el);
+      this.$imageGrid.masonry();
       // imageGridItem.$el.width(this.$imageGrid.data("masonry").columnWidth - 4)
     }.bind(this));
   },
@@ -46,6 +47,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     this.$imageGrid.imagesLoaded(function () {
       this.$imageGrid.masonry({
         itemSelector: ".box",
+        percentPosition: true,
         columnWidth: function (containerWidth) {
           return containerWidth / 3;
         }
