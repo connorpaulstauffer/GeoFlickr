@@ -3,20 +3,16 @@ GeoFlickr.Views.PrimaryImage = Backbone.View.extend({
 
   attributes: { "id": "primary-image-container" },
 
-  // events: {
-  //   "load #image-source": "render"
-  // },
-
   initialize: function (options) {
     this.containerHeight = options.containerHeight;
     this.containerWidth = options.containerWidth;
     this.containerRatio = this.containerHeight / this.containerWidth;
-    // this.listenTo(this.model, "sync", this.render);
-    // this.$el.find("img").on("load", this.render.bind(this))
+    this.listenTo(this.model, "change", this.render);
   },
 
   setDimensions: function () {
     var $img = this.$("img");
+    if (!$img) { return; }
 
     if (!this.imageRatio) {
       var that = this;
@@ -38,7 +34,6 @@ GeoFlickr.Views.PrimaryImage = Backbone.View.extend({
   },
 
   render: function () {
-    // debugger
     var content = this.template({
       image: this.model
     })

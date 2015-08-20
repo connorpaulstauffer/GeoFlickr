@@ -13,8 +13,10 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
   initialize: function (options) {
     this._activeImage = options.activeImage;
     this._images = options.images;
-    this.addImageSlider();
-    // this.setPrimaryImage(this._activeImage);
+
+    if (this._images.length > 0) {
+      this.addImageSlider();
+    }
   },
 
   expandSlider: function () {
@@ -66,6 +68,22 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     this.$("#primary-image-container").width(containerWidth);
   },
 
+  setOnlyImage: function (image) {
+    var containerHeight = this.$("#primary-image").height();
+    var containerWidth = this.$("#primary-image").width();
+
+    this._primaryImageView = new GeoFlickr.Views.PrimaryImage({
+      model: image,
+      containerHeight: containerHeight,
+      containerWidth: containerWidth
+    });
+
+    this.addSubview("#primary-image", this._primaryImageView);
+    this.$("#primary-image-container").height(containerHeight);
+    this.$("#primary-image-container").width(containerWidth);
+    this.$("#primary-image > a").css("display", "none")
+  },
+
   nextSlide: function () {
     $("#variable-width-slider").slick("slickNext");
   },
@@ -86,7 +104,13 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     var windowHeight = $( window ).height();
     var navbarHeight = $(".navbar").height();
     this.$el.height(windowHeight - navbarHeight - 100);
-    this.$("#primary-image").height(windowHeight - navbarHeight - 135);
+
+    if (this._images.length === 0) {
+      this.$("#primary-image").height(windowHeight - navbarHeight - 100);
+      this.setOnlyImage(this._activeImage)
+    } else {
+      this.$("#primary-image").height(windowHeight - navbarHeight - 135);
+    }
 
     Backbone.CompositeView.prototype.onRender.call(this);
   }

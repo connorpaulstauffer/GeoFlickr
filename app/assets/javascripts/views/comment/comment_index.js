@@ -2,7 +2,6 @@ GeoFlickr.Views.CommentIndex = Backbone.CompositeView.extend({
   template: JST['comments/comment_index'],
 
   initialize: function (options) {
-    // debugger;
     this._image = options.image
   },
 

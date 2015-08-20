@@ -1,4 +1,4 @@
-<% if (image) { %>
+<% if (image.get("image")) { %>
   <% if (image.get("image").image) { %>
     <img src="<%= image.get("image").image.macro.url %>"/>
   <% } else { %>

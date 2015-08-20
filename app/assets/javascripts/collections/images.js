@@ -12,11 +12,7 @@ GeoFlickr.Collections.Images = Backbone.Collection.extend({
 
   getOrFetch: function (id) {
     var image = this.get(id) || new GeoFlickr.Models.Image({ id: id })
-    image.fetch({
-      success: function () {
-        // debugger;
-      }
-    });
+    image.fetch();
 
     return image;
   },
