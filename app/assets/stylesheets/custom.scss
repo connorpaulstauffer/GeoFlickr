@@ -157,14 +157,34 @@ a:hover {
     width: 75px;
   }
 }
+#user-banner-container {
+  > div {
+    position: relative;
+  }
+  #banner-user-info {
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
+    margin: 20px;
+    z-index: 1;
+    h4 {
+      font-family: 'Istok Web', sans-serif;
+      font-size: 28px;
+      color: white;
+      margin-left: 5px;
+      display: inline;
+    }
+  }
 
-#banner-image {
-  height: 300px;
-  overflow-y: hidden;
-  img {
-    width: 100%;
+  #banner-image {
+    height: 300px;
+    overflow-y: hidden;
+    img {
+      width: 100%;
+    }
   }
 }
+
 
 .slick-prev:before, .slick-next:before {
     color: grey !important;

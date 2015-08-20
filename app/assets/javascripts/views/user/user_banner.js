@@ -1,9 +1,8 @@
-GeoFlickr.Views.UserBanner = Backbone.CompositeView.extend({
+GeoFlickr.Views.UserBanner = Backbone.View.extend({
   template: JST["users/user_banner"],
 
   initialize: function () {
-    this.attachBannerImage();
-    this.listenTo(this.model, "change", this.attachBannerImage)
+    this.listenTo(this.model, "change", this.render);
   },
 
   attachBannerImage: function () {
@@ -17,9 +16,9 @@ GeoFlickr.Views.UserBanner = Backbone.CompositeView.extend({
   render: function () {
     var content = this.template({
       user: this.model
-    })
+    });
     this.$el.html(content);
-    this.attachSubviews();
+    this.attachBannerImage();
 
     return this;
   }
