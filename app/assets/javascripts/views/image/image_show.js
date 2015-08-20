@@ -4,45 +4,58 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
   className: "container-fluid image-show-container",
 
   initialize: function () {
-    // this.listenTo(this.model, "sync", this.render);
     this.addImageCarousel();
     this.addUserInfo();
     this.addComments();
   },
 
+  setImage: function (image) {
+    this.model = image;
+    this.$("image-show-map-container").empty();
+    this.imageShowMap.remove();
+
+    this.removeSubview("comments-container", this.comments);
+    this.removeSubview("user-info-container", this.userInfo);
+
+    this.addMap();
+    this.addComments();
+    this.addUserInfo();
+  },
+
   addImageCarousel: function () {
     var imageCarousel = new GeoFlickr.Views.ImageCarousel({
       activeImage: this.model,
-      images: this.model.userImages()
+      images: this.collection
     });
 
     this.addSubview("#image-carousel-container", imageCarousel);
   },
 
   addMap: function () {
-    if (this._map) { return; }
     this.imageShowMap = new GeoFlickr.Views.ImageShowMap({
       model: this.model
     });
+
     this.$("#image-show-map-container").html(this.imageShowMap.$el);
     this.imageShowMap.initializeMap();
   },
 
   addComments: function () {
-    var comments = new GeoFlickr.Views.CommentIndex({
+    this.comments = new GeoFlickr.Views.CommentIndex({
       collection: this.model.comments(),
       image: this.model
     })
 
-    this.addSubview("#comments-container", comments);
+    this.addSubview("#comments-container", this.comments);
+    this.comments.onRender();
   },
 
   addUserInfo: function () {
-    var userInfo = new GeoFlickr.Views.UserInfo({
+    this.userInfo = new GeoFlickr.Views.UserInfo({
       model: this.model.user()
     });
 
-    this.addSubview("#user-info-container", userInfo);
+    this.addSubview("#user-info-container", this.userInfo);
   },
 
   render: function () {

@@ -41,10 +41,13 @@ GeoFlickr.Views.ImageSlider = Backbone.CompositeView.extend({
 
   handleSliderChange: function (event, slick, currentSlide, nextSlide) {
     if (this.currentSlide === currentSlide) { return; }
+
     this.currentSlide = currentSlide;
     var imageId = $(slick.$slides[currentSlide]).data("id");
     var image = this.collection.get(imageId);
     this.setPrimaryImage(image);
+
+    Backbone.history.navigate("images/" + imageId, { trigger: true });
   },
 
   setPrimaryImage: function (image) {
