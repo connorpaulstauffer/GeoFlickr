@@ -3,6 +3,10 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
 
   className: "container-fluid image-show-container",
 
+  events: {
+    "click #image-address-link": "searchByLocation"
+  },
+
   initialize: function () {
     this.addImageCarousel();
     this.addUserInfo();
@@ -80,6 +84,11 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
     });
 
     this.addSubview("#user-info-container", this.userInfo);
+  },
+
+  searchByLocation: function () {
+    var location = this.$("#image-address-link").text();
+    Backbone.history.navigate("images/?location=" + location, { trigger: true });
   },
 
   render: function () {
