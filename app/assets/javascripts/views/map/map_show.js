@@ -119,6 +119,8 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
       this.collection.each(this.addMarker.bind(this));
     }
 
+    this._map.addListener("click", this.closeOpenMarker.bind(this));
+
     this._minZoom = 2;
     this.addMapListeners();
     this.addSearchInMapButton();
@@ -220,29 +222,20 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
   },
 
   extendBounds: function (marker) {
-    this._center = this._center || marker.position
     this._bounds.extend(marker.position);
-    // extend equally in opposite direction to maintain center
-    var lat_diff = marker.position.G - this._center.G
-    var lng_diff = marker.position.K - this._center.K
+    if (this._center) {
+      var lat_diff = marker.position.G - this._center.G
+      var lng_diff = marker.position.K - this._center.K
 
-    var inverse_lat = this._center.G - lat_diff
-    var inverse_lng = this._center.K - lng_diff
+      var inverse_lat = this._center.G - lat_diff
+      var inverse_lng = this._center.K - lng_diff
 
-    var inverse_position = new google.maps.LatLng(inverse_lat, inverse_lng);
-    this._bounds.extend(inverse_position);
+      var inverse_position = new google.maps.LatLng(inverse_lat, inverse_lng);
+      this._bounds.extend(inverse_position);
+    }
 
     this._map.fitBounds(this._bounds);
   },
-
-  // confineBounds: function () {
-  //   // it would be nice to avoid doing this for every removed marker
-  //   this._bounds = new google.maps.LatLngBounds();
-  //   _(this._markers).forEach(function (marker) {
-  //     this._bounds.extend(marker.position);
-  //     this._map.fitBounds(this._bounds);
-  //   }.bind(this));
-  // },
 
   addMarker: function (image, extendBounds) {
     if (this._markers[image.id]) { return; }
@@ -262,11 +255,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
 
     marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
 
-    google.maps.event.addListener(marker, 'mouseout', function (event) {
-      view.hideMarkerInfo(event, marker);
-    });
-
-    google.maps.event.addListener(marker, 'mouseover', function (event) {
+    google.maps.event.addListener(marker, 'click', function (event) {
       view.showMarkerInfo(event, marker);
     });
 
@@ -290,12 +279,15 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
   },
 
   showMarkerInfo: function (event, marker) {
+    this.closeOpenMarker();
+
     var infoWindow = new google.maps.InfoWindow({
       content: marker.image
     });
 
     infoWindow.open(this._map, marker);
     marker.infoWindow = infoWindow;
+    this.openMarker = marker;
 
     google.maps.event.addListener(infoWindow, 'domready', function() {
       var iwOuter = $('.gm-style-iw');
@@ -306,8 +298,10 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     });
   },
 
-  hideMarkerInfo: function (event, marker) {
-    marker.infoWindow.close();
+  closeOpenMarker: function () {
+    if (this.openMarker) {
+      this.openMarker.infoWindow.close()
+    }
   },
 
   activateMarker: function (id) {

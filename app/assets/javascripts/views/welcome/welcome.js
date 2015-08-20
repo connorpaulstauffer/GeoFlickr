@@ -47,9 +47,10 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
     event.preventDefault();
     var location = this.$("#welcome-search").val();
     if (location === "") {
-      location = "San Francisco, CA"
+      Backbone.history.navigate("images", { trigger: true });
+    } else {
+      Backbone.history.navigate("images/?location=" + location, { trigger: true });
     }
-    Backbone.history.navigate("images/?location=" + location, { trigger: true });
   },
 
   attachGeocomplete: function () {
@@ -83,7 +84,7 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
           }.bind(this));
         }.bind(this), 3000);
       }.bind(this));
-    }.bind(this), 3000);
+    }.bind(this), 2000);
   },
 
   blinkCursor: function () {
