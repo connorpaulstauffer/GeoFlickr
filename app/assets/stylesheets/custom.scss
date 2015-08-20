@@ -321,6 +321,7 @@ a:hover {
   padding: 0;
   // background-color: #e3e3e3;
   #image-grid-contents {
+    // padding: 2px;
     #no-images-alert-container {
       width: 75%;
       padding: 30px;
@@ -342,15 +343,20 @@ a:hover {
       display: none;
     }
   }
+  #photo-grid-container {
+    // box-sizing: border-box;
+  }
+
   .photo-grid {
-    margin: 0 auto;
     width: 100%;
     .box {
-  	  position: relative;
-      margin-top: 1px;
       box-sizing: border-box;
-      margin-bottom: 1px;
+      margin: 0;
+      border: 0;
+      // padding: 2px;
       width: 33%;
+      margin-bottom: 1px;
+      margin-top: 1px;
   	  img {
   	  	width: 100%;
   	  	height: auto;
