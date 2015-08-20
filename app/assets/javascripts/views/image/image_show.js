@@ -8,6 +8,7 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
     this.addUserInfo();
     this.addComments();
     this.addImageStats();
+    this.addImageAddress();
   },
 
   setImage: function (image) {
@@ -23,6 +24,14 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
     this.addComments();
     this.addUserInfo();
     this.addImageStats();
+  },
+
+  addImageAddress: function () {
+    if (this.model.get("address")) {
+      this.$("#image-address-link").html(this.model.get("address"));
+    } else {
+      this.listenToOnce(this.model, "change:address", this.addImageAddress);
+    }
   },
 
   addImageStats: function () {
