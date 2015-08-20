@@ -192,6 +192,32 @@ a:hover {
 
 .image-show-container {
   padding: 0;
+  #image-stats-container {
+    .image-stats {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      .image-stat-item {
+        display: inline-block;
+        margin-right: 20px;
+        vertical-align: top;
+        font-family: 'Istok Web', sans-serif;
+        h4 {
+          font-size: 24px;
+        }
+        h6 {
+          font-size: 16px;
+          color: #555555;
+        }
+        p {
+          font-size: 18px;
+          color: #555555;
+        }
+      }
+      .image-stat-item.uploaded-at {
+        margin: 10px;
+      }
+    }
+  }
   #image-carousel-container {
     background-color: #555555;
     #primary-image {

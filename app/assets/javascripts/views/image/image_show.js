@@ -7,6 +7,7 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
     this.addImageCarousel();
     this.addUserInfo();
     this.addComments();
+    this.addImageStats();
   },
 
   setImage: function (image) {
@@ -16,10 +17,20 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
 
     this.removeSubview("comments-container", this.comments);
     this.removeSubview("user-info-container", this.userInfo);
+    this.removeSubview("image-stats-container", this.imageStats);
 
     this.addMap();
     this.addComments();
     this.addUserInfo();
+    this.addImageStats();
+  },
+
+  addImageStats: function () {
+    this.imageStats = new GeoFlickr.Views.ImageStats({
+      model: this.model
+    })
+
+    this.addSubview("#image-stats-container", this.imageStats);
   },
 
   addImageCarousel: function () {
@@ -47,7 +58,6 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
     })
 
     this.addSubview("#comments-container", this.comments);
-    this.comments.onRender();
   },
 
   addUserInfo: function () {

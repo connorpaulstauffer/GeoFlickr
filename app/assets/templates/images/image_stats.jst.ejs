@@ -1,0 +1,15 @@
+<% if (image.get("user_id")) { %>
+  <div class="image-stat-item">
+    <h4><%= image.get("favorites_count") %></h4>
+    <h6>favorites</h6>
+  </div>
+
+  <div class="image-stat-item">
+    <h4><%= image.comments().length %></h4>
+    <h6>comments</h6>
+  </div>
+
+  <div class="image-stat-item uploaded-at">
+    <p>Uploaded on <%= image.get("uploaded_at") %></p>
+  </div>
+<%  } %>

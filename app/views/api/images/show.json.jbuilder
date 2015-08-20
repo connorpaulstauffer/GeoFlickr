@@ -2,9 +2,9 @@ json.partial! "api/images/image", image: @image
 
 json.user @image.user
 
-json.user_images do
-  json.array! @image.user.images
-end
+# json.user_images do
+#   json.array! @image.user.images
+# end
 
 json.comments do
   json.array! @image.comments, partial: "api/comments/comment", as: :comment

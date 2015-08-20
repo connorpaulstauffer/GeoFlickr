@@ -10,3 +10,5 @@ if current_user
 end
 
 json.favorites_count image.favorites.count
+
+json.uploaded_at image.created_at.strftime("%B %e, %Y")
