@@ -104,12 +104,13 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
     if (this.imageShowView) {
       this.imageShowView.setImage(image)
     } else {
-      this.imageShowView = new GeoFlickr.Views.ImageShow({
+      var imageShowView = new GeoFlickr.Views.ImageShow({
         model: image,
         collection: this.images()
        });
 
-      this.swap(this.imageShowView);
+      this.swap(imageShowView);
+      this.imageShowView = imageShowView;
     }
   },
 
@@ -122,6 +123,8 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
   },
 
   swap: function (newView, welcomeNav) {
+    this.imageShowView = null;
+    
     if (welcomeNav) {
       this.$navBar.addClass("welcome");
     } else {
