@@ -13,6 +13,7 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
 
   setImage: function (image) {
     this.model = image;
+
     this.$("#image-show-map-container").empty();
     this.imageShowMap.remove();
 
@@ -24,10 +25,13 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
     this.addComments();
     this.addUserInfo();
     this.addImageStats();
+    this.addImageAddress();
     this.comments.onRender();
   },
 
   addImageAddress: function () {
+    this.$("#image-address-link").empty();
+
     if (this.model.get("address")) {
       this.$("#image-address-link").html(this.model.get("address"));
     } else {
