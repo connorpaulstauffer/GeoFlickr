@@ -99,7 +99,8 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
   },
 
   imageShow: function (id) {
-    var image = this.images().getOrFetch(id)
+    var image = new GeoFlickr.Models.Image({ id: id })
+    image.fetch();
 
     if (this.imageShowView) {
       this.imageShowView.setImage(image)
@@ -124,7 +125,7 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
 
   swap: function (newView, welcomeNav) {
     this.imageShowView = null;
-    
+
     if (welcomeNav) {
       this.$navBar.addClass("welcome");
     } else {

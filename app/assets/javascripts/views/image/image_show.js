@@ -13,17 +13,18 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
 
   setImage: function (image) {
     this.model = image;
-    this.$("image-show-map-container").empty();
+    this.$("#image-show-map-container").empty();
     this.imageShowMap.remove();
 
-    this.removeSubview("comments-container", this.comments);
-    this.removeSubview("user-info-container", this.userInfo);
-    this.removeSubview("image-stats-container", this.imageStats);
+    this.removeSubview("#comments-container", this.comments);
+    this.removeSubview("#user-info-container", this.userInfo);
+    this.removeSubview("#image-stats-container", this.imageStats);
 
     this.addMap();
     this.addComments();
     this.addUserInfo();
     this.addImageStats();
+    this.comments.onRender();
   },
 
   addImageAddress: function () {
