@@ -108,12 +108,10 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     // maybe the collections could alternatively have bounds
     if (this.collection.center) {
       var coordinates = $.parseJSON(this.collection.center);
-    } else {
-      var coordinates = [37, -122];
+      this._center = new google.maps.LatLng(coordinates[0], coordinates[1]);
+      this._bounds = new google.maps.LatLngBounds(this._center);
     }
 
-    this._center = new google.maps.LatLng(coordinates[0], coordinates[1]);
-    this._bounds = new google.maps.LatLngBounds(this._center);
 
     if (this.collection.length == 0) {
       this.extendForEmptyCollection();
@@ -222,6 +220,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
   },
 
   extendBounds: function (marker) {
+    this._center = this._center || marker.position
     this._bounds.extend(marker.position);
     // extend equally in opposite direction to maintain center
     var lat_diff = marker.position.G - this._center.G
@@ -247,6 +246,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
 
   addMarker: function (image, extendBounds) {
     if (this._markers[image.id]) { return; }
+
     if (!(image.get("latitude") && image.get("longitude"))) { return; }
     var view = this;
 
@@ -262,16 +262,21 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
 
     marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
 
-    google.maps.event.addListener(marker, 'mouseover', function (event) {
-      view.showMarkerInfo(event, marker);
-    });
-
     google.maps.event.addListener(marker, 'mouseout', function (event) {
       view.hideMarkerInfo(event, marker);
     });
 
+    google.maps.event.addListener(marker, 'mouseover', function (event) {
+      view.showMarkerInfo(event, marker);
+    });
+
+
     if (extendBounds) {
       this.extendBounds(marker);
+    } else if (!this._bounds) {
+      this._bounds = new google.maps.LatLngBounds(marker.position)
+      this._map.fitBounds(this._bounds);
+      this._map.setZoom(6);
     }
     this._markers[image.id] = marker;
   },

@@ -14,7 +14,7 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     this._activeImage = options.activeImage;
     this._images = options.images;
 
-    if (this._images.length > 0) {
+    if (this._images.length > 1) {
       this.addImageSlider();
     }
   },

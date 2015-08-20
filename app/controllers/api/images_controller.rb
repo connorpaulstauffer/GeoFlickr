@@ -29,14 +29,14 @@ class Api::ImagesController < ApplicationController
       else
         tag = params[:filter_data][:tag]
         bounds = params[:filter_data][:bounds] || {
-          'lng' => ['-165.0', '-50.0'],
+          'lng' => ['-150.0', '-50.0'],
           'lat' => ['0.0', '80.0']
         }
         @images = Image.from_bounds(bounds, tag)
       end
     else
       bounds = {
-        'lng' => ['-165.0', '-50.0'],
+        'lng' => ['-150.0', '-50.0'],
         'lat' => ['0.0', '80.0']
       }
       @images = Image.from_bounds(bounds, nil)

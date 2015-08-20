@@ -25,6 +25,7 @@ GeoFlickr.Views.ImageShow = Backbone.CompositeView.extend({
     this.removeSubview("#comments-container", this.comments);
     this.removeSubview("#user-info-container", this.userInfo);
     this.removeSubview("#image-stats-container", this.imageStats);
+    this.removeSubview("#image-tags-container", this.tagIndex);
 
     this.addMap();
     this.addComments();
