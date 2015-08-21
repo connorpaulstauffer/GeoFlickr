@@ -28,6 +28,10 @@ body {
   border-radius: 2px 2px 0 0;
 }
 
+.hidden {
+  display: none;
+}
+
 
 #root {
   position: relative;
@@ -54,7 +58,7 @@ body {
 .welcome-container {
   overflow: hidden;
   position: absolute;
-  top: -50px;
+  top: -60px;
   width: 100%;
   background-color: black;
   #welcome-content {
@@ -475,10 +479,10 @@ body {
 }
 
 #navbar.welcome {
-  .navbar-header {
-    margin: 0;
-    height: 70px;
-  }
+  // .navbar-header {
+  //   margin: 0;
+  //   height: 70px;
+  // }
   .navbar {
     background: transparent;
     border: none;
@@ -655,9 +659,6 @@ body {
       }
       #submit-comment {
         float: right;
-        .hidden {
-          display: none;
-        }
       }
     }
   }

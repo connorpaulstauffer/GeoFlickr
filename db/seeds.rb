@@ -40,21 +40,24 @@ user1 = User.create!(
   name: "Art Murray",
   email: "art@murraymail.com",
   password: "password",
-  avatar: file_from_url(Faker::Avatar.image)
+  avatar: file_from_url(Faker::Avatar.image),
+  banner: file_from_url("https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg")
 )
 
 user2 = User.create!(
   name: "Kayla Kuvalis",
   email: "kayla@kuvalismail.com",
   password: "password",
-  avatar: file_from_url(Faker::Avatar.image)
+  avatar: file_from_url(Faker::Avatar.image),
+  banner: file_from_url("https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg")
 )
 
 user3 = User.create!(
   name: "Kenneth Mitchell",
   email: "kenneth@mitchellmail.com",
   password: "password",
-  avatar: file_from_url(Faker::Avatar.image)
+  avatar: file_from_url(Faker::Avatar.image),
+  banner: file_from_url("https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg")
 )
 
 users = [user1, user2, user3, demo_user]
