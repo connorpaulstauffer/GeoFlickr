@@ -153,12 +153,17 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
 
     this.removeMarkers();
     var coordinates = $.parseJSON(this.collection.center);
+
     this._center = new google.maps.LatLng(coordinates[0], coordinates[1]);
     this._bounds = new google.maps.LatLngBounds(this._center);
 
-    this.collection.each(function (image) {
-      this.addMarker(image, true);
-    }.bind(this));
+    if (this.collection.length == 0) {
+      this.extendForEmptyCollection();
+    } else {
+      this.collection.each(function (image) {
+        this.addMarker(image, true);
+      }.bind(this));
+    }
   },
 
   addSearchInMapButton: function () {

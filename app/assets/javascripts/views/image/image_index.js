@@ -88,5 +88,10 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
     this.showLoading();
 
     return this;
+  },
+
+  remove: function () {
+    this._mapShow.remove();
+    Backbone.CompositeView.prototype.remove.call(this);
   }
 });
