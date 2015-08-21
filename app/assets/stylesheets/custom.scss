@@ -212,9 +212,14 @@ body {
 .image-show-container {
   padding: 0;
   #image-stats-container {
+    margin-top: 10px;
+    margin-right: 50px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(224, 224, 224 , .8);
     .image-stats {
-      padding-top: 10px;
-      padding-bottom: 10px;
+      // padding-top: 10px;
+      // padding-bottom: 10px;
       .image-stat-item {
         display: inline-block;
         margin-right: 20px;
@@ -239,9 +244,19 @@ body {
   }
 
   #image-tags-container {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    h4 {
+      font-family: 'Istok Web', sans-serif;
+      font-size: 20px;
+    }
+    h4.hidden {
+      display: none;
+    }
     #tag-index-items {
+      padding: 10px;
+      background-color: rgba(224, 224, 224 , .8);
+      border-radius: 5px;
       width: 50%;
       .tag-item-container {
         display: inline-block;
@@ -578,45 +593,68 @@ body {
   top: 50px;
 }
 
-#comments-container {
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-bottom: 50px;
-  padding-right: 50px;
-  .avatar {
-    img {
-      width: 40px;
-      height: 40px;
-      display: block;
-      margin: 0 auto;
-    }
-  }
-  #comment-items {
-    .comment-row {
-      padding: 5px;
-      .comment {
-        padding-left: 0;
+#image-show-content {
+  background-color: #F6F6F6;
+  padding-bottom: 100px;
+  #comments-container {
+    // border: thin solid #b3cde0;
+    background-color: rgba(224, 224, 224 , .8);
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 50px;
+    margin-right: 50px;
+    .avatar {
+      img {
+        width: 40px;
+        height: 40px;
+        display: block;
+        margin: 0 auto;
       }
     }
-  }
-  #comment-form {
-    .comment-form-row {
-      padding: 5px;
+    #comment-items {
+      .comment-row {
+        background-color: rgba(179, 205, 224 ,0.5);
+        border-radius: 5px;
+        margin-bottom: 5px;
+        padding: 5px;
+        .comment {
+          padding-left: 0;
+        }
+      }
+
+      .comment-row:hover {
+        -moz-box-shadow:    1px 1px 1px 1px #AAB4B9;
+        -webkit-box-shadow: 1px 1px 1px 1px #AAB4B9;
+        box-shadow:         1px 1px 1px 1px #AAB4B9;
+      }
     }
-    #comment-input {
-      padding-left: 0;
-    }
-    #submit-comment {
-      float: right;
-      .hidden {
-        display: none;
+    #comment-form {
+      .comment-form-row {
+        padding: 5px;
+      }
+      #comment-input {
+        padding-left: 0;
+      }
+      #submit-comment {
+        float: right;
+        .hidden {
+          display: none;
+        }
       }
     }
   }
 }
 
+#image-address-link {
+  font-family: 'Istok Web', sans-serif;
+  font-size: 20px;
+}
+
 #image-show-map-container {
   height: 400px;
+  margin-right: 50px;
   #image-show-map-canvas {
     height: 100%;
   }

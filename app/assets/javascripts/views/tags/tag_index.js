@@ -12,6 +12,11 @@ GeoFlickr.Views.TagIndex = Backbone.CompositeView.extend({
     });
 
     this.addSubview("#tag-index-items", indexItem);
+    this.showHeader();
+  },
+
+  showHeader: function () {
+    this.$("#tag-index-header").removeClass("hidden");
   },
 
   render: function () {
