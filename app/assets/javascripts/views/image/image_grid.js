@@ -104,8 +104,9 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     }
 
     this.addAllImages();
-    this.listenTo(this.collection, "add", this.addImageGridItem.bind(this))
-    this.listenTo(this.collection, "remove", this.removeImageGridItem.bind(this))
+    // this.listenTo(this.collection, "add", this.addImageGridItem.bind(this))
+    this.listenTo(this.collection, "sync", this.addAllImages);
+    // this.listenTo(this.collection, "remove", this.removeImageGridItem.bind(this))
 
     $( window ).on("resize", this.reloadMasonry.bind(this));
     Backbone.CompositeView.prototype.onRender.call(this);
