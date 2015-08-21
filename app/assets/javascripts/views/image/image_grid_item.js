@@ -95,5 +95,9 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
     this.attachImage();
 
     return this;
+  },
+
+  onRender: function () {
+    // debugger;
   }
 });

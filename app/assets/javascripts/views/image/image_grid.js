@@ -16,7 +16,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     this.addSubview("#no-images-alert-container", noImagesAlert);
   },
 
-  addImageGridItem: function (image) {
+  addImageGridItem: function (image, stopLoading) {
     this.$("#no-images-alert-container").addClass("hidden");
     if ( this.noImagesAlert ) {
       this.removeSubview("#no-images-alert-container", this.noImagesAlert);
@@ -31,6 +31,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     this.$imageGrid.imagesLoaded(function() {
       this.$imageGrid.masonry("appended", imageGridItem.$el);
       this.$imageGrid.masonry();
+      if (stopLoading) { this._imageIndex.hideLoading() }
     }.bind(this));
   },
 
@@ -71,6 +72,23 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     // this.$imageGrid.masonry("reloadItems");
   },
 
+  addAllImages: function () {
+    var imagesLength = this.collection.length;
+    for (var i = 0; i < imagesLength; i++) {
+      var stopLoading = (i == imagesLength - 1)
+      var image = this.collection.models[i];
+      this.addImageGridItem(image, stopLoading)
+    }
+  },
+
+  hide: function () {
+    this.$el.css("visibility", "hidden")
+  },
+
+  show: function () {
+    this.$el.css("visibility", "visible")
+  },
+
   render: function () {
     var content = this.template();
     this.$el.html(content);
@@ -84,9 +102,12 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     if (this.collection.length == 0 && this._imageIndex) {
       this.displayNoResultsAlert();
     }
-    this.collection.each(this.addImageGridItem.bind(this));
+
+    this.addAllImages();
     this.listenTo(this.collection, "add", this.addImageGridItem.bind(this))
     this.listenTo(this.collection, "remove", this.removeImageGridItem.bind(this))
+
     $( window ).on("resize", this.reloadMasonry.bind(this));
+    Backbone.CompositeView.prototype.onRender.call(this);
   }
 });

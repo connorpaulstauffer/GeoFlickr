@@ -3,12 +3,14 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
 
   className: "row",
 
-  // events: {
-  //   "click #submit-search": "search"
-  // },
-
   initialize: function () {
+    this.addLoading()
     this.addImageGrid();
+  },
+
+  addLoading: function () {
+    this.loading = new GeoFlickr.Views.Loading();
+    this.addSubview("#photo-grid-container", this.loading)
   },
 
   addTagDropdown: function () {
@@ -22,11 +24,11 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
   },
 
   addImageGrid: function () {
-    var imageGrid = new GeoFlickr.Views.ImageGrid({
+    this.imageGrid = new GeoFlickr.Views.ImageGrid({
       collection: this.collection,
       imageIndex: this
     });
-    this.addSubview("#photo-grid-container", imageGrid);
+    this.addSubview("#photo-grid-container", this.imageGrid);
   },
 
   addMap: function () {
@@ -53,6 +55,20 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
     this._mapShow.deactivateMarker(id);
   },
 
+  showLoading: function () {
+    this.imageGrid.hide();
+    var height = $( window ).height() - 61
+    this.$("#photo-grid-container").css("min-height", height);
+    this.loading.setHeight(height);
+    this.loading.show();
+    this.loading.appendSpinner();
+  },
+
+  hideLoading: function () {
+    this.loading.hide();
+    this.imageGrid.show();
+  },
+
   render: function () {
     var content = this.template();
     this.$el.html(content);
@@ -60,6 +76,7 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
     this.addMap();
     this.addTagDropdown();
     this.onRender();
+    this.showLoading();
 
     return this;
   }
