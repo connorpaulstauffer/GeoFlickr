@@ -4,9 +4,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   attributes: { "id": "image-grid-contents" },
 
   initialize: function (options) {
-    if (options.imageIndex) {
-      this._imageIndex = options.imageIndex;
-    }
+    this._parent = options.parent;
   },
 
   displayNoResultsAlert: function () {
@@ -31,7 +29,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     this.$imageGrid.imagesLoaded(function() {
       this.$imageGrid.masonry("appended", imageGridItem.$el);
       this.$imageGrid.masonry();
-      if (stopLoading) { this._imageIndex.hideLoading() }
+      if (stopLoading) { this._parent.hideLoading() }
     }.bind(this));
   },
 
@@ -99,15 +97,13 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
 
   onRender: function () {
     this.initializeMasonry();
-    if (this.collection.length == 0 && this._imageIndex) {
+    if (this.collection.length == 0) {
       this.displayNoResultsAlert();
-      this._imageIndex.hideLoading();
+      this._parent.hideLoading();
     }
 
     this.addAllImages();
-    // this.listenTo(this.collection, "add", this.addImageGridItem.bind(this))
     this.listenTo(this.collection, "sync", this.addAllImages);
-    // this.listenTo(this.collection, "remove", this.removeImageGridItem.bind(this))
 
     $( window ).on("resize", this.reloadMasonry.bind(this));
     Backbone.CompositeView.prototype.onRender.call(this);

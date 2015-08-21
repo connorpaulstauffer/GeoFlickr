@@ -7,8 +7,49 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
   },
 
   initialize: function () {
+    this.addUserImagesLoading();
+    this.addUserFavoritesLoading();
+    this.listenTo(this.model, "sync", this.addUserImages);
+
     this.addUserBanner();
-    this.addUserImages();
+  },
+
+  addUserImagesLoading: function () {
+    this.userImagesLoading = new GeoFlickr.Views.Loading();
+    this.addSubview("#user-images-container", this.userImagesLoading);
+  },
+
+  showUserImagesLoading: function () {
+    this._userImages && this._userImages.hide();
+    var height = $( window ).height() - 413
+    this.$("#user-images-container").css("min-height", height);
+    this.userImagesLoading.setHeight(height);
+    this.userImagesLoading.show();
+    this.userImagesLoading.appendSpinner();
+  },
+
+  showUserFavoritesLoading: function () {
+    this._userFavorites && this._userFavorites.hide();
+    var height = $( window ).height() - 413
+    this.$("#user-images-container").css("min-height", height);
+    this.userFavoritesLoading.setHeight(height);
+    this.userFavoritesLoading.show();
+    this.userFavoritesLoading.appendSpinner();
+  },
+
+  addUserFavoritesLoading: function () {
+    this.userFavoritesLoading = new GeoFlickr.Views.Loading();
+    this.addSubview("#user-favorites-container", this.userFavoritesLoading);
+  },
+
+  hideLoading: function () {
+    if (this.userStream) {
+      this.userImagesLoading.hide();
+      this._userImages.show();
+    } else {
+      this.userFavoritesLoading.hide();
+      this._userFavorites.show();
+    }
   },
 
   addUserBanner: function () {
@@ -33,26 +74,31 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
     this.$("#user-images-link").addClass("active")
 
     if (!this._userImages) {
-      var userImages = new GeoFlickr.Views.ImageGrid({
-        collection: this.model.images()
+      this._userImages = new GeoFlickr.Views.ImageGrid({
+        collection: this.model.images(),
+        parent: this
       });
 
-      this.addSubview("#user-images-container", userImages);
-      this._userImages = userImages;
+      this.addSubview("#user-images-container", this._userImages);
+      this._userImages.onRender();
     }
 
     this.$("#user-favorites-container").css("display", "none");
     this.$("#user-images-container").removeAttr("style");
+    this.userStream = true;
   },
 
   addFavoriteImages: function () {
+    this.userStream = false;
     if (this.$("#user-favorites-link").hasClass("active")) { return; }
     this.$("#user-images-link").removeClass("active")
     this.$("#user-favorites-link").addClass("active")
 
     if (!this._userFavorites) {
+      this.showUserFavoritesLoading();
       var userFavorites = new GeoFlickr.Views.ImageGrid({
-        collection: this.model.favoriteImages()
+        collection: this.model.favoriteImages(),
+        parent: this
       });
 
       this.addSubview("#user-favorites-container", userFavorites);
@@ -75,7 +121,7 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
   },
 
   onRender: function () {
-    this.$("#user-images-link").addClass("active");
+    this.showUserImagesLoading();
     Backbone.CompositeView.prototype.onRender.call(this);
   }
 });
