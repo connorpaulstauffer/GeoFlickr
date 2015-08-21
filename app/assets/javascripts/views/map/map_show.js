@@ -11,9 +11,7 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
 
   initialize: function () {
     this._markers = {};
-    this.listenTo(this.collection, "remove", this.removeMarker);
     this.listenTo(this.collection, "sync", this.handleSync);
-    this.listenTo(this.collection, "change:center", this.resetMap);
   },
 
   initializeMap: function () {
@@ -105,22 +103,6 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
     this._map.mapTypes.set("map_style", styledMap);
     this._map.setMapTypeId("map_style");
 
-    // maybe the collections could alternatively have bounds
-    if (this.collection.center) {
-      var coordinates = $.parseJSON(this.collection.center);
-      this._center = new google.maps.LatLng(coordinates[0], coordinates[1]);
-      this._bounds = new google.maps.LatLngBounds(this._center);
-    }
-
-
-    if (this.collection.length == 0) {
-      this.extendForEmptyCollection();
-    } else {
-      this.collection.each(this.addMarker.bind(this));
-    }
-
-    this._map.addListener("click", this.closeOpenMarker.bind(this));
-
     this._minZoom = 2;
     this.addMapListeners();
     this.addSearchInMapButton();
@@ -144,22 +126,32 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
 
   handleSync: function () {
     if (this.collection.center) {
-      this.resetMap();
-    } else {
+      this.setMapFromCenter();
+    } else if (this._bounds) {
       this.resetMarkers();
+    } else {
+      this.setMapFromMarkers();
     }
   },
 
+  setMapFromMarkers: function () {
+    this.collection.each(function (image) {
+      this.addMarker(image, true);
+    }.bind(this))
+  },
+
   resetMarkers: function () {
-    _(this._markers).each(this.removeMarker.bind(this));
+    this.removeMarkers();
+
     this.collection.each(function (image) {
       this.addMarker(image, false);
     }.bind(this));
   },
 
-  resetMap: function () {
+  setMapFromCenter: function () {
     if (!this.collection.center) { return; }
-    _(this._markers).each(this.removeMarker.bind(this));
+
+    this.removeMarkers();
     var coordinates = $.parseJSON(this.collection.center);
     this._center = new google.maps.LatLng(coordinates[0], coordinates[1]);
     this._bounds = new google.maps.LatLngBounds(this._center);
@@ -180,6 +172,8 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
         this._map.setZoom(this._minZoom)
       };
     }.bind(this));
+
+    this._map.addListener("click", this.closeOpenMarker.bind(this));
   },
 
   search: function () {
@@ -222,7 +216,10 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
   },
 
   extendBounds: function (marker) {
+    this._bounds = this._bounds || new google.maps.LatLngBounds(marker.position)
+
     this._bounds.extend(marker.position);
+
     if (this._center) {
       var lat_diff = marker.position.G - this._center.G
       var lng_diff = marker.position.K - this._center.K
@@ -259,23 +256,17 @@ GeoFlickr.Views.MapShow = Backbone.View.extend({
       view.showMarkerInfo(event, marker);
     });
 
+    if (extendBounds) { this.extendBounds(marker); }
 
-    if (extendBounds) {
-      this.extendBounds(marker);
-    } else if (!this._bounds) {
-      this._bounds = new google.maps.LatLngBounds(marker.position)
-      this._map.fitBounds(this._bounds);
-      this._map.setZoom(6);
-    }
     this._markers[image.id] = marker;
   },
 
-  removeMarker: function (image) {
-    var marker = this._markers[image.id];
-    if (marker) {
+  removeMarkers: function () {
+    _(this._markers).each(function (marker) {
       marker.setMap(null);
-      delete this._markers[image.id];
-    }
+    }.bind(this))
+
+    this._markers = {};
   },
 
   showMarkerInfo: function (event, marker) {
