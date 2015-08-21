@@ -80,6 +80,7 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
       });
 
       this.addSubview("#user-images-container", this._userImages);
+      this.showUserImagesLoading();
       this._userImages.onRender();
     }
 
@@ -121,7 +122,6 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
   },
 
   onRender: function () {
-    this.showUserImagesLoading();
     Backbone.CompositeView.prototype.onRender.call(this);
   }
 });

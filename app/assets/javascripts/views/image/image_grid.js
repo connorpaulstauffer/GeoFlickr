@@ -54,15 +54,11 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   },
 
   activateImage: function (id) {
-    if (this._imageIndex) {
-      this._imageIndex.activateImage(id);
-    }
+    this._parent.activateImage && this._parent.activateImage(id);
   },
 
   deactivateImage: function (id) {
-    if (this._imageIndex) {
-      this._imageIndex.deactivateImage(id);
-    }
+    this._parent.activateImage && this._parent.deactivateImage(id);
   },
 
   reloadMasonry: function () {
@@ -80,11 +76,11 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   },
 
   hide: function () {
-    this.$el.css("visibility", "hidden")
+    this.$el.css("visibility", "hidden");
   },
 
   show: function () {
-    this.$el.css("visibility", "visible")
+    this.$el.css("visibility", "visible");
   },
 
   render: function () {

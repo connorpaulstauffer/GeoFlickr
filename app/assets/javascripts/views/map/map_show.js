@@ -15,8 +15,8 @@ GeoFlickr.Views.MapShow = GeoFlickr.Map.extend({
   },
 
   initializeMap: function () {
-    this.addSearchInMapButton();
     GeoFlickr.Map.prototype.initializeMap.call(this);
+    this.addSearchInMapButton();
   },
 
   extendForEmptyCollection: function () {
