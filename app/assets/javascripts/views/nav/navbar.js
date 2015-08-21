@@ -2,7 +2,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   template: JST["nav/navbar"],
 
   events: {
-      'click #logo': "goToIndex",
+      'click .navbar-brand': "goToIndex",
       'click #sign-up': 'openSignUpModal',
       'click #log-in': 'openLogInModal',
       'click #sign-out': 'signOut',

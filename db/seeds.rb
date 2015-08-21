@@ -23,23 +23,47 @@ def file_from_url(url)
   file
 end
 
-user = User.find_by_email("demo@geoflickr.com")
-user.destroy!
-user = User.new(email: "demo@geoflickr.com", password: "password")
+["Demo User", "Art Murray", "Kayla Kuvalis", "Kenneth Mitchell"].each do |name|
+  user = User.find_by_name(name)
+  user.destroy! if user
+end
 
-url = "https://spiritualoasis.files.wordpress.com/2006/10/earth-from-space-western.jpg"
-user.avatar = file_from_url(url)
+demo_user = User.create!(
+  name: "Demo User",
+  email: "demo@geoflickr.com",
+  password: "password",
+  avatar: file_from_url(Faker::Avatar.image),
+  banner: file_from_url("https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg")
+)
 
-url = "https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg"
-user.banner = file_from_url(url)
+user1 = User.create!(
+  name: "Art Murray",
+  email: "art@murraymail.com",
+  password: "password",
+  avatar: file_from_url(Faker::Avatar.image)
+)
 
-user.save!
+user2 = User.create!(
+  name: "Kayla Kuvalis",
+  email: "kayla@kuvalismail.com",
+  password: "password",
+  avatar: file_from_url(Faker::Avatar.image)
+)
+
+user3 = User.create!(
+  name: "Kenneth Mitchell",
+  email: "kenneth@mitchellmail.com",
+  password: "password",
+  avatar: file_from_url(Faker::Avatar.image)
+)
+
+users = [user1, user2, user3, demo_user]
 
 
 data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, header_converters: :symbol, converters: :all}) do |row|
   this_row = row.to_hash
   url = this_row[:url]
-  image = Image.create!(image: file_from_url(url), user: user, address: this_row[:address])
+  image = Image.create!(image: file_from_url(url), user: users.sample, address: this_row[:address])
 
   tags = this_row[:tags] ? this_row[:tags].split(" ") : []
   tags.each do |tag|
@@ -49,11 +73,11 @@ data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, 
   end
 
 
-  (1...10).to_a.sample.times do
+  (3...15).to_a.sample.times do
+    user = users.sample
     comment = user.comments.create({
       content: Faker::Lorem.sentence,
       image: image,
-      user: user,
       created_at: Faker::Time.between(DateTime.now - 35, DateTime.now)
     })
   end

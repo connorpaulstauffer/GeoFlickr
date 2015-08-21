@@ -34,39 +34,13 @@ body {
 }
 
 #content {
-  margin-top: 50px;
+  margin-top: 60px;
   position: relative;
 }
 
 #logo {
   font-family: 'Istok Web', sans-serif;
   font-size: 28px;
-}
-
-#navbar {
-  #logo-image {
-    display: none;
-  }
-}
-
-#navbar.welcome {
-  #logo-image {
-    display: block;
-    background: transparent;
-  }
-  .navbar {
-    background: transparent;
-    border: none;
-    height: 65px;
-    .navbar-inner {
-      margin-top: 15px;
-      padding-left: 50px;
-      padding-right: 50px;
-    }
-  }
-  #navbar-search {
-    display: none;
-  }
 }
 
 .pac-container {
@@ -470,11 +444,53 @@ body {
 
 .navbar-inverse {
   background-color: #03396c;
-  a {
-    color: #b3cde0 !important;
+}
+
+#navbar {
+  .navbar-inner {
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
-  a:hover {
-    color: white !important;
+  #navbar-logo {
+    height: 100%;
+  }
+  .navbar-header {
+    margin-top: 7px;
+    margin-left: 10px;
+    margin-right: 10px;
+    // margin: 10px;
+    height: 36px;
+    width: auto;
+  }
+  .navbar-brand {
+    height: 100%;
+    position: relative;
+    float: left;
+    padding: 0;
+    margin-left: 0;
+  }
+  // #white-logo:hover {
+  //   display: none;
+  // }
+}
+
+#navbar.welcome {
+  .navbar-header {
+    margin: 0;
+    height: 70px;
+  }
+  .navbar {
+    background: transparent;
+    border: none;
+    height: 65px;
+    .navbar-inner {
+      margin-top: 15px;
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+  }
+  #navbar-search {
+    display: none;
   }
 }
 

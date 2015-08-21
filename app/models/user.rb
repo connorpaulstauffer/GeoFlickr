@@ -9,6 +9,7 @@
 #  updated_at      :datetime         not null
 #  avatar          :string
 #  banner          :string
+#  name            :string
 #
 
 class User < ActiveRecord::Base
