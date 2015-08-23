@@ -60,7 +60,7 @@ user3 = User.create!(
   banner: file_from_url("https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg")
 )
 
-users = [user1, user2, user3, demo_user]
+users = [user1, user2, user3]
 
 
 data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, header_converters: :symbol, converters: :all}) do |row|
@@ -83,5 +83,12 @@ data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, 
       image: image,
       created_at: Faker::Time.between(DateTime.now - 35, DateTime.now)
     })
+  end
+end
+
+users.each do |user|
+  image_ids = Image.all.pluck(:id)
+  image_ids.sample(5 + Random.rand(image_ids.length / 2)).each do |image_id|
+    Favorite.create!({ image_id: image_id, user_id: user.id })
   end
 end

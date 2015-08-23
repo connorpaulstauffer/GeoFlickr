@@ -13,13 +13,13 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :micro do
-    process resize_to_limit: [100, 100]
-    process quality: 100
+    process resize_to_limit: [200, 200]
+    process quality: 200
   end
 
   version :macro do
     process resize_to_limit: [800, 800]
-    process quality: 800   
+    process quality: 800
   end
 
   def store_dir

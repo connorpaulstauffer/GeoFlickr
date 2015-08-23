@@ -48,13 +48,18 @@ body {
 }
 
 #content {
-  margin-top: 60px;
+  margin-top: 50px;
   position: relative;
 }
 
 #logo {
   font-family: 'Istok Web', sans-serif;
   font-size: 28px;
+}
+
+#tag-label-list {
+  max-height: 400px;
+  overflow-y: scroll;
 }
 
 .pac-container {
@@ -68,7 +73,7 @@ body {
 .welcome-container {
   overflow: hidden;
   position: absolute;
-  top: -60px;
+  top: -50px;
   width: 100%;
   background-color: black;
   #welcome-content {
@@ -463,8 +468,8 @@ body {
 
 #navbar {
   .navbar-inner {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    // padding-top: 5px;
+    // padding-bottom: 5px;
   }
   #navbar-logo {
     height: 100%;
