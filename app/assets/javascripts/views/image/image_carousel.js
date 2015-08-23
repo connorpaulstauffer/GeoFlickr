@@ -54,7 +54,6 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
   },
 
   setPrimaryImage: function (image) {
-    this.showLoading();
     if (this._primaryImageView) {
       this.removeSubview("#primary-image", this._primaryImageView)
       this._primaryImageView.remove();
@@ -71,6 +70,7 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     });
 
     this.addSubview("#primary-image", this._primaryImageView);
+    this.showLoading();
     this.$("#primary-image-container").height(containerHeight);
     this.$("#primary-image-container").width(containerWidth);
   },
@@ -87,6 +87,7 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     });
 
     this.addSubview("#primary-image", this._primaryImageView);
+    this.showLoading();
     this.$("#primary-image-container").height(containerHeight);
     this.$("#primary-image-container").width(containerWidth);
     this.$("#primary-image > a").css("display", "none")
