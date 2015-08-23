@@ -19,6 +19,11 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     }
   },
 
+  addLoading: function () {
+    this.loading = new GeoFlickr.Views.Loading();
+    this.$("#primary-image").append(this.loading.$el);
+  },
+
   expandSlider: function () {
     this.$("#slider-images").addClass("large");
     this.$(".slider-item").each(function (idx, slider) {
@@ -49,6 +54,7 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
   },
 
   setPrimaryImage: function (image) {
+    this.showLoading();
     if (this._primaryImageView) {
       this.removeSubview("#primary-image", this._primaryImageView)
       this._primaryImageView.remove();
@@ -60,7 +66,8 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     this._primaryImageView = new GeoFlickr.Views.PrimaryImage({
       model: image,
       containerHeight: containerHeight,
-      containerWidth: containerWidth
+      containerWidth: containerWidth,
+      imageCarousel: this
     });
 
     this.addSubview("#primary-image", this._primaryImageView);
@@ -75,7 +82,8 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     this._primaryImageView = new GeoFlickr.Views.PrimaryImage({
       model: image,
       containerHeight: containerHeight,
-      containerWidth: containerWidth
+      containerWidth: containerWidth,
+      imageCarousel: this
     });
 
     this.addSubview("#primary-image", this._primaryImageView);
@@ -92,6 +100,18 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     $("#variable-width-slider").slick("slickPrev");
   },
 
+  showLoading: function () {
+    this._primaryImageView && this._primaryImageView.hide();
+    this.loading.setHeight(this.$("#primary-image").height());
+    this.loading.show();
+    this.loading.appendSpinner();
+  },
+
+  hideLoading: function () {
+    this.loading.hide();
+    this._primaryImageView.show();
+  },
+
   render: function () {
     var content = this.template()
     this.$el.html(content);
@@ -101,6 +121,7 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
   },
 
   onRender: function () {
+    this.addLoading();
     var windowHeight = $( window ).height();
     var navbarHeight = $(".navbar").height();
     this.$el.height(windowHeight - navbarHeight - 100);
@@ -113,5 +134,10 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
     }
 
     Backbone.CompositeView.prototype.onRender.call(this);
+  },
+
+  remove: function () {
+    this.loading.remove();
+    Backbone.CompositeView.prototype.remove.call(this);
   }
 })

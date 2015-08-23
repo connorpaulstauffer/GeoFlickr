@@ -4,6 +4,7 @@ GeoFlickr.Views.PrimaryImage = Backbone.View.extend({
   attributes: { "id": "primary-image-container" },
 
   initialize: function (options) {
+    this.imageCarousel = options.imageCarousel;
     this.containerHeight = options.containerHeight;
     this.containerWidth = options.containerWidth;
     this.containerRatio = this.containerHeight / this.containerWidth;
@@ -23,6 +24,7 @@ GeoFlickr.Views.PrimaryImage = Backbone.View.extend({
           } else {
             $img.width(that.containerWidth)
           }
+          that.imageCarousel.hideLoading();
       });
     } else {
       if (this.imageRatio > this.containerRatio) {
@@ -30,7 +32,16 @@ GeoFlickr.Views.PrimaryImage = Backbone.View.extend({
       } else {
         $img.width(this.containerWidth)
       }
+      this.imageCarousel.hideLoading();
     }
+  },
+
+  hide: function () {
+    this.$el.css("visibility", "hidden");
+  },
+
+  show: function () {
+    this.$el.css("visibility", "visible");
   },
 
   render: function () {
