@@ -62,6 +62,25 @@ user3 = User.create!(
 
 users = [user1, user2, user3]
 
+comments = [
+  "very nice shot",
+  "Amazing shot my friend",
+  "congrats !!",
+  "Great picture!",
+  "Wonderful!",
+  "Nice shot",
+  "Thanks for sharing your excellent picture",
+  "Wonderful image! the landscape and the light are gorgeous!!!!",
+  "Beautiful shot!",
+  "absolutely gorgeous!",
+  "An interesting view. An excellent angle. Thanks for sharing.",
+  "Wonderful shot!! You have a beautiful gallery!",
+  "wow i love this one so much",
+  "Superb view you have there",
+  "Great scenery, very excellent photo!",
+  "Beautiful capture!"
+]
+
 
 data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, header_converters: :symbol, converters: :all}) do |row|
   this_row = row.to_hash
@@ -76,10 +95,10 @@ data = CSV.foreach("db/seed-data.csv", { encoding: 'ISO-8859-1', headers: true, 
   end
 
 
-  (3...15).to_a.sample.times do
+  comments.sample(5 + Random.rand(12)).each do |comment|
     user = users.sample
     comment = user.comments.create({
-      content: Faker::Lorem.sentence,
+      content: comment,
       image: image,
       created_at: Faker::Time.between(DateTime.now - 35, DateTime.now)
     })

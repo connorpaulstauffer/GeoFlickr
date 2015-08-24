@@ -19,6 +19,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   openSignUpModal: function (event) {
+    this.activeModalView && this.activeModalView.remove();
     var signUpView = new GeoFlickr.Views.SignUp();
     var modal = new Backbone.BootstrapModal({
       content: signUpView,
@@ -31,15 +32,12 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
       okCloses: false
     }).open(this.signUpUser.bind(this, signUpView));
 
-    modal.on("cancel", function () {
-      debugger
-      signUpView.remove();
-    })
-
+    this.activeModalView = signUpView;
     this.activeModal = modal;
   },
 
   openLogInModal: function (event, parameters) {
+    this.activeModalView && this.activeModalView.remove();
     var logInView = new GeoFlickr.Views.LogIn({ parameters: parameters });
     var modal = new Backbone.BootstrapModal({
       content: logInView,
@@ -54,15 +52,12 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
       offerGuestLogin: true
     }).open(this.logInUser.bind(this, logInView, modal));
     this.activeModal = modal;
+    this.activeModalView = logInView;
 
     this.activeModal.bind("shown", function () {
       this.addGuestLogin();
       this.addSignUpOption();
     }.bind(this));
-
-    modal.on("cancel", function () {
-      logInView.remove();
-    })
   },
 
   addSignUpOption: function () {

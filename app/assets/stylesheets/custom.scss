@@ -182,9 +182,14 @@ body {
     bottom: 0;
     margin: 20px;
     z-index: 1;
+    img {
+      height: 150px;
+      width: 150px;
+    }
     h4 {
+      text-shadow: 1px 1px 1px #2A2A2A;
       font-family: 'Istok Web', sans-serif;
-      font-size: 28px;
+      font-size: 32px;
       color: white;
       margin-left: 5px;
       display: inline;

@@ -110,6 +110,8 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
   },
 
   userShow: function (id) {
+    this._images = null;
+    
     var user = new GeoFlickr.Models.User({ id: id });
     var userShow = new GeoFlickr.Views.UserShow({ model: user });
     user.fetch();

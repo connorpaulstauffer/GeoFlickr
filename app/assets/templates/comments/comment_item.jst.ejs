@@ -8,7 +8,7 @@
   <span>
     <% if (comment.user().id) { %>
       <a href="#/users/<%= comment.user().id %>">
-        <%= comment.user().get("email") %>
+        <%= comment.user().get("name") %>
       </a>
 
       <%= comment.get("created_at_ago") %>
