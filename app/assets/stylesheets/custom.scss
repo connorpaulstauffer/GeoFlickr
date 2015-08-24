@@ -630,6 +630,11 @@ body {
 #user-navbar {
   z-index: 999;
   width: 100%;
+  padding-left: 10px;
+  li {
+    width: 100px;
+    text-align: center;
+  }
 }
 
 .stuck#user-navbar {
