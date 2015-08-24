@@ -1,3 +1,5 @@
+$grid-float-breakpoint: 880px;
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
@@ -82,6 +84,7 @@ body {
     top: 25%;
     left: 50%;
     transform: translateX(-50%);
+    text-shadow: 0.5px 0.5px 0.5px #2A2A2A;
     h1 {
       text-align: center;
       font-family: 'Istok Web', sans-serif;

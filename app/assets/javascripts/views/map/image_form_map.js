@@ -3,6 +3,10 @@ GeoFlickr.Views.ImageFormMap = GeoFlickr.Map.extend({
     id: "form-map-canvas"
   },
 
+  initialize: function () {
+    this._geocoder = new google.maps.Geocoder();
+  },
+
   initializeMap: function () {
     GeoFlickr.Map.prototype.initializeMap.call(this);
 

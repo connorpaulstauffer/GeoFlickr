@@ -1,5 +1,16 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" id="site-navbar">
   <div class="container-fluid navbar-inner">
+    <button type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#navbar-collapse"
+            aria-expanded="false">
+       <span class="sr-only">Toggle navigation</span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+     </button>
+
     <div class="navbar-header">
       <!-- <a href="javascript:void(0)" class="navbar-brand" id="logo">GeoFlickr</a> -->
       <a href="javascipt:void(0)" class="navbar-brand">
@@ -7,39 +18,41 @@
       </a>
     </div>
 
-    <div id="search-controls">
-      <form class="navbar-form navbar-left" id="navbar-search">
-        <div class="input-group">
-         <span class="input-group-addon" id="search-icon">
-           <span class="glyphicon glyphicon-search"></span>
-         </span>
-         <input type="text"
-                class="form-control"
-                name="search[location]"
-                id="search-input"
-                placeholder="Search for images by location">
-        </div>
-      </form>
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <div id="search-controls">
+        <form class="navbar-form navbar-left" id="navbar-search">
+          <div class="input-group">
+           <span class="input-group-addon" id="search-icon">
+             <span class="glyphicon glyphicon-search"></span>
+           </span>
+           <input type="text"
+                  class="form-control"
+                  name="search[location]"
+                  id="search-input"
+                  placeholder="Search for images by location">
+          </div>
+        </form>
 
-      <ul class="nav navbar-nav" id="tag-dropdown">
-      </ul>
+        <ul class="nav navbar-nav" id="tag-dropdown">
+        </ul>
+      </div>
+
+      <% if (currentUser) { %>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#/images/new" class="" id="upload-link">Upload</a></li>
+          <li>
+            <form class="navbar-form">
+              <button type="submit" class="btn btn-default" id="sign-out">Sign Out</button>
+            </form>
+          </li>
+        </ul>
+
+      <% } else { %>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="javascript:void(0)" id="log-in">Log In</a></li>
+            <li><a href="javascript:void(0)" id="sign-up">Sign Up</a></li>
+        </ul>
+      <% } %>
     </div>
-
-    <% if (currentUser) { %>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#/images/new" class="" id="upload-link">Upload</a></li>
-        <li>
-          <form class="navbar-form">
-            <button type="submit" class="btn btn-default" id="sign-out">Sign Out</button>
-          </form>
-        </li>
-      </ul>
-
-    <% } else { %>
-      <ul class="nav navbar-nav navbar-right">
-          <li><a href="javascript:void(0)" id="log-in">Log In</a></li>
-          <li><a href="javascript:void(0)" id="sign-up">Sign Up</a></li>
-      </ul>
-    <% } %>
   </div>
 </nav>

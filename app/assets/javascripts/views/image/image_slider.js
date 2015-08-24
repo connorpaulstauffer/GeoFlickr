@@ -68,5 +68,10 @@ GeoFlickr.Views.ImageSlider = Backbone.CompositeView.extend({
     this.activateSlider();
     this.collection.each(this.addSliderItem.bind(this));
     this.listenTo(this.collection, "add", this.addSliderItem);
+    // avoids gap to the left of the slider on initial load
+    var currentSlide = this.$("#variable-width-slider").slick("getSlick").currentSlide;
+    this.$("#variable-width-slider").imagesLoaded(function () {
+      this.$("#variable-width-slider").slick("slickGoTo", currentSlide)
+    }.bind(this))
   }
 });

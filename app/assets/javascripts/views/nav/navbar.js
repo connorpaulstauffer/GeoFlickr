@@ -30,6 +30,12 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
       animate: true,
       okCloses: false
     }).open(this.signUpUser.bind(this, signUpView));
+
+    modal.on("cancel", function () {
+      debugger
+      signUpView.remove();
+    })
+
     this.activeModal = modal;
   },
 
@@ -48,10 +54,15 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
       offerGuestLogin: true
     }).open(this.logInUser.bind(this, logInView, modal));
     this.activeModal = modal;
+
     this.activeModal.bind("shown", function () {
       this.addGuestLogin();
       this.addSignUpOption();
     }.bind(this));
+
+    modal.on("cancel", function () {
+      logInView.remove();
+    })
   },
 
   addSignUpOption: function () {
@@ -176,7 +187,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   searchByLocation: function (location) {
-  if (location === "") {
+    if (location === "") {
       alert("Invalid location. Please try again.");
     } else {
       Backbone.history.navigate("images/?location=" + location, { trigger: true });

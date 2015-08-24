@@ -64,6 +64,8 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
   imageIndex: function (queryString) {
     var params = this.parseQueryString(queryString);
 
+    this._images = null;
+
     this.images().fetch({
       data: { filter_data: params },
 

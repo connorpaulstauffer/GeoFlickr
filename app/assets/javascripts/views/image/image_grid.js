@@ -45,21 +45,21 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
       itemSelector: ".box",
       percentPosition: true,
       columnWidth: function (containerWidth) {
-        var numberOfRows;
+        var numberOfColumns;
         if (containerWidth > 899) {
-          numberOfRows = 3;
+          numberOfColumns = 3;
           this.$(".box").css("width", "33.23%");
         } else if (containerWidth > 599) {
-          numberOfRows = 2;
+          numberOfColumns = 2;
           this.$(".box").css("width", "49.9%");
         } else {
-          numberOfRows = 1;
+          numberOfColumns = 1;
           this.$(".box").css("width", "99.9%");
         }
 
-        this.gridItemWidth = (containerWidth / numberOfRows) - 0.5;
+        this.gridItemWidth = (containerWidth / numberOfColumns) - 0.5;
 
-        return (containerWidth / numberOfRows);
+        return (containerWidth / numberOfColumns);
         return containerWidth / 3;
       }.bind(this)
     })
