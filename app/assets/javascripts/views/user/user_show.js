@@ -69,6 +69,7 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
   },
 
   addUserImages: function () {
+    this.userStream = true;
     if (this.$("#user-images-link").hasClass("active")) { return; }
     this.$("#user-favorites-link").removeClass("active")
     this.$("#user-images-link").addClass("active")
@@ -76,7 +77,8 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
     if (!this._userImages) {
       this._userImages = new GeoFlickr.Views.ImageGrid({
         collection: this.model.images(),
-        parent: this
+        parent: this,
+        isIndex: false
       });
 
       this.addSubview("#user-images-container", this._userImages);
@@ -86,7 +88,6 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
 
     this.$("#user-favorites-container").css("display", "none");
     this.$("#user-images-container").removeAttr("style");
-    this.userStream = true;
   },
 
   addFavoriteImages: function () {
@@ -98,7 +99,8 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
     if (!this._userFavorites) {
       this._userFavorites = new GeoFlickr.Views.ImageGrid({
         collection: this.model.favoriteImages(),
-        parent: this
+        parent: this,
+        isIndex: false
       });
 
       this.showUserFavoritesLoading();

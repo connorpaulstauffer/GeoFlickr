@@ -60,7 +60,7 @@ user3 = User.create!(
   banner: file_from_url("https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg")
 )
 
-users = [user1, user2, user3]
+users = [user1, user2, user3, demo_user]
 
 comments = [
   "very nice shot",

@@ -111,7 +111,7 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
 
   userShow: function (id) {
     this._images = null;
-    
+
     var user = new GeoFlickr.Models.User({ id: id });
     var userShow = new GeoFlickr.Views.UserShow({ model: user });
     user.fetch();
@@ -119,7 +119,7 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
     this.swap(userShow);
   },
 
-  swap: function (newView, welcomeNav) {
+  beforeSwap: function (welcomeNav) {
     this.imageShowView = null;
 
     if (welcomeNav) {
@@ -129,6 +129,11 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
     }
     // temporary
     $("#tag-dropdown").empty();
+  },
+
+  swap: function (newView, welcomeNav) {
+    this.beforeSwap(welcomeNav);
+    
     this.currentView && this.currentView.remove();
     this.currentView = newView;
     this.$rootContent.html(newView.$el);

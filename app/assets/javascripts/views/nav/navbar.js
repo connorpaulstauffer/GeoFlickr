@@ -197,12 +197,28 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     }
   },
 
+  addCurrentUserAvatar: function () {
+    if (currentUser.get("avatar")) {
+      this.$("#current-user-avatar").attr(
+        "src",
+        currentUser.get("avatar").avatar.micro.url
+      );
+      this.$("#current-user-name").html(currentUser.get("name") + " ");
+      $caret = $("<span>");
+      $caret.addClass("caret");
+      this.$("#current-user-name").append($caret);
+    } else {
+      this.listenToOnce(currentUser, "sync", this.addCurrentUserAvatar);
+    }
+  },
+
   render: function () {
     var content = this.template({
       currentUser: currentUser
     });
     this.$el.html(content);
     this.attachGeocomplete();
+    if (currentUser) { this.addCurrentUserAvatar(); }
 
     // this.attachSubviews();
 

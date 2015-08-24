@@ -27,7 +27,8 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
   addImageGrid: function () {
     this.imageGrid = new GeoFlickr.Views.ImageGrid({
       collection: this.collection,
-      parent: this
+      parent: this,
+      isIndex: true
     });
     this.addSubview("#photo-grid-container", this.imageGrid);
     this.imageGrid.hide();

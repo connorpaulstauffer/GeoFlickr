@@ -1,9 +1,15 @@
-<p>
-  We're sorry. We couldn't find any images in this location. Try:
-</p>
+<% if (isIndex) { %>
+  <p>
+    We're sorry. We couldn't find any images in this location. Try:
+  </p>
 
-<ul>
-  <li>Searching for another location.</li>
-  <li>Zooming out and clicking "Redo search in map"</li>
-  <li>Uploading your own images from this area!</li>
-</ul>
+  <ul>
+    <li>Searching for another location.</li>
+    <li>Zooming out and clicking "Redo search in map"</li>
+    <li>Uploading your own images from this area!</li>
+  </ul>
+<% } else { %>
+  <p>
+    There doesn't appear to be any images here.
+  </p>
+<% } %>
