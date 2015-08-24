@@ -96,15 +96,14 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
     this.$("#user-favorites-link").addClass("active")
 
     if (!this._userFavorites) {
-      this.showUserFavoritesLoading();
-      var userFavorites = new GeoFlickr.Views.ImageGrid({
+      this._userFavorites = new GeoFlickr.Views.ImageGrid({
         collection: this.model.favoriteImages(),
         parent: this
       });
 
-      this.addSubview("#user-favorites-container", userFavorites);
-      this._userFavorites = userFavorites;
-      userFavorites.onRender();
+      this.showUserFavoritesLoading();
+      this.addSubview("#user-favorites-container", this._userFavorites);
+      this._userFavorites.onRender();
     }
 
     this.$("#user-images-container").css("display", "none");
