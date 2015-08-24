@@ -15,7 +15,7 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
   },
 
   display: function () {
-    this.$el.removeAttr("style")
+    this.$el.removeAttr("style");
   },
 
   hide: function () {
@@ -31,7 +31,13 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
   },
 
   addMap: function () {
-    if (this._map) { return; }
+    if (this.imageFormMap) {
+      if (this._marker) {
+        var bounds = new google.maps.LatLngBounds(this._marker.position);
+        this.imageFormMap._map.fitBounds(bounds);
+      }
+      return;
+    }
     this.imageFormMap = new GeoFlickr.Views.ImageFormMap({
       $searchBar: this.$("#search-input")
     });
