@@ -3,6 +3,10 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
 
   attributes: { "id": "image-grid-contents" },
 
+  events: {
+    "resize": "setupMasonry"
+  },
+
   initialize: function (options) {
     this._parent = options.parent;
   },
@@ -29,28 +33,36 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     this.$imageGrid.imagesLoaded(function() {
       this.$imageGrid.masonry("appended", imageGridItem.$el);
       this.$imageGrid.masonry();
+      // imageGridItem.$el.css("width", this.gridItemWidth + "px");
       if (stopLoading) { this._parent.hideLoading() }
     }.bind(this));
   },
 
-  removeImageGridItem: function (image) {
-    this.removeModelSubview(".photo-grid", image);
-    // you could probably use the masonry remove method here
-    this.$imageGrid.masonry("reload");
-  },
+  setupMasonry: function () {
+    this.$imageGrid = this.$imageGrid || this.$(".photo-grid");
 
-  initializeMasonry: function () {
-    this.$imageGrid = this.$(".photo-grid");
-
-    this.$imageGrid.imagesLoaded(function () {
-      this.$imageGrid.masonry({
-        itemSelector: ".box",
-        percentPosition: true,
-        columnWidth: function (containerWidth) {
-          return containerWidth / 3;
+    this.$imageGrid.masonry({
+      itemSelector: ".box",
+      percentPosition: true,
+      columnWidth: function (containerWidth) {
+        var numberOfRows;
+        if (containerWidth > 899) {
+          numberOfRows = 3;
+          this.$(".box").css("width", "33.23%");
+        } else if (containerWidth > 599) {
+          numberOfRows = 2;
+          this.$(".box").css("width", "49.9%");
+        } else {
+          numberOfRows = 1;
+          this.$(".box").css("width", "99.9%");
         }
-      })
-    }.bind(this))
+
+        this.gridItemWidth = (containerWidth / numberOfRows) - 0.5;
+
+        return (containerWidth / numberOfRows);
+        return containerWidth / 3;
+      }.bind(this)
+    })
   },
 
   activateImage: function (id) {
@@ -92,7 +104,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   },
 
   onRender: function () {
-    this.initializeMasonry();
+    this.setupMasonry();
     if (this.collection.length == 0) {
       this.displayNoResultsAlert();
       this._parent.hideLoading();

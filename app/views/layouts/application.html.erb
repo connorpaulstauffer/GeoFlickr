@@ -9,14 +9,10 @@
           rel='stylesheet'
           type='text/css'>
 
-    <% if Rails.env.production? %>
-      <% api_key = "&key=AIzaSyBQvtC8Ho6n4xgSFcWoOgyDx39L_Y1QeU0" %>
-    <% else %>
-      <% api_key = '' %>
-    <% end %>
-
     <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?libraries=places<%= api_key %>"></script>
+            src="https://maps.googleapis.com/maps/api/js?libraries=places<%=
+              "&" + ENV["GOOGLE_MAPS_KEY"] if Rails.env.production?
+            %>"></script>
   </head>
   <body>
     <%= yield %>

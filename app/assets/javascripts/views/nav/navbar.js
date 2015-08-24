@@ -170,8 +170,8 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   handleSearchButton: function () {
-    var location = $(".pac-container").find(".pac-item").first().text();
-    // this.$("#search-input").val(location);
+    // var location = $(".pac-container").find(".pac-item").first().text();
+    var location = this.$("#search-input").val();
     this.searchByLocation(location);
   },
 

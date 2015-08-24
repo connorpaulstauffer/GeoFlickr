@@ -162,14 +162,14 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
           }
         }.bind(this),
 
-          error: function () {
-            // need to handle errors eventually
-            // destroy model, etc.
-            if (i === numberOfImages) {
-              Backbone.history.navigate("#/images" + image.id, { trigger: true });
-            }
-          }.bind(this)
-        });
+        error: function () {
+          // need to handle errors eventually
+          // destroy model, etc.
+          if (i === numberOfImages) {
+            Backbone.history.navigate("#/images" + image.id, { trigger: true });
+          }
+        }.bind(this)
+      });
 
     }.bind(this))
   },
