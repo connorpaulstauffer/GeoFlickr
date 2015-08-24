@@ -112,14 +112,11 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
 
       newUser.save(userData, {
         success: function (user, response) {
-          // global
           currentUser = new GeoFlickr.Models.User({
             id: user.id
           })
           currentUser.fetch();
           this.render();
-          // need to do something like this
-          // this.router.currentView.render();
           Backbone.history.loadUrl();
           this.activeModal.close();
           this.activeModal = null;
@@ -144,8 +141,6 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
         })
         currentUser.fetch();
         this.render()
-        // need to do something like this
-        // this.router.currentView.render();
         Backbone.history.loadUrl();
         this.activeModal.close();
         this.activeModal = null;
@@ -163,9 +158,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     dummySession.destroy({
       success: function () {
         currentUser = null;
-        // need to do something like this
         Backbone.history.loadUrl();
-        // this.router.currentView.render();
         this.render();
       }.bind(this)
     })
@@ -176,7 +169,6 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   handleSearchButton: function () {
-    // var location = $(".pac-container").find(".pac-item").first().text();
     var location = this.$("#search-input").val();
     this.searchByLocation(location);
   },
@@ -219,8 +211,6 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     this.$el.html(content);
     this.attachGeocomplete();
     if (currentUser) { this.addCurrentUserAvatar(); }
-
-    // this.attachSubviews();
 
     return this;
   }

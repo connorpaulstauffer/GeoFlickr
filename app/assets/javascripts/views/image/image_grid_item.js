@@ -44,7 +44,6 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
   favoriteImage: function () {
     this.model.favorite().save({ image_id: this.model.id }, {
       error: function (model, response) {
-        // set some sort of global error here and display it on the form
         $("#log-in").trigger("click", [response.responseJSON]);
       }
     });
@@ -95,9 +94,5 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
     this.attachImage();
 
     return this;
-  },
-
-  onRender: function () {
-    // debugger;
   }
 });

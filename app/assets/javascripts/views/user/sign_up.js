@@ -19,8 +19,6 @@ GeoFlickr.Views.SignUp = Backbone.CompositeView.extend({
     }.bind(this))
   },
 
-  // Clean this up. Calling removeSubview was interfering with the loop
-  // Maybe try reversing it first
   removeErrors: function () {
     this.eachSubview(function (subview, selector) {
       subview.remove();

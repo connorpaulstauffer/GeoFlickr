@@ -38,9 +38,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  // height: 100%;
   width: 100%;
-  // background-color: black;
   opacity: 0.5;
   z-index: 9999;
 }
@@ -141,8 +139,6 @@ body {
   #welcome-banner {
     position: absolute;
     top: 0;
-    // width: 100%;
-    // min-height: 100%;
   }
 }
 
@@ -219,8 +215,6 @@ body {
     border-radius: 5px;
     background-color: rgba(224, 224, 224 , .8);
     .image-stats {
-      // padding-top: 10px;
-      // padding-bottom: 10px;
       .image-stat-item {
         display: inline-block;
         margin-right: 20px;
@@ -336,26 +330,6 @@ body {
   }
 }
 
-// #image-display {
-//   img {
-//     max-width: 100%;
-//   }
-// }
-
-// .image-show-container {
-//   padding: 0;
-// }
-
-// #image-carousel-container {
-//   height: 400px;
-//   #image-carousel {
-//     height: 100%;
-//     #slider-images {
-//       height: 200px;
-//     }
-//   }
-// }
-
 #map-and-search-container {
   position: fixed;
   height: 100%;
@@ -372,7 +346,6 @@ body {
     border-width: thin;
     border-style: solid;
     border-color: #03396c;
-    // height: 75%;
     #map-canvas {
       height: 100%;
       margin: 0;
@@ -395,7 +368,6 @@ body {
 .image-grid-container {
   padding: 0;
   position: relative;
-  // background-color: #e3e3e3;
   #image-grid-contents {
     position: relative;
     top: 1px;
@@ -449,7 +421,6 @@ body {
           top: 8px;
           color: white;
           font-size: 1.8em;
-          // z-index: 10;
         }
         span.favorited {
           color: #D0C279;
@@ -481,10 +452,6 @@ body {
     margin-top: 2px;
     margin-right: 10px;
   }
-  .navbar-inner {
-    // padding-top: 5px;
-    // padding-bottom: 5px;
-  }
   #navbar-logo {
     height: 100%;
   }
@@ -492,7 +459,6 @@ body {
     margin-top: 7px;
     margin-left: 10px;
     margin-right: 10px;
-    // margin: 10px;
     height: 36px;
     width: auto;
   }
@@ -503,16 +469,9 @@ body {
     padding: 0;
     margin-left: 0;
   }
-  // #white-logo:hover {
-  //   display: none;
-  // }
 }
 
 #navbar.welcome {
-  // .navbar-header {
-  //   margin: 0;
-  //   height: 70px;
-  // }
   .navbar {
     background: transparent;
     border: none;
@@ -652,7 +611,6 @@ body {
   background-color: #F6F6F6;
   padding-bottom: 100px;
   #comments-container {
-    // border: thin solid #b3cde0;
     padding: 10px;
     border-radius: 5px;
     margin-top: 20px;
@@ -669,8 +627,7 @@ body {
     }
     #comment-items {
       .comment-row {
-        background-color: rgba(224, 224, 224 , .8);
-        // background-color: rgba(179, 205, 224 ,0.5);
+        background-color: rgba(224, 224, 224 , 0.8);
         border-radius: 5px;
         margin-bottom: 5px;
         padding: 5px;

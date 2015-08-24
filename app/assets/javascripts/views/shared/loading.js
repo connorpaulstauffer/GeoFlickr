@@ -1,8 +1,6 @@
 GeoFlickr.Views.Loading = Backbone.View.extend({
   className: "loading",
 
-  // template: JST["shared/loading"],
-
   initialize: function () {
     var opts = {
       lines: 13,
@@ -49,9 +47,6 @@ GeoFlickr.Views.Loading = Backbone.View.extend({
   },
 
   render: function () {
-    // var content = this.template();
-    // this.$el.html(content);
-
     return this;
   }
 });

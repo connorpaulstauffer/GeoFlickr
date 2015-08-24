@@ -11,10 +11,8 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
   initialize: function (options) {
     this.$rootEl = options.$rootEl;
     if (this.$rootEl.data("current-user") == "") {
-      // global
       currentUser = null;
     } else {
-      // global
       currentUser = new GeoFlickr.Models.User({
         id: this.$rootEl.data("current-user")
       });
@@ -22,7 +20,6 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
     }
     this.$rootContent = this.$rootEl.find("#content");
     this.$navBar = this.$rootEl.find("#navbar");
-    // this.images().fetch();
     this.setupNavBar();
   },
 
@@ -78,7 +75,6 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
   parseQueryString: function (queryString) {
     var params = {};
     if (!queryString) { return params; }
-    // only searching by one criteria at a time
     var array = queryString.split("=");
     params[array[0]] = array[1];
     return params;
@@ -119,7 +115,6 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
     } else {
       this.$navBar.removeClass("welcome");
     }
-    // temporary
     $("#tag-dropdown").empty();
   },
 

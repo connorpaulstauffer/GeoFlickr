@@ -1,10 +1,6 @@
 GeoFlickr.Views.TagDropdown = Backbone.CompositeView.extend({
   template: JST["search/tag_dropdown"],
 
-  // attributes: {
-  //   "id": "search-control"
-  // },
-
   tagName: "li",
 
   className: "dropdown",
@@ -17,7 +13,6 @@ GeoFlickr.Views.TagDropdown = Backbone.CompositeView.extend({
     this._mapShow = options.mapShow;
     this._geocoder = new google.maps.Geocoder();
 
-    // not sure if this is the right approach
     this.collection.tags().each(this.addTagListItem.bind(this));
     this.listenTo(this.collection.tags(), "add", this.addTagListItem);
     this.listenTo(this.collection.tags(), "remove", this.removeTagListItem);

@@ -40,7 +40,6 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
   handleSearchKeypress: function (event) {
     if (event.which === 9) { event.preventDefault(); }
     if (event.which === 13) {
-      // event.preventDefault();
       this.searchByLocation();
     }
   },
@@ -88,22 +87,6 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
       }.bind(this));
     }.bind(this), 3000);
   },
-
-  // typeAndDeleteHeader: function (text, delay, callback) {
-  //   this.blinkCursor();
-  //   setTimeout(function() {
-  //     this.stopBlinkingCursor();
-  //     this.animateHeader("text", function () {
-  //       this.blinkCursor();
-  //       setTimeout(function () {
-  //         this.stopBlinkingCursor();
-  //         this.clearHeader(function () {
-  //           callback && callback()
-  //         }.bind(this))
-  //       }.bind(this), delay)
-  //     }.bind(this))
-  //   }.bind(this), delay);
-  // },
 
   blinkCursor: function () {
     this.$("#header-cursor").addClass("blink");

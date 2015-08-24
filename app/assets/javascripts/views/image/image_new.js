@@ -102,7 +102,6 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
   },
 
   addImageForm: function (image) {
-    // add image form to container
     var image = new GeoFlickr.Models.Image(image);
     var imageForm = new GeoFlickr.Views.ImageForm({
       model: image,
@@ -161,8 +160,6 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
         }.bind(this),
 
         error: function () {
-          // need to handle errors eventually
-          // destroy model, etc.
           if (i === numberOfImages) {
             Backbone.history.navigate("#/images" + image.id, { trigger: true });
           }

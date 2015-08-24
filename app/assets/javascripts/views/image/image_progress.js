@@ -12,7 +12,6 @@ GeoFlickr.Views.ImageProgress = Backbone.View.extend({
     this._file = options.data.files[0];
     this._event = options.event;
     this._selectable = false;
-    // setTimeout(this.setBarWidth.bind(this), 100);
   },
 
   activate: function () {

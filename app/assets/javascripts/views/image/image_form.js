@@ -107,8 +107,4 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
 
     return this;
   }
-
-  // onRender: function () {
-  //   this.addMap();
-  // }
 });
