@@ -94,9 +94,12 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
         }
       }.bind(this),
 
-      error: function () {
-        debugger;
-      }
+      error: function (response) {
+        var file_name = response.responseJSON.file_name;
+        this._progressBars[file_name].remove();
+        delete this._progressBars[file_name];
+        alert(file_name + " is not a valid file format");
+      }.bind(this)
     });
   },
 

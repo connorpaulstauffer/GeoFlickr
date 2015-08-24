@@ -5,7 +5,7 @@ class Api::ImagesController < ApplicationController
     if image.save
       render json: image
     else
-      render json: image.errors.full_messages, status: :unproccessable_entity
+      render json: image, status: :unproccessable_entity
     end
   end
 
