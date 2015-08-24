@@ -54,22 +54,20 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
   },
 
   attachJQueryFileUpload: function () {
-    var that = this;
-
     this.$el.fileupload({
       dataType: "json",
 
       add: function (event, data) {
-        that._fileNames.push(data.files[0].name);
+        this._fileNames.push(data.files[0].name);
         var file = data.files[0];
         var uploadProgress = new GeoFlickr.Views.ImageProgress({
           data: data,
           event: event
         });
-        that.addSubview("#progress-bars", uploadProgress);
-        that._progressBars[data.files[0].name] = uploadProgress;
+        this.addSubview("#progress-bars", uploadProgress);
+        this._progressBars[data.files[0].name] = uploadProgress;
         data.submit();
-      },
+      }.bind(this),
 
       progress: function (event, data) {
         var progressId = "#" + data.files[0].name.split(".")[0]
@@ -77,10 +75,10 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
           data.files[0].name.split(""),
           ".", ":", "(", ")", "/", "\\", "-", " "
         ).join("");
-        var bar = that.$(progressId);
+        var bar = this.$(progressId);
         var width = parseInt(data.loaded / data.total * 100, 10);
         bar.css("width", width + "%");
-      },
+      }.bind(this),
 
       success: function (model) {
         var fileName = model.image.url.split("/").reverse()[0];

@@ -62,24 +62,16 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
   },
 
   imageIndex: function (queryString) {
-    var params = this.parseQueryString(queryString);
-
     this._images = null;
 
+    var imageIndex = new GeoFlickr.Views.ImageIndex({
+      collection: this.images()
+    });
+    this.swap(imageIndex);
+
+    var params = this.parseQueryString(queryString);
     this.images().fetch({
-      data: { filter_data: params },
-
-      success: function (collection, response) {
-        var imageIndex = new GeoFlickr.Views.ImageIndex({
-          collection: collection
-        });
-
-        this.swap(imageIndex);
-      }.bind(this),
-
-      error: function () {
-        debugger;
-      }.bind(this)
+      data: { filter_data: params }
     });
   },
 
@@ -133,7 +125,7 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
 
   swap: function (newView, welcomeNav) {
     this.beforeSwap(welcomeNav);
-    
+
     this.currentView && this.currentView.remove();
     this.currentView = newView;
     this.$rootContent.html(newView.$el);
