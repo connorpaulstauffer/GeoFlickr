@@ -118,7 +118,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
           currentUser.fetch();
           this.render();
           Backbone.history.loadUrl();
-          this.activeModal.close();
+          this.activeModal && this.activeModal.close();
           this.activeModal = null;
         }.bind(this),
 
@@ -142,7 +142,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
         currentUser.fetch();
         this.render()
         Backbone.history.loadUrl();
-        this.activeModal.close();
+        this.activeModal && this.activeModal.close();
         this.activeModal = null;
       }.bind(this),
 
