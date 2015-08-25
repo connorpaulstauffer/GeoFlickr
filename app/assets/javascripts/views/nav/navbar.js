@@ -153,19 +153,18 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   signOut: function (event) {
-    event.preventDefault();
     var dummySession = new GeoFlickr.Models.Session({ id: 0 });
     dummySession.destroy({
       success: function () {
-        // currentUser = null;
-        // Backbone.history.loadUrl();
-        // this.render();
+        currentUser = null;
+        Backbone.history.loadUrl();
+        this.render();
         // debugger;
-        window.location.reload(true);
+        // window.location.reload(true);
       },
 
       error: function () {
-        window.location.reload(true);
+        // window.location.reload(true);
       }
     })
   },
