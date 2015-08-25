@@ -161,7 +161,7 @@ GeoFlickr.Views.MapShow = GeoFlickr.Map.extend({
       image: '<img src="' + image.get("image").image.micro.url + '" class="marker-image">'
     });
 
-    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+    marker.setIcon('https://maps.google.com/mapfiles/ms/icons/red-dot.png');
 
     google.maps.event.addListener(marker, 'click', function (event) {
       view.showMarkerInfo(event, marker);
@@ -208,13 +208,13 @@ GeoFlickr.Views.MapShow = GeoFlickr.Map.extend({
 
   activateMarker: function (id) {
     var marker = this._markers[id]
-    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+    marker.setIcon('https://maps.google.com/mapfiles/ms/icons/green-dot.png')
     marker.setAnimation(google.maps.Animation.BOUNCE);
   },
 
   deactivateMarker: function (id) {
     var marker = this._markers[id]
-    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+    marker.setIcon('https://maps.google.com/mapfiles/ms/icons/red-dot.png')
     marker.setAnimation(null);
   }
 });
