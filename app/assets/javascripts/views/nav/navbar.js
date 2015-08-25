@@ -160,7 +160,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
         currentUser = null;
         // Backbone.history.loadUrl();
         // this.render();
-        window.location.reload();
+        window.location.reload(true);
       }
     })
   },
