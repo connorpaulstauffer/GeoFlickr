@@ -141,9 +141,9 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
         })
         currentUser.fetch();
         this.render()
-        Backbone.history.loadUrl();
         this.activeModal && this.activeModal.close();
         this.activeModal = null;
+        Backbone.history.loadUrl();
       }.bind(this),
 
       error: function (model, resp) {
@@ -157,8 +157,10 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     dummySession.destroy({
       success: function () {
         currentUser = null;
-        Backbone.history.loadUrl();
         this.render();
+        setTimeout(function () {
+          Backbone.history.loadUrl(true);
+        }, 100)
       }.bind(this)
     })
   },
