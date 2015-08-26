@@ -6,7 +6,6 @@ end
 
 
 json.center @center if @center
-# json.bounds @bounds if @bounds
 
 json.tags do
   json.array! @tags
