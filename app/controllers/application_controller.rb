@@ -17,6 +17,13 @@ class ApplicationController < ActionController::Base
     session[:session_token] = token
   end
 
+  def log_out!
+    @current_user = nil
+    session_token = session[:session_token]
+    Session.find_by_session_token(session_token).destroy!
+    session[:session_token] = nil;
+  end
+
   def user_params
     params.require(:user).permit(:email, :password)
   end

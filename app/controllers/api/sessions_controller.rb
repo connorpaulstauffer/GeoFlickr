@@ -12,9 +12,7 @@ class Api::SessionsController < ApplicationController
   end
 
   def destroy
-    session_token = session[:session_token]
-    Session.find_by_session_token(session_token).destroy!
-    session[:session_token] = nil;
+    log_out!
     render json: "success".to_json
   end
 end
