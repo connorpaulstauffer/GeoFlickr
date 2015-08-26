@@ -116,10 +116,11 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
             id: user.id
           })
           currentUser.fetch();
-          this.render();
+          // this.render();
           this.activeModal && this.activeModal.close();
           this.activeModal = null;
-          Backbone.history.navigate("/images", { trigger: true });
+          // Backbone.history.navigate("/images", { trigger: true });
+          window.location.reload(true)
         }.bind(this),
 
         error: function (model, resp) {
@@ -140,10 +141,11 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
           id: user.id
         })
         currentUser.fetch();
-        this.render()
+        // this.render()
         this.activeModal && this.activeModal.close();
         this.activeModal = null;
-        Backbone.history.navigate("/images", { trigger: true });
+        // Backbone.history.navigate("/images", { trigger: true });
+        window.location.reload(true)
       }.bind(this),
 
       error: function (model, resp) {
@@ -157,8 +159,9 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     dummySession.destroy({
       success: function () {
         currentUser = null;
-        this.render();
-        Backbone.history.navigate("/images", { trigger: true });
+        // this.render();
+        // Backbone.history.navigate("/images", { trigger: true });
+        window.location.reload(true)
       }.bind(this)
     })
   },
