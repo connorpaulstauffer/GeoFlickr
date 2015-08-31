@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
@@ -25,10 +27,24 @@ class ApplicationController < ActionController::Base
   end
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :password, :name)
   end
 
   def raise_current_user_error
     render json: ["You must be logged in to do that"].to_json, status: :unproccessable_entity
+  end
+
+  def file_from_url(url)
+    extname = File.extname(url)
+    basename = File.basename(url, extname)
+    file = Tempfile.new([basename, extname])
+    file.binmode
+
+    open(url) do |data|
+      file.write data.read
+    end
+
+    file.rewind
+    file
   end
 end

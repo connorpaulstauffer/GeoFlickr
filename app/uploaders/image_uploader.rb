@@ -8,7 +8,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :thumb do
-    process resize_to_limit: [400, 600]
+    process resize_to_limit: [400, 400]
     process quality: 400
   end
 
@@ -18,8 +18,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :macro do
-    process resize_to_limit: [800, 800]
-    process quality: 800
+    process resize_to_limit: [600, 600]
+    process quality: 600
   end
 
   def store_dir
