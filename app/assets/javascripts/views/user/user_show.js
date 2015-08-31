@@ -106,6 +106,11 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
       this.showUserFavoritesLoading();
       this.addSubview("#user-favorites-container", this._userFavorites);
       this._userFavorites.onRender();
+    } else {
+      this.showUserFavoritesLoading();
+      this.model.fetchFavoriteImages(this.model, function () {
+        this._userFavorites.resetCollection(this.model.favoriteImages())
+      }.bind(this));
     }
 
     this.$("#user-images-container").css("display", "none");

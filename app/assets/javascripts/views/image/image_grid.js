@@ -76,6 +76,10 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   },
 
   addAllImages: function () {
+    this.eachSubview(function (subview) {
+      subview.remove();
+    });
+
     var imagesLength = this.collection.length;
     for (var i = 0; i < imagesLength; i++) {
       var stopLoading = (i == imagesLength - 1)
@@ -90,6 +94,11 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
 
   show: function () {
     this.$el.css("visibility", "visible");
+  },
+
+  resetCollection: function (newCollection) {
+    this.collection = newCollection;
+    this.addAllImages();
   },
 
   render: function () {

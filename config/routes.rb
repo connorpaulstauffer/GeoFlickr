@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     get 'images/destroy_by_filenames', to: 'images#destroy_by_filenames'
+    get 'users/:id/favorite_images', to: 'users#favorite_images'
     resources :users, only: [:create, :show]
     resources :sessions, only: [:create, :destroy]
     resources :images, only: [:create, :index, :update, :show]

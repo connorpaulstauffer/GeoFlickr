@@ -17,6 +17,16 @@ GeoFlickr.Models.User = Backbone.Model.extend({
     return this._favoriteImages;
   },
 
+  fetchFavoriteImages: function (user, callback) {
+    $.ajax({
+      url: "api/users/" + user.id + "/favorite_images",
+      success: function (response) {
+        user.favoriteImages().set(response.images);
+        callback && callback();
+      }
+    })
+  },
+
   parse: function (response) {
     if (response.images) {
       collectionResponse = {};

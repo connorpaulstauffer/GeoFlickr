@@ -19,4 +19,10 @@ class Api::UsersController < ApplicationController
     @user = User.includes(:favorite_images, :images).find(params[:id])
     render 'show'
   end
+
+  def favorite_images
+    user = User.find(params[:id])
+    @images = user.favorite_images
+    render 'api/images/index'
+  end
 end
