@@ -7,7 +7,7 @@ GeoFlickr.Views.CommentForm = Backbone.View.extend({
     "focus textarea": "renderSubmitButton",
     "blur textarea": "hideSubmitButton",
     "mousedown #submit-comment": "submitComment",
-    "mouseup #submit-comment": "preventDefaultSubmit",
+    "click #submit-comment": "preventDefaultSubmit",
     "keydown textarea": "handleKeyPress"
   },
 
