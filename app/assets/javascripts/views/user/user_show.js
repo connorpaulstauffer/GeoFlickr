@@ -84,6 +84,11 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
       this.addSubview("#user-images-container", this._userImages);
       this.showUserImagesLoading();
       this._userImages.onRender();
+    } else {
+      this.showUserImagesLoading();
+      this.model.fetchImages(function (collection) {
+        this._userImages.resetCollection(collection)
+      }.bind(this))
     }
 
     this.$("#user-favorites-container").css("display", "none");
@@ -100,7 +105,8 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
       this._userFavorites = new GeoFlickr.Views.ImageGrid({
         collection: this.model.favoriteImages(),
         parent: this,
-        isIndex: false
+        isIndex: false,
+        isFavorites: true
       });
 
       this.showUserFavoritesLoading();
@@ -108,13 +114,20 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
       this._userFavorites.onRender();
     } else {
       this.showUserFavoritesLoading();
-      this.model.fetchFavoriteImages(this.model, function () {
-        this._userFavorites.resetCollection(this.model.favoriteImages())
+      this.model.fetchFavoriteImages(function (collection) {
+        this._userFavorites.resetCollection(collection)
       }.bind(this));
     }
 
     this.$("#user-images-container").css("display", "none");
     this.$("#user-favorites-container").removeAttr("style");
+  },
+
+  updateCurrentUserFavorites: function () {
+    this.showUserFavoritesLoading();
+    this.model.fetchFavoriteImages(function (collection) {
+      this._userFavorites.resetCollection(collection)
+    }.bind(this));
   },
 
   render: function () {

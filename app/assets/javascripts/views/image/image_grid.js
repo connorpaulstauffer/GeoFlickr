@@ -10,6 +10,7 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   initialize: function (options) {
     this._parent = options.parent;
     this.isIndex = options.isIndex;
+    this.isFavorites = options.isFavorites;
   },
 
   displayNoResultsAlert: function () {
@@ -85,6 +86,12 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
       var stopLoading = (i == imagesLength - 1)
       var image = this.collection.models[i];
       this.addImageGridItem(image, stopLoading)
+    }
+  },
+
+  updateCurrentUserFavorites: function () {
+    if (this.isFavorites) {
+      this._parent.updateCurrentUserFavorites();
     }
   },
 

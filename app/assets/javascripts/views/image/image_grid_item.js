@@ -54,6 +54,7 @@ GeoFlickr.Views.ImageGridItem = Backbone.View.extend({
     this.model.favorite().destroy();
     this.model.favorite().clear();
     this.model.set({ favorites_count: this.model.get("favorites_count") - 1 });
+    this._imageGrid.updateCurrentUserFavorites();
   },
 
   setupFavoriteGlyph: function () {
