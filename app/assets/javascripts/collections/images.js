@@ -28,6 +28,16 @@ GeoFlickr.Collections.Images = Backbone.Collection.extend({
       delete response.tags;
     }
 
+    if (response.page) {
+      this.page = parseInt(response.page);
+      delete response.page;
+    }
+
+    if (response.total_pages) {
+      this.total_pages = parseInt(response.total_pages);
+      delete response.total_pages;
+    }
+
     return response.images;
   }
 });

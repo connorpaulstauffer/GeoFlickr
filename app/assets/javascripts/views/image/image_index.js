@@ -3,7 +3,8 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
 
   className: "row",
 
-  initialize: function () {
+  initialize: function (options) {
+    this.filter_data = options.filter_data;
     this.addLoading();
     this.listenTo(this.collection, "request", this.removeImageGrid);
     this.listenTo(this.collection, "sync", this.addImageGrid);
@@ -28,7 +29,8 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
     this.imageGrid = new GeoFlickr.Views.ImageGrid({
       collection: this.collection,
       parent: this,
-      isIndex: true
+      isIndex: true,
+      filter_data: this.filter_data
     });
     this.addSubview("#photo-grid-container", this.imageGrid);
     this.imageGrid.hide();
@@ -67,9 +69,17 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
 
   showLoading: function () {
     this.imageGrid && this.imageGrid.hide();
-    var height = $( window ).height() - 61
+    var height;
+    var scrollTop = $( window ).scrollTop();
+    if (scrollTop > 61) {
+      height = $( window ).height();
+      scrollTop -= 61;
+    } else {
+      height = $( window ).height() - 61;
+      scrollTop = 0;
+    }
     this.$("#photo-grid-container").css("min-height", height);
-    this.loading.setHeight(height);
+    this.loading.setDimensions(height, scrollTop);
     this.loading.show();
     this.loading.appendSpinner();
   },

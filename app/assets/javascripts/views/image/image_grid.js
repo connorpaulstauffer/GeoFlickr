@@ -11,6 +11,8 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     this._parent = options.parent;
     this.isIndex = options.isIndex;
     this.isFavorites = options.isFavorites;
+    this.filter_data = options.filter_data;
+    $( window ).on("scroll", this.handleScroll.bind(this));
   },
 
   displayNoResultsAlert: function () {
@@ -106,6 +108,24 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
   resetCollection: function (newCollection) {
     this.collection = newCollection;
     this.addAllImages();
+  },
+
+  handleScroll: function () {
+    if($(window).scrollTop() + $(window).height() == $(document).height()) {
+       this.loadNextPage();
+    }
+  },
+
+  loadNextPage: function () {
+    if (this.collection.page < this.collection.total_pages) {
+      this.collection.fetch({
+        remove: false,
+        data: {
+          filter_data: this.filter_data,
+          page: ++this.collection.page
+        }
+      })
+    }
   },
 
   render: function () {

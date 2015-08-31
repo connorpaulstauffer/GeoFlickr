@@ -23,6 +23,7 @@ gem 'geocoder'
 gem 'jquery-slick-rails'
 gem 'rails_12factor', group: :production
 gem 'faker'
+gem 'kaminari'
 
 group :development, :test do
   gem 'byebug'

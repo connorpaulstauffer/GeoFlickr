@@ -23,12 +23,14 @@ class Api::UsersController < ApplicationController
   def favorite_images
     user = User.find(params[:id])
     @images = user.favorite_images
+    @no_pages = true
     render 'api/images/index'
   end
 
   def images
     user = User.find(params[:id])
     @images = user.images
+    @no_pages = true
     render 'api/images/index'
   end
 end

@@ -154,7 +154,6 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
         success: function (image, response) {
           i++;
           newImageCollection.add(image);
-          debugger
           if (i === numberOfImages) {
             this._modal.close()
             router.imageShow(image.id, newImageCollection);

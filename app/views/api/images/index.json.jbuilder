@@ -10,3 +10,8 @@ json.center @center if @center
 json.tags do
   json.array! @tags
 end
+
+unless @no_pages
+  json.page @page
+  json.total_pages @images.total_pages
+end

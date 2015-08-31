@@ -60,15 +60,21 @@ GeoFlickr.Routers.Router = Backbone.Router.extend({
 
   imageIndex: function (queryString) {
     this._images = null;
+    var params = this.parseQueryString(queryString);
+    var data = {
+      filter_data: params,
+      page: 1
+    }
 
     var imageIndex = new GeoFlickr.Views.ImageIndex({
-      collection: this.images()
+      collection: this.images(),
+      filter_data: params
     });
     this.swap(imageIndex);
 
-    var params = this.parseQueryString(queryString);
     this.images().fetch({
-      data: { filter_data: params }
+      remove: false,
+      data: data
     });
   },
 

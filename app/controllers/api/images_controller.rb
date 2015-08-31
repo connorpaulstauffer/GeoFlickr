@@ -21,10 +21,11 @@ class Api::ImagesController < ApplicationController
   end
 
   def index
+    @page = params[:page]
     if params[:filter_data]
       if params[:filter_data][:location]
         center = Geocoder.coordinates(params[:filter_data][:location])
-        @images = Image.from_center(center)
+        @images = Image.from_center(center).page(@page)
         @center = center.to_json
       else
         tag = params[:filter_data][:tag]
@@ -32,15 +33,14 @@ class Api::ImagesController < ApplicationController
           'lng' => ['-150.0', '-50.0'],
           'lat' => ['0.0', '80.0']
         }
-        @images = Image.from_bounds(bounds, tag)
+        @images = Image.from_bounds(bounds, tag).page(@page)
       end
     else
       bounds = {
         'lng' => ['-150.0', '-50.0'],
         'lat' => ['0.0', '80.0']
       }
-      @images = Image.from_bounds(bounds, nil)
-      # @center = [37.78, -122.41].to_json
+      @images = Image.from_bounds(bounds, nil).page(@page)
     end
 
     @tags = @images.map(&:tags).flatten.uniq

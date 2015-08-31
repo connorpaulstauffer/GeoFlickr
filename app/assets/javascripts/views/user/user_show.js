@@ -21,18 +21,34 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
 
   showUserImagesLoading: function () {
     this._userImages && this._userImages.hide();
-    var height = $( window ).height() - 413
+    var height;
+    var scrollTop = $( window ).scrollTop();
+    if (scrollTop > 413) {
+      height = $( window ).height();
+      scrollTop -= 413;
+    } else {
+      height = $( window ).height() - 413;
+      scrollTop = 0;
+    }
     this.$("#user-images-container").css("min-height", height);
-    this.userImagesLoading.setHeight(height);
+    this.userImagesLoading.setDimensions(height, scrollTop);
     this.userImagesLoading.show();
     this.userImagesLoading.appendSpinner();
   },
 
   showUserFavoritesLoading: function () {
     this._userFavorites && this._userFavorites.hide();
-    var height = $( window ).height() - 413
+    var height;
+    var scrollTop = $( window ).scrollTop();
+    if (scrollTop > 413) {
+      height = $( window ).height();
+      scrollTop -= 413;
+    } else {
+      height = $( window ).height() - 413;
+      scrollTop = 0;
+    }
     this.$("#user-images-container").css("min-height", height);
-    this.userFavoritesLoading.setHeight(height);
+    this.userFavoritesLoading.setDimensions(height, scrollTop);
     this.userFavoritesLoading.show();
     this.userFavoritesLoading.appendSpinner();
   },
