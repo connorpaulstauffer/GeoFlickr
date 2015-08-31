@@ -139,11 +139,10 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
     if (numberOfImages > _(this._completedProgressBars).keys().length) {
       return;
     }
+    var newImageCollection = new GeoFlickr.Collections.Images();
 
     var i = 0;
     this.subviews("#image-forms").each(function (form) {
-      i++;
-
       var formData = form.$el.find("form").serializeJSON();
 
       if (form._marker) {
@@ -153,15 +152,20 @@ GeoFlickr.Views.ImageNew = Backbone.CompositeView.extend({
 
       form.model.save(formData, {
         success: function (image, response) {
+          i++;
+          newImageCollection.add(image);
+          debugger
           if (i === numberOfImages) {
             this._modal.close()
-            Backbone.history.navigate("#/images/" + image.id, { trigger: true });
+            router.imageShow(image.id, newImageCollection);
+            Backbone.history.navigate("#/images/" + image.id);
           }
         }.bind(this),
 
         error: function () {
+          numberOfImages--;
           if (i === numberOfImages) {
-            Backbone.history.navigate("#/images" + image.id, { trigger: true });
+            Backbone.history.navigate("#/images", { trigger: true });
           }
         }.bind(this)
       });

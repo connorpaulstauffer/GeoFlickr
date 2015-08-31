@@ -85,7 +85,7 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
           }.bind(this));
         }.bind(this), 3000);
       }.bind(this));
-    }.bind(this), 3000);
+    }.bind(this), 1000);
   },
 
   blinkCursor: function () {
@@ -132,7 +132,9 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
     this.setDimensions();
     $( window ).on("resize", this.setDimensions.bind(this));
     this.attachGeocomplete();
-    this.activateHeader();
+    this.$el.imagesLoaded(function () {
+      this.activateHeader();
+    }.bind(this));
 
     return this;
   },

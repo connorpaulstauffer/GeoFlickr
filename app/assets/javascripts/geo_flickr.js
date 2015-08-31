@@ -4,7 +4,7 @@ window.GeoFlickr = {
   Views: {},
   Routers: {},
   initialize: function() {
-    new GeoFlickr.Routers.Router({ $rootEl: $('#root')})
+    router = new GeoFlickr.Routers.Router({ $rootEl: $('#root')})
     Backbone.history.start();
   }
 };

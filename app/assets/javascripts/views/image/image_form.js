@@ -3,7 +3,8 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
 
   events: {
     "keydown #form-search-input": "handleSearchKeypress",
-    "keypress #tag-input": "handleTagKeypress"
+    "keypress #tag-input": "handleTagKeypress",
+    "click .search-glyph": "searchClick"
   },
 
   initialize: function (options) {
@@ -82,6 +83,10 @@ GeoFlickr.Views.ImageForm = Backbone.CompositeView.extend({
         alert("Geocode was not successful for the following reason: " + status);
       }
     });
+  },
+
+  searchClick: function () {
+    this.searchOnMap(this.$("#form-search-input").val());
   },
 
   activate: function () {
