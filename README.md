@@ -1,11 +1,13 @@
 # GeoFlickr
 
 [GeoFlickr][link]
+![screenshot]
 
 [Development Roadmap][roadmap]
 
 [link]: http://geoflickr.me
 [roadmap]: ./docs/roadmap.md
+[screenshot]: ./docs/screenshots/geoflickr_screenshot.jpg
 
 ## Concept
 GeoFlickr is a derivative of the professional photo-sharing application, [Flickr][flickr_link],
