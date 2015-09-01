@@ -1,7 +1,8 @@
 # GeoFlickr
 
-[GeoFlickr][link]
-![screenshot]
+[![screenshot]][link]
+
+[Live][link]
 
 [Development Roadmap][roadmap]
 
