@@ -2,80 +2,64 @@
 
 [GeoFlickr][link]
 
+[Development Roadmap][roadmap]
+
 [link]: http://geoflickr.me
+[roadmap]: ./docs/roadmap.md
 
-## Minimum Viable Product
-GeoFlickr is a derivative of Flickr built with Rails and Backbone. Users can:
+## Concept
+GeoFlickr is a derivative of the professional photo-sharing application, [Flickr][flickr_link],
+focused on geo-tagged images.
 
-- [x] Create accounts
-- [x] Create sessions (log in)
-- [ ] Upload images
-- [ ] Add images to albums
-- [ ] Tag images
-- [ ] View images at an index level
-- [ ] Search for images
-- [ ] Filter image results
-- [ ] View images at a show level
-- [ ] Favorite images
+[flickr_link]: http://flickr.com
+
+## Features
+Users have the ability to
+ * Authenticate
+   * Sign up, log in, and log out through a secure authentication system
+   * Sign in as a guest to experience all the features of the site without providing any personal information
+ * Explore images
+   * View stunning, high definition images in grid format, alongside a map displaying the location of each image
+   * Filter images by location, geographical bounds, or tags
+ * Interact with images
+   * Hover over image and see its corresponding marker animate in the map
+   * Favorite and unfavorite images directly from the index
+   * Link to an image show page to see a larger version of the image along with more information and a form to leave comments
+   * Visit a user's profile to see their images and favorited images
+ * Upload their own images
+   * Drag and drop or manually choose multiple image files to upload
+   * Raise errors for invalid file types and continue uploading valid ones
+   * Search on a map and drag a marker to assign the image's location
+   * Apply tags and a description  
+
+## Technologies
+GeoFlickr is built on a Rails backend with a Postgres database and a Backbone.js front end.
+
+The following Javascript/CSS libraries were used:
+  * [Twitter Bootstrap][bootstrap]
+  * [jQuery][jquery]
+  * [jQuery Geocomplete][geocomplete]
+  * [spin.js][spinner]
+  * [jQuery file upload][jquery_file]
+
+The [Google Maps Javascript API][google] was used for all the maps.
+
+Please refer to the [Gemfile][gemfile] for a comprehensive list of gems used.
+
+[bootstrap]: http://getbootstrap.com
+[jquery]: http://jquery.com
+[geocomplete]: http://ubilabs.github.io/geocomplete
+[spinner]: http://fgnass.github.io/spin.js
+[jquery_file]: http://github.com/blueimp/jQuery-File-Upload
+[google]: http://developers.google.com/maps/documentation/javascript
+[gemfile]: ./Gemfile
 
 
-## Design Docs
-* [View Wireframes][views]
-* [DB schema][schema]
-
-[views]: ./docs/views.md
-[schema]: ./docs/schema.md
-
-## Implementation Timeline
-
-### Phase 1: User Authentication (~1 day)
-I will implement user authentication from scratch. Users will log in through
-a Backbone Modal and gain access to image upload, comment, and favorite
-features. I will also push the app to Heroku and register a domain name.
-
-[Details][phase-one]
-
-### Phase 2: Image Index (~2 days)
-Images will be displayed in a grid alongside a map. Markers corresponding to
-the coordinates of each image will render on the map. I will add filter forms
-and a search bar that will eventually be used to filter results.
-
-[Details][phase-two]
-
-### Phase 3: Image Show (~2 days)
-The image will be displayed at the top of the page. If the image is part of an
-album it will be displayed as the active item in a carousel with the rest of
-the album images. Data for view count, favorite count, and comments will be
-shown below. A map with a marker at the location of the image's coordinates
-will display in a sidebar. Tags, comments, and a form for adding a comment
-will also appear.
-
-[Details][phase-three]
-
-### Phase 4: Uploading Images (~2 days)
-Using the cloudinary gem, I will add an image upload page for registered
-users. Users will drag and drop images onto the page to upload. The images
-will be hosted by AWS. Images can be tagged and assigned to multiple albums.
-
-[Details][phase-four]
-
-### Phase 5: Searching for Images (~2 days)
-Images on the index page can be filtered by tags, and by location using a
-search bar or the map.
-
-[Details][phase-five]
-
-### Bonus Features (TBD)
-- [ ] Design improvements
+## TODO
+- [ ] Refactor user images and favorites out of user show json response. Use nested rails resource with corresponding backbone collection instead.
+- [ ] Ability for users to delete images and comments
+- [ ] Image albums
 - [ ] Image groups
 - [ ] Image download
-- [ ] User show page
 - [ ] Email authentication
 - [ ] Omni-auth
-
-
-[phase-one]: ./docs/phases/phase1.md
-[phase-two]: ./docs/phases/phase2.md
-[phase-three]: ./docs/phases/phase3.md
-[phase-four]: ./docs/phases/phase4.md
-[phase-five]: ./docs/phases/phase5.md
