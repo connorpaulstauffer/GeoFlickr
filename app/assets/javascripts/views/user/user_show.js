@@ -31,7 +31,11 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
       scrollTop = 0;
     }
     this.$("#user-images-container").css("min-height", height);
-    this.userImagesLoading.setDimensions(height, scrollTop);
+    this.userImagesLoading.setDimensions(
+      height,
+      $( window ).width(),
+      scrollTop
+    );
     this.userImagesLoading.show();
     this.userImagesLoading.appendSpinner();
   },
@@ -48,7 +52,11 @@ GeoFlickr.Views.UserShow = Backbone.CompositeView.extend({
       scrollTop = 0;
     }
     this.$("#user-images-container").css("min-height", height);
-    this.userFavoritesLoading.setDimensions(height, scrollTop);
+    this.userFavoritesLoading.setDimensions(
+      height,
+      $( window ).width(),
+      scrollTop
+    );
     this.userFavoritesLoading.show();
     this.userFavoritesLoading.appendSpinner();
   },

@@ -103,7 +103,11 @@ GeoFlickr.Views.ImageCarousel = Backbone.CompositeView.extend({
 
   showLoading: function () {
     this._primaryImageView && this._primaryImageView.hide();
-    this.loading.setDimensions(this.$("#primary-image").height(), 0);
+    this.loading.setDimensions(
+      this.$("#primary-image").height(),
+      this.$("#primary-image").width(),
+      61
+    );
     this.loading.show();
     this.loading.appendSpinner();
   },
