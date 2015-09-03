@@ -3,6 +3,11 @@ $grid-float-breakpoint: 880px;
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
 a:hover {
   text-decoration: none;
 }
@@ -11,13 +16,11 @@ a:hover {
   display: none;
 }
 
-body.modal-open {
-  overflow: auto;
-}
-
 body {
   padding-right:0px !important;
   margin-right:0px !important;
+  overflow: auto;
+  height: 100%;
 }
 
 .gm-style-iw {

@@ -31,11 +31,13 @@ GeoFlickr.Views.Loading = Backbone.View.extend({
   show: function () {
     this.$el.removeClass("hidden");
     $(this.spinner).removeClass("hidden");
+    $( window ).on("scroll.loading", this.restrictScrolling.bind(this));
   },
 
   hide: function () {
     $(this.spinner).addClass("hidden");
     this.$el.addClass("hidden");
+    $( window ).off("scroll.loading");
   },
 
   appendSpinner: function () {
@@ -43,8 +45,13 @@ GeoFlickr.Views.Loading = Backbone.View.extend({
   },
 
   setDimensions: function (height, top) {
+    this.scrollTop = $( window ).scrollTop();
     this.$el.css("top", top);
     this.$el.height(height);
+  },
+
+  restrictScrolling: function () {
+    $( window ).scrollTop(this.scrollTop);
   },
 
   render: function () {
