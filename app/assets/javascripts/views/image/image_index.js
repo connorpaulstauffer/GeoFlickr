@@ -79,11 +79,7 @@ GeoFlickr.Views.ImageIndex = Backbone.CompositeView.extend({
       scrollTop = 0;
     }
     this.$("#photo-grid-container").css("min-height", height);
-    this.loading.setDimensions(
-      height,
-      this.$("#photo-grid-container").width(),
-      61
-    );
+    this.loading.setDimensions(height, scrollTop);
     this.loading.show();
     this.loading.appendSpinner();
   },

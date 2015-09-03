@@ -42,10 +42,9 @@ GeoFlickr.Views.Loading = Backbone.View.extend({
     this.$el.append(this.spinner.el)
   },
 
-  setDimensions: function (height, width, top) {
+  setDimensions: function (height, top) {
     this.$el.css("top", top);
     this.$el.height(height);
-    this.$el.width(width);
   },
 
   render: function () {

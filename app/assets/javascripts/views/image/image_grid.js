@@ -40,12 +40,6 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
       this.$imageGrid.masonry();
       if (stopLoading) {
         this._parent.hideLoading()
-
-          debugger;
-        if (this.scrollTop) {
-          $( window ).scrollTop(this.scrollTop);
-          this.scrollTop = null;
-        }
       }
     }.bind(this));
   },
