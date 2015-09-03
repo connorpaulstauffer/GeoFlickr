@@ -12,29 +12,16 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
     var windowHeight = $( window ).height()
     var windowWidth = $( window ).width()
     var windowRatio = windowHeight / windowWidth;
+    this.$el.height(windowHeight);
+    // precalculated for speed
+    var imageRatio = .6666666;
     var $img = this.$("img");
-    $img.removeAttr("style");
-
-    if (!this.imageRatio) {
-      var that = this;
-      $("<img/>").attr("src", $img.attr("src")).load(function() {
-          that.imageRatio = this.height / this.width;
-          if (that.imageRatio > windowRatio) {
-            $img.width(windowWidth)
-          } else {
-            $img.height(windowHeight)
-          }
-          $img.removeClass("hidden");
-      });
+    if (imageRatio > windowRatio) {
+      $img.width(windowWidth)
     } else {
-      if (this.imageRatio > windowRatio) {
-        $img.width(windowWidth)
-      } else {
-        $img.height(windowHeight)
-      }
-      $img.removeClass("hidden");
+      $img.height(windowHeight)
     }
-    this.$el.height($( window ).height())
+    $img.removeClass("hidden");
   },
 
   handleSearchKeypress: function (event) {
