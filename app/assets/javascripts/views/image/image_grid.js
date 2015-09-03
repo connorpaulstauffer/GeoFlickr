@@ -17,11 +17,10 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
 
   displayNoResultsAlert: function () {
     this.$("#no-images-alert-container").removeClass("hidden");
-    var noImagesAlert = new GeoFlickr.Views.NoImagesAlert({
+    this.noImagesAlert = new GeoFlickr.Views.NoImagesAlert({
       isIndex: this.isIndex
     });
-    this.noImagesAlert = noImagesAlert;
-    this.addSubview("#no-images-alert-container", noImagesAlert);
+    this.addSubview("#no-images-alert-container", this.noImagesAlert);
   },
 
   addImageGridItem: function (image, stopLoading) {
@@ -141,9 +140,10 @@ GeoFlickr.Views.ImageGrid = Backbone.CompositeView.extend({
     if (this.collection.length == 0) {
       this.displayNoResultsAlert();
       this._parent.hideLoading();
+    } else {
+      this.addAllImages();
     }
 
-    this.addAllImages();
     this.listenTo(this.collection, "sync", this.addAllImages);
 
     Backbone.CompositeView.prototype.onRender.call(this);
