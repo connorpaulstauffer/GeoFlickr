@@ -1,6 +1,11 @@
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::RMagick
 
+  # for user banners
+  def default_url(*args)
+    ActionController::Base.helpers.asset_path("user_banner.jpg")
+  end
+
   if Rails.env.production?
     storage :fog
   else

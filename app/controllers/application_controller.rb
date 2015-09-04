@@ -53,8 +53,7 @@ class ApplicationController < ActionController::Base
       name: "Demo User",
       email: email,
       password: password,
-      avatar: file_from_url(Faker::Avatar.image),
-      banner: file_from_url("https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg")
+      avatar: file_from_url(Faker::Avatar.image)
     )
 
     user.save
