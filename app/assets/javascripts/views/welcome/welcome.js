@@ -18,8 +18,10 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
     var $img = this.$("img");
     if (imageRatio > windowRatio) {
       $img.width(windowWidth)
+      $img.css("height", "auto");
     } else {
       $img.height(windowHeight)
+      $img.css("width", "auto");
     }
     $img.removeClass("hidden");
   },
