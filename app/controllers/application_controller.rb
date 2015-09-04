@@ -47,4 +47,17 @@ class ApplicationController < ActionController::Base
     file.rewind
     file
   end
+
+  def create_demo_user(email, password)
+    user = User.new(
+      name: "Demo User",
+      email: email,
+      password: password,
+      avatar: file_from_url(Faker::Avatar.image),
+      banner: file_from_url("https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg")
+    )
+
+    user.save
+    user
+  end
 end

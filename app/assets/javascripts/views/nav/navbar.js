@@ -69,8 +69,12 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   loginAsGuest: function () {
-    var email = "demo@geoflickr.com";
-    var password = "password";
+    var code = "";
+    for (var i = 0; i < 10; i++) {
+      code += Math.floor(Math.random() * 10)
+    }
+    var email = code + "@geoflickrdemo.com";
+    var password = code;
 
     setTimeout(function () {
       this.animateInput("#user-email", email, function () {
@@ -131,6 +135,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   logInUser: function (logInView, modal) {
+    debugger
     var userData = logInView.$el.serializeJSON();
     var newSession = new GeoFlickr.Models.Session();
 

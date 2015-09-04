@@ -21,9 +21,9 @@ class User < ActiveRecord::Base
 
   has_many :sessions, dependent: :destroy
   has_many :images, dependent: :destroy
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
   has_many :favorite_images, through: :favorites, source: :image
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   mount_uploader :avatar, ImageUploader
   mount_uploader :banner, ImageUploader

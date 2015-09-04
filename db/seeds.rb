@@ -23,18 +23,10 @@ def file_from_url(url)
   file
 end
 
-["Demo User", "Art Murray", "Kayla Kuvalis", "Kenneth Mitchell"].each do |name|
+["Art Murray", "Kayla Kuvalis", "Kenneth Mitchell"].each do |name|
   user = User.find_by_name(name)
   user.destroy! if user
 end
-
-demo_user = User.create!(
-  name: "Demo User",
-  email: "demo@geoflickr.com",
-  password: "password",
-  avatar: file_from_url(Faker::Avatar.image),
-  banner: file_from_url("https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg")
-)
 
 user1 = User.create!(
   name: "Art Murray",
@@ -60,7 +52,7 @@ user3 = User.create!(
   banner: file_from_url("https://c4.staticflickr.com/4/3904/15307929495_c605555414_h.jpg")
 )
 
-users = [user1, user2, user3, demo_user]
+users = [user1, user2, user3]
 
 comments = [
   "very nice shot",
