@@ -306,6 +306,8 @@ body.modal-open {
           right: 0;
           left: 0;
           margin: auto;
+          max-width: 100%;
+          max-height: 100%;
         }
       }
     }
