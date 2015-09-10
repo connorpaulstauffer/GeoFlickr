@@ -603,6 +603,10 @@ body.modal-open {
 #tag-checkboxes {
   width: inherit;
   height: 100px;
+  border-style: solid;
+  border-color: #C0C0C0;
+  border-width: 1px;
+  border-radius: 2px;
   overflow-y: scroll;
 }
 
