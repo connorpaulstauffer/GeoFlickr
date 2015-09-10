@@ -9,6 +9,8 @@ class Api::SessionsController < ApplicationController
       user = create_demo_user(params[:email], params[:password])
       log_in_user!(user)
       render json: user
+      user.banner = File.open("app/assets/images/user_banner.jpg")
+      user.save
     else
       json_alert = ['Invalid email/password combination'].to_json
       render json: json_alert, status: :unprocessable_entity

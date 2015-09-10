@@ -53,9 +53,8 @@ class ApplicationController < ActionController::Base
       name: "Demo User",
       email: email,
       password: password,
-      avatar: File.open("app/assets/images/avatar.png"),
-      banner: File.open("app/assets/images/user_banner.jpg")
-    )
+      avatar: File.open("app/assets/images/avatar.png")
+      )
 
     user.save
     user
