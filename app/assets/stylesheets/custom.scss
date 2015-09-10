@@ -573,6 +573,10 @@ body.modal-open {
   }
 }
 
+.panel-heading.image-file-name {
+  overflow: hidden;
+}
+
 #image-form-flow-controls {
   #right-control {
     text-align: right;
