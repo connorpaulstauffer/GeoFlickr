@@ -48,7 +48,6 @@ class Image < ActiveRecord::Base
          .select("images.*, SQRT( POWER(#{binds[:lat]} - latitude, 2) + POWER(#{binds[:lng]} - longitude, 2) ) as distance_from_center")
          .where("latitude BETWEEN #{binds[:min_lat]} AND #{binds[:max_lat]} AND longitude BETWEEN #{binds[:min_lng]} AND #{binds[:max_lng]}")
          .order("distance_from_center")
-         .limit(50)
   end
 
   def self.from_bounds(bounds, tag)

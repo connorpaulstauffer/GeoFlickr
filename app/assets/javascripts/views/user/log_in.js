@@ -29,11 +29,32 @@ GeoFlickr.Views.LogIn = Backbone.CompositeView.extend({
     }
   },
 
+  addLoading: function () {
+    this.loading = new GeoFlickr.Views.Loading();
+    $(".modal-content").append(this.loading.$el);
+  },
+
+  showLoading: function () {
+    this.loading.setDimensions($(".modal-content").height(), 0);
+    this.loading.show();
+    this.loading.appendSpinner();
+  },
+
+  hideLoading: function () {
+    this.loading.hide();
+  },
+
   render: function () {
     var content = this.template({ errors: this.errors });
     this.$el.html(content);
     this.addMessages();
+    this.addLoading();
 
     return this;
+  },
+
+  remove: function () {
+    this.loading.remove();
+    Backbone.CompositeView.prototype.remove.call(this);
   }
 });

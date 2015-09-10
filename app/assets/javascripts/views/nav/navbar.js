@@ -57,6 +57,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
     this.activeModal.bind("shown", function () {
       this.addGuestLogin();
       this.addSignUpOption();
+      this.activeModalView.addLoading();
     }.bind(this));
   },
 
@@ -135,7 +136,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   logInUser: function (logInView, modal) {
-    debugger
+    this.activeModalView.showLoading()
     var userData = logInView.$el.serializeJSON();
     var newSession = new GeoFlickr.Models.Session();
 
@@ -147,6 +148,7 @@ GeoFlickr.Views.NavBar = Backbone.CompositeView.extend({
         })
         currentUser.fetch();
         // this.render()
+        this.activeModalView.hideLoading();
         this.activeModal && this.activeModal.close();
         this.activeModal = null;
         // Backbone.history.navigate("/images", { trigger: true });
