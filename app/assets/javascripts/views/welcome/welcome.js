@@ -74,7 +74,7 @@ GeoFlickr.Views.Welcome = Backbone.View.extend({
           }.bind(this));
         }.bind(this), 3000);
       }.bind(this));
-    }.bind(this), 1000);
+    }.bind(this), 250);
   },
 
   blinkCursor: function () {
