@@ -13,5 +13,4 @@ Rails.application.routes.draw do
     resources :taggings, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]
   end
-
 end
